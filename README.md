@@ -1,164 +1,119 @@
-# 故事磁带 · Story Tape
+<div align="center">
 
-**一个面向影视创作者的场景设计与镜头预演产品 Demo。**
+# Story Tape
 
-把拍摄意图、参考素材、空间、相机和声音放进同一份可修改的方案，在正式开拍前，先确认「这一场戏可以怎么拍」。
+### Work out the shot before you shoot.
 
-[体验网站](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/) · [打开预演工作台](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/previs) · [观看互动短篇原作](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/)
+A browser-based scene design and shot previsualization demo for filmmakers.
 
-![故事磁带首页](docs/screenshots/homepage.png)
+**English** · [简体中文](README.zh-CN.md)
 
-## 这是一个什么产品？
+[Try the demo](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/) · [Open the workbench](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/previs?guide=1) · [Watch the interactive film](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/) · [Product overview](docs/product-overview.md)
 
-故事磁带把「选一个场景、试几个镜头、留下拍摄方案」做成浏览器中的创作流程。当前可用形态由产品网站、镜头预演工作台和一部可交互的三维短篇组成。
+**Product prototype** &nbsp; / &nbsp; **6 reusable 3D sets** &nbsp; / &nbsp; **Plans · Frames · Animatics**
 
-它希望让前期创作中的决定变得可见、可改、可讨论：场景方案用于说明想拍什么；效果帧用于比较画面；动态分镜用于讨论镜头与声音的节奏。
+</div>
 
-**当前是可操作的应用产品 Demo，尚未验证产品市场匹配，也不是已经具备自动生成能力的完整商业平台。** 本仓库保存前端、后端、三维布景、声音资源和检查脚本；部署版仍运行在原 Sites 地址。
+[![Story Tape homepage with a scene-led entry into the filmmaking workbench](docs/screenshots/homepage.png)](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/)
 
-## 为谁设计
+Story Tape brings scene references, camera choices, movement, subtitles, and sound into one editable project. Explore a set, compare ways to shoot it, and share a scene plan, a still frame, or an animatic before production begins.
 
-| 优先级 | 用户 | 典型场景 | 希望得到的成果 |
-| --- | --- | --- | --- |
-| 首要 | 导演、摄影、影视学生、独立短片与小型制作团队 | 开拍前讨论场景、构图、机位和镜头顺序；把文字意图变成团队能共同观看的方案 | 场景方案、效果帧、动态分镜 |
-| 扩展 | 喜欢叙事与视觉创作、但不熟悉三维软件的普通用户 | 从已有布景与机位模板开始，组装一段可观看的故事 | 简化的分镜与互动短篇 |
+> **Current status:** A working application demo with authored 3D sets. The model-provider panel prepares configuration and task descriptions; it does **not** call generation APIs yet. Photo upload does **not** reconstruct a 3D scene. The application interface is primarily in Chinese; this repository provides English and Chinese introductions.
 
-两类用户共享同一套场景和镜头数据。简洁模式突出常用操作，专业模式提供更细的相机、目标点与对焦参数。现阶段首先验证影视创作者的前期设计任务，普通用户的模板需求仍需进一步验证。
+## See it in action
 
-## 解决什么问题
+![Story Tape workbench with a 3D preview, camera controls, and an editable shot sequence](public/site-images/workbench.png)
 
-在前期创作中，参考照片、文字脚本、分镜、配乐往往分散在不同地方。一张好看的图片也无法直接回答：相机从这里走过去会看见什么？另一机位是否仍然保持空间关系？这段音乐进入得是否合适？
-
-这个 Demo 尝试把这些决定放进一个可反复修改的空间。价值重点是**对创作决定的控制与比较**，而不是只获得一次生成结果。三维在这里用于保持空间、遮挡与多机位的一致性；它是一条实现路径，并不是所有交付物都必须采用的唯一形式。
-
-## 从哪里来的
-
-项目最初从一张 Casa de las Bellas 店铺照片与「开拍」这个动作开始，逐步发展为《老派约会之必要》的互动短篇：放入磁带、戴上耳机、进入一个个场景，再在电影视角与摄影棚视角之间切换。
-
-随着实际制作和反复修改，需求逐渐从「做出一个场景」变成「让场景的每个创作选择都能被编辑」。因此，已有作品被拆成可复用的布景、机位、运动、字幕与声音能力，形成现在的预演工作台。
-
-这来自作者自身制作过程中的需求观察，不能等同于已经完成的外部用户研究。
-
-## 当前体验
-
-### 1. 网站：先找到想拍的气氛
-
-首页展示六个布景，可切换三维布景渲染与实景参考，再直接进入对应场景的工作台。参考照片与三维画面均为已有案例；没有把「上传照片」包装成已实现的自动三维重建。
-
-| 布景 | 可探索的拍摄问题 |
+| Start here | What to try |
 | --- | --- |
-| 街角店铺 | 橱窗内外、店铺建立镜头、长椅与门前的关系 |
-| 山间站台 | 站台纵深、不同座位机位、列车过站形成的遮挡 |
-| 黄昏窗边 | 窗光、并肩座位、书页与茶杯的细节 |
-| 松下庭院 | 门窗取景、石径纵深、庭院与回廊 |
-| 复古餐馆 | 对坐关系、餐桌与双人构图 |
-| 蓝调夜巷 | 冷暖光线、长椅、花束与结束镜头 |
+| [Scene gallery](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/) | Browse six sets and compare rendered views with photographic references. |
+| [Previs workbench](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/previs?guide=1) | Follow the guide, choose a shot, try a camera move, and export a frame or animatic. |
+| [Interactive film](https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/) | Drag a cassette into a 3D player, put on the headphones, and explore the scenes as tracks. |
 
-### 2. 工作台：把拍法变成可编辑参数
+**A first session:** Choose the station set → select a camera → try a slow push-in → compare the starting and ending frames → arrange sound → export a scene plan or a short animatic.
 
-![预演工作台实际界面](public/site-images/workbench.png)
+Playback offers **current shot**, **current scene**, and **whole project** scopes. A fixed shot stays fixed; choose a movement to see the camera travel. Desktop use is recommended for editing. Sound starts after a user interaction, and WebM export requires browser support for MediaRecorder.
 
-| 环节 | 当前可以做什么 |
+## Why Story Tape?
+
+A reference image communicates a mood. It cannot show what a moving camera will reveal, whether another angle preserves the space, or how a sound cue changes a shot's timing.
+
+Story Tape explores that gap between inspiration and a shootable plan. Its focus is **editable creative decisions**: return to the same set, change the camera or timing, and compare the result. Three-dimensional space supports consistent viewpoints and occlusion; the intended deliverables remain scene plans, frames, and animatics.
+
+The primary audience is independent filmmakers, directors, cinematographers, film students, and small production teams working on pre-production. A template-based path for less experienced creators is a future direction to validate.
+
+## What you can do
+
+| Capability | In the current demo |
 | --- | --- |
-| 场景方案 | 选用已有布景，记录拍摄意图、保留约束和待确认信息，调整场次顺序 |
-| 参考整理 | 导入本地图片与声音，按空间、材质、光线、氛围、音乐或旁白标注用途 |
-| 镜头设计 | 选择预设机位，调整焦距、画幅、时长、灯光预设、光圈、对焦距离与目标点 |
-| 相机运动 | 固定、推进、拉远、横移或自定义起止位移；拖动进度检查起幅、沿途构图与落幅 |
-| 播放范围 | 预演当前镜头、本场连播或全项目连播；支持暂停与继续 |
-| 声音编排 | 分别安排配乐、环境、对白/旁白与事件音效的开始时间、素材入出点、增益和淡入淡出 |
-| 事件 | 站台镜头可设置列车预警时点；提示声随事件触发，随后列车过站 |
-| 交付与保存 | 保存效果帧并比较参数；导出方案、镜头表、工程 JSON 或动态分镜 |
+| **Plan a scene** | Choose an authored set; record intent, constraints, references, and open questions; reorder scenes. |
+| **Organize references** | Import local images and audio and label their role: space, materials, lighting, mood, music, or voice. |
+| **Design a shot** | Use camera presets; adjust focal length, aspect ratio, duration, lighting preset, aperture, focus distance, and target. |
+| **Rehearse movement** | Use a fixed camera, push-in, pull-out, lateral move, or custom start/end displacement; scrub through the move. |
+| **Arrange sound** | Layer music, ambience, dialogue/voiceover, and event effects with timing, source in/out points, gain, and fades. |
+| **Time an event** | Place the station's train-warning cue in a shot; the warning precedes the passing train. |
+| **Compare and export** | Save frames with camera settings; export a plan, shot list, project JSON, or browser-rendered animatic. |
 
-现有镜头可设置 18–135 mm 焦距、2–30 秒时长，以及 2.39:1、1.85:1、16:9、1:1、9:16 画幅。具体参数用于当前布景中的预演，不代表经过实地测量的摄影机或真实照度标定。
+Current controls include **18–135 mm** focal lengths, **2–30 second** shots, and **2.39:1, 1.85:1, 16:9, 1:1, and 9:16** framing. These are previs controls, not calibrated measurements of a real camera or location.
 
-新建场景的首镜头提供缓慢推进作为起点；已有工程保留作者的固定镜头或运动参数，不会静默改写。
+## Six places to try a different shot
 
-### 3. 三种核心成果
+| Street-corner storefront | Mountain station | Window at dusk |
+| :---: | :---: | :---: |
+| ![Rendered storefront set](public/scene-thumbs/casa.webp) | ![Rendered station set](public/scene-thumbs/station.webp) | ![Rendered window-side interior](public/scene-thumbs/interior.webp) |
+| Establishing shots, windows, and the bench outside. | Platform depth, waiting positions, and a passing train. | Window light, adjacent seats, and small details. |
 
-- **场景方案与镜头表**：Markdown 记录意图、参考说明、镜头顺序与声音安排。
-- **效果帧**：从三维布景渲染 PNG，比较构图、焦距、机位和光线。
-- **动态分镜**：导出含镜头字幕与声音的浏览器 WebM 预演；当前为 24 fps、每次最多 180 秒，实际流畅度取决于设备与浏览器。
+| Pine courtyard | Retro diner | Blue-hour alley |
+| :---: | :---: | :---: |
+| ![Rendered Chinese courtyard set](public/scene-thumbs/courtyard.webp) | ![Rendered retro diner set](public/scene-thumbs/diner.webp) | ![Rendered evening alley set](public/scene-thumbs/alley.webp) |
+| Doorway framing, stone paths, and layered space. | Opposing seats and compositions across a table. | Warm practical light against a cool street. |
 
-工程 JSON 保存镜头参数与素材说明，**不包含本地素材原文件**。镜头工作台的工程与上传素材保存在本机浏览器；换设备时需要重新携带素材。云端互动故事编辑器是另一条功能路径，不能把本地预演自动保存误解为云端同步。
+These are existing Blender-built sets, shown here as renders. Reference photography guided their construction; arbitrary image-to-3D generation is not implemented.
 
-### 4. 互动作品与故事编辑
+## Take a plan out of the workbench
 
-`/film/` 保留磁带开场与六幕原作，作为叙事体验和能力展示。`/studio` 提供互动短篇的章节、字幕、机位、素材和发布编辑，`/watch/<token>` 用于观看已发布故事。它们与 `/previs` 的镜头设计任务相邻，但目标和数据流程不同。
+- **Scene plan / shot list — Markdown:** intent, reference notes, shot order, and sound decisions.
+- **Look frame — PNG:** a rendered view for comparing framing, lens settings, and light.
+- **Animatic — WebM:** a 24 fps browser preview with shot subtitles and sound, up to 180 seconds per export. Performance depends on the browser and device.
+- **Editable project — JSON:** scene and shot settings plus asset descriptions. Original local media files are not bundled in the JSON.
 
-## 为什么不是「模型产品」
+Previs projects and imported media are stored in the current browser using localStorage and IndexedDB. Moving to another device requires carrying the original media separately. The cloud story editor is a separate workflow; it does not automatically sync local previs projects.
 
-当前产品的中心是创作工作流和可编辑的场景/镜头数据，不是自行训练或提供底层生成模型。现有三维布景主要通过 Blender 手工搭建，浏览器负责渲染与预演。
+## Run locally
 
-模型可以成为其中的能力：理解参考、提出镜头方案、生成独立道具或视觉候选。但**当前模型 API 面板只提供服务选项、配置状态与任务说明准备，未实现实际生成调用**。界面中的 OpenAI、Meshy、Runway 选项不等于这些服务已经接通，也不等于上传图片会自动得到三维场景。
-
-后续接入模型时，仍应将生成结果转成可审阅、可修改的候选，并保留参考来源、空间约束与镜头参数，而不是让一次生成覆盖作者的全部选择。
-
-## 已有能力与待验证部分
-
-| 已实现于 Demo | 还需开发或验证 |
-| --- | --- |
-| 六个可重复使用的三维布景、多机位与相机运动 | 任意用户照片的自动三维重建与尺度恢复 |
-| 场景意图、参考标注、字幕与声音编排 | 实际模型 API 调用及生成候选的审核流程 |
-| 本地工程恢复、参数比较、PNG / Markdown / JSON / WebM 导出 | 多人协作、版本协商与跨设备预演工程同步 |
-| 互动短篇编辑、云端故事保存与发布的应用代码 | 人物表演、接触动作、自动避障与实拍级光学标定 |
-| 简洁 / 专业两种控制深度 | 模板对普通用户的可用性，以及专业用户对参数颗粒度的真实要求 |
-
-当前没有经过验证的用户规模、留存、付费或效率提升数据，不把个人制作反馈当作市场验证结果。下一步更适合让目标创作者用自己的一个真实场景完成方案、效果帧与动态分镜，观察修改成本、空间可控性与最终沟通效果，再决定优先完善模板、资产生成还是更专业的预演控制。
-
-## 技术形式与仓库结构
-
-- 网站与工作台：React、TypeScript、Vinext / Vite。
-- 三维预演：Three.js，Blender 制作并导出的 GLB 布景与分块资源。
-- 声音与输出：Web Audio、Canvas、MediaRecorder。
-- 服务端：Cloudflare Workers；D1 存储互动故事数据，R2 存储云端上传素材。
-- 本地预演工程：localStorage 与 IndexedDB。
-
-```text
-app/                  产品页面、工作台路由与后端 API
-components/           首页选景、预演、故事编辑与模型选项界面
-lib/                  工程数据结构、参考、镜头、音频与模型任务逻辑
-public/film/          互动原作、三维引擎、模型、材质、配乐和音效
-public/scene-thumbs/  布景渲染图
-public/references/    实景参考
-build/                Sites / Workers 构建集成
-scripts/              运行与构建辅助脚本
-checks/               镜头、播放、声音、模型与数据检查
-db/、drizzle/        云端数据结构与迁移
-```
-
-## 本地运行
-
-需要 Node.js ≥22.13 与 npm。
+Requires **Node.js 22.13 or newer** and npm.
 
 ```bash
+git clone https://github.com/humanbean0410/story-tape.git
+cd story-tape
 npm ci
 npm run dev
 ```
 
-默认开发地址为 `http://localhost:5173`，也可以使用终端实际打印的 loopback 地址。`/previs` 和 `/film/` 可直接体验；预演不要求配置生成模型密钥。
+Open `http://localhost:5173` or the loopback address printed by the development server. Start with `/previs` for shot design or `/film/` for the interactive piece. No generative-model key is required to explore the existing sets.
 
 ```bash
 npm run build
 ```
 
-这是包含服务端的应用，不是把源码直接上传到 GitHub Pages 就能完整运行的纯静态站点。当前部署集成面向 Sites / Cloudflare Workers；互动故事的云端保存、登录与发布依赖对应的身份、D1 / R2 绑定及数据库迁移。迁移到其他宿主时需适配这些部分，`.openai/hosting.json` 中保留的是原站项目标识，不是访问密钥。
+The full application targets **Sites / Cloudflare Workers**, with D1 and R2 for cloud story data and uploads. It is not a complete GitHub Pages deployment: authentication, cloud persistence, and publishing require host-specific bindings and migrations. See the [development guide](docs/development.md) for routes, architecture, checks, and deployment boundaries.
 
-本地与线上数据隔离。本仓库不包含登录凭据、模型 API 密钥、生产数据库或用户的浏览器草稿。模型 API 与部署配置不应仅凭 README 中列出的服务名称被视为已经可用。
+## Built from a film, shaped into a tool
 
-## 检查
+This project began with a photograph of a Casa de las Bellas storefront and the idea of “Action.” A cassette player became the entrance to an interactive short: each location is a track, and camera positions reveal different parts of the same set.
 
-```bash
-node --experimental-vm-modules checks/previs-model.mjs
-node --experimental-vm-modules checks/previs-playback.mjs
-node --experimental-vm-modules checks/product-runtime.mjs
-node checks/sound-timing.mjs
-node checks/story-playback.mjs
-node checks/music-playback.mjs
-npx tsc --noEmit
-```
+Repeated changes to that piece exposed the product opportunity: make those choices reusable and editable. The workbench separates sets, cameras, movement, subtitles, and audio into project data. Read the [product overview](docs/product-overview.md) for the audience, workflow, design choices, and next questions to test.
 
-这些检查覆盖工程数据约束、播放范围、真实相机位移、暂停续播、起止构图、声音时点与部分原作行为；不能替代真实用户测试和实拍验证。
+## What comes next
+
+Test the workbench with filmmakers planning one real scene and producing a plan, frames, and an animatic. Their revision and communication needs will guide work on reference-to-set preparation, template depth, asset generation, and camera controls.
+
+Model-assisted reference analysis and asset generation, cross-device previs sync, collaboration, and character performance remain future work. There are no validated adoption or productivity claims in this demo.
+
+## Feedback
+
+[Report a bug or suggest an improvement](https://github.com/humanbean0410/story-tape/issues/new). For playback or export problems, include the scene, shot, browser, device, and steps to reproduce. For creative feedback, describe the shot you wanted and the control you were missing.
 
 ---
 
-**仓库名为 `story-tape`，产品中文名为「故事磁带」。** 代码基于原站已发布的首页与工作台版本整理；本次同步不改变线上站点的托管位置。
+Created by [humanbean0410](https://github.com/humanbean0410). **Story Tape / 故事磁带** is an application prototype; the live demo continues to run at its original hosting address.
