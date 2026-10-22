@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import vm from 'node:vm';
+const sample={schemaVersion:1,title:'一个人的短篇',chapters:[{id:'a',scene:'station',beats:[{id:'x',speaker:'独白',text:'列车来了。',shot:'passing',seconds:3},{id:'y',speaker:'动作',text:'等它经过。',shot:'passing',seconds:4}]},{id:'b',scene:'station',beats:[{id:'z',speaker:'独白',text:'同一个站台，下一章。',shot:'seats',seconds:5}]}]};
+const events=new Map(),sent=[];const parent={postMessage:m=>sent.push(m)};const sandbox={URLSearchParams,location:{search:'?studioPreview=1',origin:'http://local'},parent,window:{},Set,Array,Number,Promise,setTimeout:()=>{},setInterval:()=>123,clearInterval:()=>{},addEventListener:(type,fn)=>events.set(type,fn)};
+const context=vm.createContext(sandbox),module=new vm.SourceTextModule(await fs.readFile('public/film/project-runtime.js','utf8'),{context});await module.link(()=>{});const evaluated=module.evaluate();
+assert.equal(sent[0].type,'story-tape:ready');events.get('message')({origin:'http://wrong',source:parent,data:{type:'story-tape:load',story:sample}});
+events.get('message')({origin:'http://local',source:parent,data:{type:'story-tape:load',story:sample}});await evaluated;
+assert.equal(module.namespace.PROJECT.title,sample.title);let timeline=module.namespace.projectTimeline();assert.equal(timeline[0].sound,'arrival');assert.equal(timeline[1].sound,undefined,'one train warning per authored chapter');assert.equal(timeline[0].end,3000);assert.equal(timeline[1].start,3350);
+module.namespace.setChapter(1);timeline=module.namespace.projectTimeline();assert.equal(module.namespace.chapter().id,'b');assert.equal(timeline[0].text,'同一个站台，下一章。');assert.equal(timeline[0].shot,'seats');assert.equal(module.namespace.assetUrl('abc'),'/api/assets/abc');module.namespace.notify('chapter','b');assert.equal(sent.at(-1).chapterId,'b');
+console.log('PASS: same-origin preview handshake, authored durations, one train cue, repeated-scene chapter identity, media URLs and viewer events.');

@@ -1,0 +1,222 @@
+{
+  "source_reference": "IMG_1810.JPG",
+  "blender": "5.2.1 LTS",
+  "static_parts": 3543,
+  "meshes": 13,
+  "triangles": 366132,
+  "glb_bytes": 15458020,
+  "atlas": "night-alley-baked.jpg",
+  "atlas_size": 2048,
+  "nodes": {
+    "static": "NightAlley_Baked_Static",
+    "background": "Backdrop_NightAlley",
+    "actors": [],
+    "practical": "PracticalLampGlow"
+  },
+  "encoding": "KHR_mesh_quantization, 1/1024 metre positions; normalized signed-byte normals and 16-bit UVs",
+  "anchors_gltf_y_up": {
+    "master": [
+      -0.7,
+      1.6,
+      -3.1
+    ],
+    "two-shot": [
+      -2.05,
+      1.44,
+      -1.6
+    ],
+    "embrace": [
+      -2.07,
+      1.69,
+      -1.7
+    ],
+    "coat": [
+      -2.07,
+      0.83,
+      -1.05
+    ],
+    "flowers": [
+      -3.62,
+      0.49,
+      -1.35
+    ],
+    "alley": [
+      1.83,
+      1.65,
+      -7.6
+    ],
+    "lamp": [
+      -2.56,
+      3.12,
+      -2.05
+    ]
+  },
+  "frames_gltf_y_up": {
+    "master": {
+      "position": [
+        2.9,
+        2.85,
+        10.9
+      ],
+      "target": [
+        -0.65,
+        1.68,
+        -3.1
+      ],
+      "focal": 35,
+      "angle": "平视 · 街口斜侧",
+      "scale": "全景"
+    },
+    "two-shot": {
+      "position": [
+        -0.2,
+        1.72,
+        4.3
+      ],
+      "target": [
+        -2.05,
+        1.4,
+        -1.65
+      ],
+      "focal": 50,
+      "angle": "左侧 20°",
+      "scale": "长椅中景"
+    },
+    "embrace": {
+      "position": [
+        -0.7,
+        1.78,
+        3.2
+      ],
+      "target": [
+        -2.07,
+        1.65,
+        -1.69
+      ],
+      "focal": 85,
+      "angle": "左侧 15°",
+      "scale": "空座近景"
+    },
+    "coat": {
+      "position": [
+        -1.24,
+        1.5,
+        1.75
+      ],
+      "target": [
+        -2.07,
+        0.85,
+        -1.05
+      ],
+      "focal": 85,
+      "angle": "微俯 10°",
+      "scale": "信纸与围巾特写"
+    },
+    "flowers": {
+      "position": [
+        -1.48,
+        1.2,
+        1.25
+      ],
+      "target": [
+        -3.65,
+        0.5,
+        -1.35
+      ],
+      "focal": 85,
+      "angle": "低机位 · 斜侧",
+      "scale": "花束特写"
+    },
+    "alley": {
+      "position": [
+        1.66,
+        1.68,
+        1.1
+      ],
+      "target": [
+        1.8,
+        1.63,
+        -7.7
+      ],
+      "focal": 35,
+      "angle": "平视 · 街巷纵深",
+      "scale": "空镜全景"
+    }
+  },
+  "home": {
+    "position": [
+      2.9,
+      2.85,
+      10.9
+    ],
+    "target": [
+      -0.65,
+      1.68,
+      -3.1
+    ],
+    "focal": 35,
+    "angle": "平视 · 街口斜侧",
+    "scale": "全景"
+  },
+  "practical_lights_gltf": [
+    {
+      "position": [
+        -2.56,
+        2.96,
+        -2.1
+      ],
+      "color": "#ffc16f",
+      "intensity": 18
+    },
+    {
+      "position": [
+        -0.05,
+        3.28,
+        -5.3
+      ],
+      "color": "#ffc16f",
+      "intensity": 6
+    },
+    {
+      "position": [
+        3.71,
+        3.65,
+        -8.42
+      ],
+      "color": "#ffc16f",
+      "intensity": 6
+    }
+  ],
+  "key": {
+    "position": [
+      -3.5,
+      3.1,
+      0.7
+    ],
+    "target": [
+      -2.1,
+      1.3,
+      -1.6
+    ],
+    "color": "#ffcd92",
+    "intensity": 3.0
+  },
+  "note": "A modeled empty blue-hour alley. Refined wood grain, window hardware, plaster repairs, bare bench with folded scarf and letter, lantern brass and rose foliage. No people or photographic backdrop.",
+  "refinement": {
+    "date": "2026-10-12",
+    "detail_parts": 578,
+    "textures": "512 px authored albedo and tangent normal maps",
+    "people": 0,
+    "editable_blend": "alley-detailed.blend",
+    "note": "No people or suspended coat. The two occupied positions are represented by an empty bench, folded scarf and letter.",
+    "script": "scripts/refine_casa_alley.py",
+    "encoding": "KHR_mesh_quantization, 1/1024 metre positions; signed-byte normals and normalized 16-bit UVs"
+  },
+  "mesh_vertices": 639684,
+  "original_static_parts": 2965,
+  "flora_layer": {
+    "asset": "night-alley-flora.glb",
+    "meshes": 7,
+    "surface_normals": "Repaired inward petals, foliage, soil, pot rims and lantern finials. Original baked flower triangles are replaced with this live-lit geometric layer at the same positions."
+  }
+}

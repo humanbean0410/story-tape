@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {SceneScore} from '../public/film/scene-score.js';
+const bytes=new Uint8Array([1,2,3,4]),sha256=createHash('sha256').update(bytes).digest('hex');
+const track={duration:144.32,overlap:.32,segments:[0,48,96].map((start,i)=>({url:`clip:${i}`,start,duration:48.32,bytes:bytes.length,sha256}))};
+const tracks={casa:track,station:track,interior:track,courtyard:track,diner:track,alley:track};
+const param=()=>({value:1,events:[],setValueAtTime(value,time){this.value=value;this.events.push(['set',value,time]);},linearRampToValueAtTime(value,time){this.events.push(['ramp',value,time]);},setTargetAtTime(value,time,tau){this.events.push(['target',value,time,tau]);},cancelAndHoldAtTime(time){this.events.push(['hold',time]);}});
+const node=()=>({gain:param(),connect(){return this;},disconnect(){this.disconnected=true;}});
+let sources=[];const ctx={currentTime:0,state:'running',decodeAudioData:async()=>({duration:48.32}),createGain:node,createBufferSource(){const source={connect(){return this;},disconnect(){},start(...args){this.started=args;},stop(...args){this.stopped=args;}};sources.push(source);return source;}};
+const settle=async score=>{for(let i=0;i<100&&score.active?.pending;i++)await new Promise(resolve=>setTimeout(resolve,1));assert.ok(!score.active?.pending);};
+const score=new SceneScore(ctx,node(),{tracks,load:async()=>bytes});
+await score.play('casa',{delay:0});await settle(score);assert.equal(sources.length,2);assert.equal(sources[0].loop,undefined,'music sources do not repeat');
+const start=score.active.start;assert.equal(sources[0].started[0],start);assert.equal(sources[1].started[0],start+48,'next segment follows the music clock, not the callback time');
+ctx.currentTime=start+47;score.tick();await settle(score);assert.equal(sources[2].started[0],start+96);assert.ok(score.cache.size<=3,'decoded buffer cache stays bounded');
+const stopped=score.active;score.stop(.8);assert.equal(score.active,null);for(const source of sources)assert.ok(source.stopped[0]<=ctx.currentTime+.86,'cut stops even pre-scheduled future segments');assert.ok(stopped.bus.gain.events.some(e=>e[0]==='target'&&e[1]===0));
+let release;const delayed=new SceneScore(ctx,node(),{tracks,load:()=>new Promise(resolve=>release=()=>resolve(bytes))});sources=[];const pending=delayed.play('station');delayed.stop();release();await pending;assert.equal(sources.length,0,'a delayed song cannot start after the viewer leaves its scene');
+for(const id of Object.keys(tracks)){await score.play(id,{delay:0});await settle(score);assert.equal(score.active.id,id);assert.ok(score.cache.size<=3);}score.stop();
+console.log('Six scene scores, continuous scheduling, bounded decoding, cut cancellation and delayed-load cancellation passed.');

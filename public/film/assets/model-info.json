@@ -1,0 +1,54 @@
+{
+  "static_parts": 1488,
+  "dynamic_parts": 38,
+  "mesh_vertices": 223508,
+  "mesh_triangles": 144203,
+  "atlas_size": 4096,
+  "software": "5.2.1 LTS",
+  "anchors": {
+    "prologue": [
+      0,
+      -2.02,
+      4.0
+    ],
+    "ai-product": [
+      -0.75,
+      -1.87,
+      2.15
+    ],
+    "film": [
+      1.83,
+      -1.87,
+      2.15
+    ],
+    "editorial": [
+      -2.58,
+      -1.87,
+      1.9
+    ],
+    "research": [
+      -0.75,
+      -2.24,
+      0.83
+    ],
+    "about": [
+      -3.43,
+      0.05,
+      1.65
+    ]
+  },
+  "note": "Fully modeled in Blender; two Cycles combined-light atlases; no photo background.",
+  "refinement": {
+    "date": "2026-10-12",
+    "detail_parts": 308,
+    "textures": "512 px authored albedo and tangent normal maps",
+    "people": 0,
+    "editable_blend": "casa-detailed.blend",
+    "script": "scripts/refine_casa_alley.py",
+    "encoding": "KHR_mesh_quantization, 1/1024 metre positions; signed-byte normals and normalized 16-bit UVs"
+  },
+  "glb_bytes": 7352820,
+  "meshes": 41,
+  "original_static_parts": 1188,
+  "original_dynamic_parts": 30
+}

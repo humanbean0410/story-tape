@@ -1,0 +1,91 @@
+import * as THREE from 'three';
+import { loadGLTF,loadJSON } from './asset-loader.js?v=20261013-monologue';
+import { SETS,SET_ORDER } from './production-config.js?v=20261013-monologue';
+import { ease } from './film-motion.js?v=20261013-monologue';
+import { routePoint,plugRoute,earbudRoute,jackCablePoints,earbudCablePoints,cableGeometry } from './tape-motion.js?v=20261013-monologue';
+const $=id=>document.getElementById(id);
+export class TapeDeck{
+  constructor({reducedMotion,onPlay,onPause,audio}){
+    Object.assign(this,{reducedMotion,onPlay,onPause,audio,visible:false,trackId:'casa',playing:false,stageReady:false,inserted:false});this.pointer=new THREE.Vector2();this.drift=new THREE.Vector2();this.root=$('tape-entry');this.hint=$('tape-hint');this.ray=new THREE.Raycaster();this.canvas=$('tape-scene');
+    this.canvas.addEventListener('pointermove',e=>this.move(e));this.canvas.addEventListener('pointerdown',e=>this.down(e));this.canvas.addEventListener('pointerup',e=>this.up(e));this.canvas.addEventListener('pointercancel',()=>this.cancelDrag());
+    this.canvas.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='Enter'){e.preventDefault();this.audio.unlock().catch(()=>{});if(!this.inserted)this.insert();else this.play();}if(e.code==='ArrowRight'||e.code==='ArrowLeft'){e.preventDefault();this.stepTrack(e.code==='ArrowRight'?1:-1);}});
+    addEventListener('resize',()=>this.resize());
+  }
+  async load(){
+    if(this.loading)return this.loading;
+    this.loading=(async()=>{try{
+      this.renderer=new THREE.WebGLRenderer({canvas:this.canvas,antialias:true,powerPreference:'high-performance'});this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=.95;this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+      this.scene=new THREE.Scene();this.scene.background=new THREE.Color('#c6c5ba');this.scene.add(new THREE.HemisphereLight('#fff7e9','#69706a',1.05));const key=new THREE.DirectionalLight('#fff0d8',2.8);key.position.set(-4,9,4);key.castShadow=true;key.shadow.mapSize.set(2048,2048);Object.assign(key.shadow.camera,{left:-7,right:7,top:7,bottom:-7,near:.5,far:30});key.shadow.bias=-.0003;key.shadow.normalBias=.018;this.scene.add(key);const fill=new THREE.DirectionalLight('#aac3cf',.6);fill.position.set(5,5,-4);this.scene.add(fill);
+      const [result,meta]=await Promise.all([loadGLTF('assets/cassette-deck.glb?v=20261013-monologue',{onProgress:progress=>$('entry-status').textContent=progress<1?`磁带机正在就位 · ${Math.round(progress*100)}%`:'磁带机正在准备画面…'}),loadJSON('assets/cassette-deck-info.json?v=20261013-monologue')]);this.meta=meta;this.model=result.scene;this.scene.add(this.model);this.model.updateMatrixWorld(true);this.model.traverse(o=>{if(o.isMesh){o.castShadow=!/glass/i.test(o.name);o.receiveShadow=true;}});
+      this.camera=new THREE.PerspectiveCamera(meta.camera?.fov||38,innerWidth/innerHeight,.04,70);this.basePosition=new THREE.Vector3(...(meta.camera?.pos||meta.camera?.position||[0,7,7]));this.baseTarget=new THREE.Vector3(...(meta.camera?.target||[0,.3,0]));this.camera.position.copy(this.basePosition);this.camera.lookAt(this.baseTarget);
+      this.cassette=this.model.getObjectByName('Cassette');this.bay=this.model.getObjectByName('CassetteBay');this.door=this.model.getObjectByName('DoorPivot');this.jack=this.model.getObjectByName('JackPlug');this.reels=['ReelLeft','ReelRight'].map(n=>this.model.getObjectByName(n)).filter(Boolean);this.rest={pos:this.cassette.position.clone(),rotation:this.cassette.rotation.clone(),jack:this.jack?.position.clone(),jackQ:this.jack?.quaternion.clone()};this.playButton=this.model.getObjectByName('ButtonPlay');this.playButtonRest=this.playButton?.position.y;
+      this.earbuds=['EarbudLeft','EarbudRight'].map(name=>this.model.getObjectByName(name)).filter(Boolean);this.earbudRest=this.earbuds.map(o=>({position:o.position.clone(),quaternion:o.quaternion.clone()}));this.tableCord=this.model.getObjectByName('Earphones_static');this.earbudCables=this.earbuds.map(()=>{const m=new THREE.Mesh(new THREE.BufferGeometry(),new THREE.MeshStandardMaterial({color:'#a5212c',roughness:.6}));m.visible=false;this.scene.add(m);return m;});
+      const axis=meta.door.axis||'x',openAngle=this.door.rotation[axis];this.door.rotation[axis]=meta.door.closed;this.model.updateMatrixWorld(true);this.playerBox=new THREE.Box3().setFromObject(this.model.getObjectByName('Player'));this.playerBox.max.y=Math.max(this.playerBox.max.y,1.45);this.door.rotation[axis]=openAngle;this.model.updateMatrixWorld(true);this.jackPath=plugRoute(this.rest.jack,new THREE.Vector3(...meta.jack.insertPosition),this.playerBox);this.cableOptions={raisedSurfaces:[new THREE.Box3().setFromObject(this.model.getObjectByName('TrackReceipt'))]};
+      const reflectionScene=new THREE.Scene();reflectionScene.background=new THREE.Color('#4f514d');
+      for(const [p,size,color] of [[[-4,6,2],[6,3],'#fff3df'],[[5,4,-5],[3,5],'#b6cdd0'],[[0,7,-1],[5,4],'#e6e1d4']]){const box=new THREE.Mesh(new THREE.PlaneGeometry(...size),new THREE.MeshBasicMaterial({color,side:THREE.DoubleSide}));box.position.set(...p);box.lookAt(new THREE.Vector3(0,.5,0));reflectionScene.add(box);}
+      const pmrem=new THREE.PMREMGenerator(this.renderer);this.environment=pmrem.fromScene(reflectionScene,.08);this.scene.environment=this.environment.texture;pmrem.dispose();
+      const end=meta.cassette.insertPosition,pts=[[-1.02,0,-.67],[1.02,0,-.67],[1.02,0,.67],[-1.02,0,.67]].map(p=>new THREE.Vector3(end[0]+p[0],end[1]+.12,end[2]+p[2]));this.dropOutline=new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:'#ca9f58',transparent:true,opacity:.6}));this.dropOutline.visible=false;this.scene.add(this.dropOutline);this.jackCable=new THREE.Mesh(new THREE.BufferGeometry(),new THREE.MeshStandardMaterial({color:'#961925',roughness:.52}));this.jackCable.visible=false;this.scene.add(this.jackCable);this.ready=true;this.resize();$('entry-status').textContent='拖动磁带，放入打开的磁带舱';
+    }catch(error){console.error('Tape deck:',error);$('entry-status').textContent='磁带机未能下载完成';$('tape-retry').hidden=false;}})();return this.loading;
+  }
+  resize(){if(!this.renderer||!this.camera)return;this.renderer.setSize(innerWidth,innerHeight,false);this.camera.aspect=innerWidth/innerHeight;this.camera.fov=innerWidth<=600?50:(this.meta.camera?.fov||38);this.camera.updateProjectionMatrix();this.viewPosition=this.basePosition.clone();if(innerWidth<=600)this.viewPosition.set(10,10,7);this.camera.position.copy(this.viewPosition);this.camera.lookAt(this.baseTarget);}
+  rect(){const r=this.canvas.getBoundingClientRect();return r.width&&r.height?r:{left:0,top:0,width:innerWidth,height:innerHeight};}
+  screenBounds(object,margin=0){this.model.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(object),r=this.rect(),points=[];for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z]){const p=new THREE.Vector3(x,y,z).project(this.camera);points.push([r.left+(.5+p.x*.5)*r.width,r.top+(.5-p.y*.5)*r.height]);}return{left:Math.min(...points.map(p=>p[0]))-margin,right:Math.max(...points.map(p=>p[0]))+margin,top:Math.min(...points.map(p=>p[1]))-margin,bottom:Math.max(...points.map(p=>p[1]))+margin};}
+  contains(bounds,x,y){return x>=bounds.left&&x<=bounds.right&&y>=bounds.top&&y<=bounds.bottom;}
+  isCassetteHit(e,names){return!this.inserted&&(/\bCassette\b/.test(names)||this.contains(this.screenBounds(this.cassette,innerWidth<=600?12:7),e.clientX,e.clientY));}
+  cast(e){const r=this.rect();this.pointer.set((e.clientX-r.left)/r.width*2-1,1-(e.clientY-r.top)/r.height*2);this.ray.setFromCamera(this.pointer,this.camera);return this.ray.intersectObject(this.model,true)[0];}
+  names(hit){let s='',o=hit?.object;while(o){s+=' '+o.name;o=o.parent;}return s;}
+  planePoint(e){const r=this.rect();this.pointer.set((e.clientX-r.left)/r.width*2-1,1-(e.clientY-r.top)/r.height*2);this.ray.setFromCamera(this.pointer,this.camera);return this.ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0,1,0),-1.45),new THREE.Vector3());}
+  inDropZone(e){const bounds=this.screenBounds(this.bay||this.dropOutline,innerWidth<=600?24:16);if(this.contains(bounds,e.clientX,e.clientY))return true;const tape=this.screenBounds(this.cassette),x=(tape.left+tape.right)/2,y=(tape.top+tape.bottom)/2;return this.contains(bounds,x,y);}
+  hintAt(text,e){this.hint.hidden=!text;if(!text)return;this.hint.textContent=text;this.hint.style.left=`${Math.max(12,Math.min(innerWidth-205,e.clientX+18))}px`;this.hint.style.top=`${Math.max(14,Math.min(innerHeight-38,e.clientY-30))}px`;}
+  move(e){
+    this.pointer.set(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2);if(!this.ready||this.animation)return;
+    if(this.drag){const p=this.planePoint(e);if(p){this.cassette.position.copy(this.drag.from).add(p.sub(this.drag.point));this.cassette.position.y=1.45;this.cassette.rotation.y=THREE.MathUtils.lerp(this.cassette.rotation.y,0,.16);const end=new THREE.Vector3(...this.meta.cassette.insertPosition);this.drag.valid=this.inDropZone(e);this.dropOutline.material.opacity=this.drag.valid?.85:.25;this.hintAt(this.drag.valid?'松手，放入磁带':'移向打开的磁带舱',e);}return;}
+    const names=this.names(this.cast(e)),tape=this.isCassetteHit(e,names),label=tape?'拖入磁带机':/ButtonForward/.test(names)?'下一曲':/ButtonRewind/.test(names)?'上一曲':/ButtonStop/.test(names)?'暂停':/VolumeWheel/.test(names)?(this.audio.muted?'打开声音':'静音'):/ButtonPlay/.test(names)?`播放 A${SETS[this.trackId].number} · ${SETS[this.trackId].name}`:/Earbud|JackPlug/.test(names)?'有线耳机':'';this.canvas.style.cursor=label?(tape?'grab':'pointer'):'default';this.hintAt(label,e);
+  }
+  down(e){
+    if(!this.ready||this.animation||this.starting)return;this.audio.unlock().catch(()=>{});this.downAt=[e.clientX,e.clientY];const names=this.names(this.cast(e));
+    if(this.isCassetteHit(e,names)){e.preventDefault();const point=this.planePoint(e);if(!point)return;this.drag={id:e.pointerId,point,from:this.cassette.position.clone(),valid:false};this.cassette.position.y=1.45;this.canvas.setPointerCapture(e.pointerId);this.canvas.style.cursor='grabbing';this.dropOutline.visible=true;this.hintAt('移向打开的磁带舱',e);this.audio.mechanism('click');}
+  }
+  up(e){
+    if(this.drag){this.move(e);const valid=this.inDropZone(e);this.drag=null;this.dropOutline.visible=false;this.hint.hidden=true;this.canvas.style.cursor='default';if(this.canvas.hasPointerCapture(e.pointerId))this.canvas.releasePointerCapture(e.pointerId);if(valid)return this.insert();else this.animation={type:'return',start:performance.now(),duration:this.reducedMotion.matches?0:550,from:this.cassette.position.clone()};return;}
+    if(!this.ready||this.animation||!this.downAt||Math.hypot(e.clientX-this.downAt[0],e.clientY-this.downAt[1])>8)return;const names=this.names(this.cast(e));if(/ButtonForward/.test(names))this.stepTrack(1);else if(/ButtonRewind/.test(names))this.stepTrack(-1);else if(/ButtonStop/.test(names)){this.playing=false;if(this.playButton)this.playButton.position.y=this.playButtonRest;this.onPause();this.audio.mechanism('click');}else if(/VolumeWheel/.test(names))this.audio.toggle();else if(/ButtonPlay/.test(names)&&this.inserted)this.play();
+  }
+  cancelDrag(){if(!this.drag)return;this.drag=null;this.dropOutline.visible=false;this.animation={type:'return',start:performance.now(),duration:550,from:this.cassette.position.clone()};this.hint.hidden=true;}
+  async insert(){if(!this.ready||this.animation||this.inserted||this.starting)return;if(!this.stageReady){this.waitingToInsert=true;$('entry-status').textContent='第一场，正在就位…';return;}this.waitingToInsert=false;this.starting=true;try{await this.audio.unlock();await this.audio.playTapeOpening?.();}catch{}this.starting=false;this.openingStart=performance.now()+25;this.animation={type:'insert',start:this.openingStart,duration:2350,from:this.cassette.position.clone(),rotation:this.cassette.rotation.clone()};this.hint.hidden=true;$('entry-status').textContent='磁带已放入，正在合盖…';}
+  async play(continuing=false){if(!this.ready||this.animation||!this.inserted||this.starting)return;if(!this.stageReady){this.waitingToPlay=true;$('entry-status').textContent='第一场，正在就位…';return;}this.waitingToPlay=false;if(!continuing){this.starting=true;try{await this.audio.unlock();await this.audio.playTapeOpening?.(2.35);}catch{}this.starting=false;}this.animation={type:'play',start:continuing?this.openingStart+2350:performance.now()+25,duration:6650};this.playing=false;this.hint.hidden=true;$('entry-status').textContent='接上耳机，准备开场…';}
+  stepTrack(step){if(this.animation)return;this.trackId=SET_ORDER[(SET_ORDER.indexOf(this.trackId)+step+SET_ORDER.length)%SET_ORDER.length];this.audio.mechanism();$('entry-status').textContent=`A${SETS[this.trackId].number} · ${SETS[this.trackId].name}`;}
+  setReady(value){this.stageReady=value;if(value&&this.waitingToInsert&&!this.animation)return this.insert();if(value&&this.waitingToPlay&&!this.animation)return this.play();else if(value&&this.visible&&!this.animation)$('entry-status').textContent=this.inserted?`A${SETS[this.trackId].number} · ${SETS[this.trackId].name}`:'拖动磁带，放入打开的磁带舱';}
+  setTrack(id,playing){if(!this.visible)this.trackId=id;this.playing=playing;}
+  open(){this.visible=true;this.root.hidden=false;this.root.classList.remove('leaving');this.root.style.opacity='';$('film-stage').inert=true;$('film-stage').setAttribute('aria-hidden','true');this.canvas.focus();this.audio.setScene('tape');this.load();this.earbuds?.forEach((o,i)=>{o.visible=true;o.position.copy(this.earbudRest[i].position);o.quaternion.copy(this.earbudRest[i].quaternion);});if(this.jack&&this.rest?.jack){this.jack.position.copy(this.rest.jack);this.jack.quaternion.copy(this.rest.jackQ);}if(this.jackCable)this.jackCable.visible=false;if(this.tableCord)this.tableCord.visible=true;this.earbudCables?.forEach(m=>m.visible=false);$('entry-status').textContent=this.inserted?`A${SETS[this.trackId].number} · ${SETS[this.trackId].name}`:(this.ready?'拖动磁带，放入打开的磁带舱':'磁带机正在就位…');}
+  wearEarbuds(amount){
+    if(!this.earbuds?.length)return;const k=ease(amount);this.camera.updateMatrixWorld(true);if(this.tableCord)this.tableCord.visible=false;
+    const box=this.playerBox,junction=new THREE.Vector3(...(this.meta?.earphones?.junction||[-2.04,.16,2.76]));
+    this.earbuds.forEach((o,i)=>{const side=i===0?-1:1,rest=this.earbudRest[i],start=o.parent.localToWorld(rest.position.clone()),p=earbudRoute(start,this.camera,box,side,amount);
+      o.position.copy(o.parent.worldToLocal(p.clone()));o.quaternion.slerpQuaternions(rest.quaternion,this.camera.quaternion,k);o.visible=k<.99;
+      o.updateWorldMatrix(true,false);const anchor=o.localToWorld(new THREE.Vector3(...(this.meta?.earphones?.cable_exit_local||[0,.012,.218]))),direction=new THREE.Vector3(0,0,1).transformDirection(o.matrixWorld);
+      const cable=this.earbudCables[i];cable.geometry.dispose();cable.geometry=cableGeometry(earbudCablePoints(junction,anchor,direction,box,side),box,this.cableOptions);cable.visible=k<.99;
+    });
+  }
+  routeJackCable(){
+    const box=this.playerBox,exit=this.jack.localToWorld(new THREE.Vector3(...this.meta.jack.cable_exit_local)),junction=new THREE.Vector3(...this.meta.earphones.junction);
+    const direction=new THREE.Vector3(-1,0,0).transformDirection(this.jack.matrixWorld);this.jackCable.geometry.dispose();this.jackCable.geometry=cableGeometry(jackCablePoints(exit,box,this.meta.earphones.remote_ports,junction,direction),box,this.cableOptions);this.jackCable.visible=true;
+  }
+  hide(){this.visible=false;this.root.hidden=true;this.root.classList.remove('leaving');this.root.style.opacity='';$('film-stage').inert=false;$('film-stage').removeAttribute('aria-hidden');$('scene').focus();}
+  update(now,dt){
+    if(!this.visible||!this.ready)return;this.drift.lerp(this.pointer,1-Math.exp(-dt*3));this.camera.position.copy(this.viewPosition);if(!this.drag&&!this.animation&&!this.reducedMotion.matches){this.camera.position.x+=this.drift.x*.08;this.camera.position.y+=this.drift.y*.035;}this.camera.lookAt(this.baseTarget);
+    if(this.animation){const a=this.animation,t=a.duration?Math.max(0,Math.min(1,(now-a.start)/a.duration)):1;
+      if(a.type==='return'){this.cassette.position.lerpVectors(a.from,this.rest.pos,ease(t));this.cassette.rotation.copy(this.rest.rotation);}
+      if(a.type==='insert'){const k=ease(t/.455),end=new THREE.Vector3(...this.meta.cassette.insertPosition),via=end.clone();via.y=1.85;this.cassette.position.copy(a.from).multiplyScalar((1-k)**2).addScaledVector(via,2*(1-k)*k).addScaledVector(end,k*k);const rot=this.meta.cassette.insertRotation||[0,0,0];this.cassette.rotation.set(...rot.map((r,i)=>a.rotation[['x','y','z'][i]]+(r-a.rotation[['x','y','z'][i]])*k));if(this.door){const d=this.meta.door;this.door.rotation[d.axis||'x']=d.open+(d.closed-d.open)*ease((t-.596)/.404);}}
+      if(a.type==='play'){
+        const ms=t*6650;
+        if(this.playButton)this.playButton.position.y=this.playButtonRest-.037*ease((ms-1050)/150);
+        if(this.jack&&this.rest.jack){const plug=ease((ms-150)/950);this.jack.position.copy(routePoint(this.jackPath,plug));this.jack.quaternion.slerpQuaternions(this.rest.jackQ,new THREE.Quaternion().setFromEuler(new THREE.Euler(...this.meta.jack.insertRotation)),plug);this.routeJackCable();}
+        if(this.tableCord)this.tableCord.visible=false;this.wearEarbuds((ms-1550)/3200);
+        if(ms>1175&&!a.pressed){a.pressed=true;this.playing=true;$('entry-status').textContent='SIDE A · 故事就要开场';}
+        const focus=new THREE.Vector3(...(this.meta.playFocus||this.meta.cassette.insertPosition)),push=ease((ms-4850)/1800);this.camera.position.lerpVectors(this.viewPosition,this.viewPosition.clone().lerp(focus,.25),push);this.camera.lookAt(this.baseTarget.clone().lerp(focus,push*.4));this.root.style.opacity=String(1-push);
+      }
+      if(t===1){this.animation=null;if(a.type==='insert'){this.inserted=true;this.play(true);}if(a.type==='play'){this.hide();this.onPlay(this.trackId);}}
+    }
+    if(this.playing)this.reels.forEach(o=>o.rotation.y+=dt*1.8);this.renderer.render(this.scene,this.camera);
+  }
+}

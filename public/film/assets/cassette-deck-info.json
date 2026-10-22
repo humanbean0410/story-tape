@@ -1,0 +1,322 @@
+{
+  "title": "老派约会之必要 — portable memory player",
+  "coordinate_system": "glTF / Three.js Y-up. Coordinates below are in asset root space.",
+  "genuine_geometry": true,
+  "photograph_planes": false,
+  "bounds": {
+    "min": [
+      -4.2,
+      -0.34,
+      -3.2
+    ],
+    "max": [
+      4.2,
+      3.42,
+      3.2
+    ]
+  },
+  "root_name": "CassetteOpening",
+  "node_parents": {
+    "Cassette": "CassetteOpening",
+    "JackPlug": "CassetteOpening",
+    "DoorPivot": "Player",
+    "ReelLeft": "Cassette",
+    "ReelRight": "Cassette",
+    "Player": "CassetteOpening",
+    "Earphones": "CassetteOpening"
+  },
+  "camera": {
+    "pos": [
+      0,
+      8.4,
+      7.3
+    ],
+    "position": [
+      0,
+      8.4,
+      7.3
+    ],
+    "target": [
+      -0.1,
+      0.37,
+      -0.12
+    ],
+    "fov": 33,
+    "wide_fov": 43
+  },
+  "mobile_camera": {
+    "position": [
+      0,
+      10.8,
+      9.4
+    ],
+    "target": [
+      -0.1,
+      0.37,
+      -0.12
+    ],
+    "fov": 50
+  },
+  "cassette": {
+    "node": "Cassette",
+    "start": {
+      "position": [
+        -1.68,
+        0.205,
+        0.58
+      ],
+      "quaternion": [
+        0.0,
+        -0.095846,
+        0.0,
+        0.995396
+      ]
+    },
+    "insertPosition": [
+      1.1,
+      0.862,
+      -0.35
+    ],
+    "insertRotation": [
+      0,
+      0,
+      0
+    ],
+    "inserted": {
+      "position": [
+        1.1,
+        0.862,
+        -0.35
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "approach": [
+      1.1,
+      2.1,
+      -0.35
+    ],
+    "local_size": [
+      2.55,
+      0.243,
+      1.615
+    ],
+    "reel_nodes": [
+      "ReelLeft",
+      "ReelRight"
+    ],
+    "reel_axis": [
+      0,
+      1,
+      0
+    ],
+    "reel_spin_rad_per_second": 2.7
+  },
+  "door": {
+    "node": "DoorPivot",
+    "local_hinge_position": [
+      0.0,
+      1.077,
+      -1.32
+    ],
+    "axis": "x",
+    "axisVector": [
+      1,
+      0,
+      0
+    ],
+    "open": -1.1693705988362009,
+    "closed": 0,
+    "open_angle": -1.1693705988362009,
+    "closed_angle": 0
+  },
+  "jack": {
+    "node": "JackPlug",
+    "start": {
+      "position": [
+        -0.8887272477149963,
+        0.14499999582767487,
+        2.9275999069213867
+      ],
+      "quaternion": [
+        0.0,
+        -0.113203,
+        0.0,
+        0.993572
+      ]
+    },
+    "insertPosition": [
+      3.18,
+      0.474,
+      -1.17
+    ],
+    "insertRotation": [
+      0,
+      -3.141592653589793,
+      0
+    ],
+    "inserted": {
+      "position": [
+        3.18,
+        0.474,
+        -1.17
+      ],
+      "quaternion": [
+        0.0,
+        -1.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "socket_position": [
+      2.88,
+      0.474,
+      -1.17
+    ],
+    "tip_axis": [
+      1,
+      0,
+      0
+    ],
+    "cable_exit_local": [
+      -0.309,
+      0,
+      0
+    ]
+  },
+  "earphones": {
+    "root": "Earphones",
+    "buds": [
+      "EarbudLeft",
+      "EarbudRight"
+    ],
+    "cable_node": "Earphones_static",
+    "headphone_lift_offset": [
+      0,
+      1.5,
+      0.6
+    ],
+    "cable_exit_local": [
+      0,
+      0.012,
+      0.218
+    ],
+    "junction": [
+      -2.04,
+      0.16,
+      2.76
+    ],
+    "remote_ports": [
+      [
+        -2.04,
+        0.125,
+        2.055
+      ],
+      [
+        -2.04,
+        0.125,
+        2.585
+      ]
+    ]
+  },
+  "controls": {
+    "ButtonRewind": {
+      "node": "ButtonRewind",
+      "depression_axis": [
+        0,
+        -1,
+        0
+      ],
+      "depression_distance": 0.037,
+      "root_position": [
+        0.02,
+        0.761,
+        0.923
+      ]
+    },
+    "ButtonPlay": {
+      "node": "ButtonPlay",
+      "depression_axis": [
+        0,
+        -1,
+        0
+      ],
+      "depression_distance": 0.037,
+      "root_position": [
+        0.74,
+        0.761,
+        0.923
+      ]
+    },
+    "ButtonStop": {
+      "node": "ButtonStop",
+      "depression_axis": [
+        0,
+        -1,
+        0
+      ],
+      "depression_distance": 0.037,
+      "root_position": [
+        1.46,
+        0.761,
+        0.923
+      ]
+    },
+    "ButtonForward": {
+      "node": "ButtonForward",
+      "depression_axis": [
+        0,
+        -1,
+        0
+      ],
+      "depression_distance": 0.037,
+      "root_position": [
+        2.18,
+        0.761,
+        0.923
+      ]
+    }
+  },
+  "volume": {
+    "node": "VolumeWheel",
+    "axis": [
+      1,
+      0,
+      0
+    ]
+  },
+  "track_count": 6,
+  "suggested_sequence": [
+    "Lift cassette",
+    "Move above bay",
+    "Lower cassette",
+    "Close hinged door",
+    "Insert red headphones jack",
+    "Press play",
+    "Spin both tape reels",
+    "Travel into track 01"
+  ],
+  "static_meshes": 20,
+  "triangles": 366637,
+  "materials": 31,
+  "file_size_bytes": 10389176,
+  "refinement_version": "20261012-physical-detail",
+  "editable_source": "cassette-deck-detailed.blend",
+  "texture_images": 36,
+  "details": [
+    "Pressed sheet-metal transport well with mounting rails and rolled perforations",
+    "Two 28-tooth spur gears, spindle bosses and brass capstan bearings",
+    "Magnetic-head bracket, tension shim, wire loom and plug",
+    "Neoprene lid seal, hinge bearings, latching fingers, case rivets",
+    "Graduated knurled volume wheel, etched badge and inset speaker mesh",
+    "Cassette pressure felt, brass spring, shell reinforcing ribs and tape windings",
+    "Earbud mould seams, flexible strain relief and machined jack collar",
+    "UV-mapped exported PBR paper fibre, satin brushed metal and warm enamel textures"
+  ],
+  "encoding": "Built-in GLTFLoader KHR_mesh_quantization: 1/4096 scene-unit positions, signed-byte normals, signed-short repeating UVs with KHR_texture_transform.",
+  "earphone_layout": "Complete earbud meshes clear the cassette. Non-crossing wires attach at strain-relief exits; inline remote sits on the trunk."
+}

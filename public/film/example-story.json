@@ -1,0 +1,939 @@
+{
+  "schemaVersion": 1,
+  "title": "老派约会之必要",
+  "subtitle": "借你一段路",
+  "author": "故事磁带",
+  "dedication": "一次从午后走到夜里的约会。两个人从见面前的准备，聊到没走的那条路、一本书里的管家、旧房子该怎样修，以及关系里能不能承认自己还没想好。余音的回忆串起当时的问答；有些问题到了分别时还没有答案。",
+  "template": "original",
+  "opening": true,
+  "feedback": true,
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "scene": "casa",
+      "title": "迟到了七分钟",
+      "note": "准备过的自己，算不算真的自己？",
+      "sound": "ambience",
+      "audioAssetId": null,
+      "photoAssetId": null,
+      "beats": [
+        {
+          "id": "casa-0",
+          "speaker": "动作",
+          "text": "店铺全景。橱窗映着街道，长椅旁放着两只纸袋。先留几秒环境声。",
+          "shot": "master",
+          "seconds": 7
+        },
+        {
+          "id": "casa-1",
+          "speaker": "余音 · 独白",
+          "text": "那天我迟到了七分钟。出门前换了件外套，站到门口，又觉得原来那件好。",
+          "shot": "window",
+          "seconds": 7
+        },
+        {
+          "id": "casa-2",
+          "speaker": "余音",
+          "text": "你第一次见人，会先想好要说什么吗？",
+          "shot": "window",
+          "seconds": 5
+        },
+        {
+          "id": "casa-3",
+          "speaker": "周行",
+          "text": "路查了，店也查了。话没想好。你想了？",
+          "shot": "window",
+          "seconds": 5
+        },
+        {
+          "id": "casa-4",
+          "speaker": "动作",
+          "text": "切到长椅与门前。纸袋口略微敞开，旁边是折过的纸条。",
+          "shot": "bench",
+          "seconds": 6
+        },
+        {
+          "id": "casa-5",
+          "speaker": "余音",
+          "text": "写了几个问题。又觉得像采访。我想知道你平时到底是什么样。",
+          "shot": "bench",
+          "seconds": 6
+        },
+        {
+          "id": "casa-6",
+          "speaker": "周行",
+          "text": "那你今天穿这件外套，也算准备过了。我应该看哪一件？",
+          "shot": "bench",
+          "seconds": 6
+        },
+        {
+          "id": "casa-7",
+          "speaker": "余音",
+          "text": "挑衣服还好。要是你每句话都挑我喜欢听的，我怎么知道你怎么想？",
+          "shot": "bench",
+          "seconds": 7
+        },
+        {
+          "id": "casa-8",
+          "speaker": "周行",
+          "text": "讲出口的时候，我确实这么想。聊着聊着改了，也可以告诉你吧。",
+          "shot": "bench",
+          "seconds": 7
+        },
+        {
+          "id": "casa-9",
+          "speaker": "余音",
+          "text": "那你跟谁说话，就变成谁喜欢的样子？",
+          "shot": "bench",
+          "seconds": 5
+        },
+        {
+          "id": "casa-10",
+          "speaker": "周行",
+          "text": "也不至于。我有些事就是没想清楚。你问了，我才发现自己没想清楚。",
+          "shot": "bench",
+          "seconds": 7
+        },
+        {
+          "id": "casa-11",
+          "speaker": "余音 · 独白",
+          "text": "他把纸袋折了又折。我也一直在整理袖口，两个人都不太像平时。",
+          "shot": "bench",
+          "seconds": 7
+        },
+        {
+          "id": "casa-12",
+          "speaker": "动作",
+          "text": "橱窗近景停一拍，再回到长椅。小票压在纸条下面。",
+          "shot": "window",
+          "seconds": 6
+        },
+        {
+          "id": "casa-13",
+          "speaker": "余音",
+          "text": "不过你不用一直赞同我。我会以为你只是很有礼貌。",
+          "shot": "bench",
+          "seconds": 6
+        },
+        {
+          "id": "casa-14",
+          "speaker": "周行",
+          "text": "那我找个地方反对你？",
+          "shot": "bench",
+          "seconds": 3
+        },
+        {
+          "id": "casa-15",
+          "speaker": "余音",
+          "text": "也不用故意。那样我还得猜你哪次是认真的。",
+          "shot": "bench",
+          "seconds": 5
+        },
+        {
+          "id": "casa-16",
+          "speaker": "余音 · 独白",
+          "text": "绕了一大圈，连先去哪儿都没定。他提议，去附近的小站坐一会儿。",
+          "shot": "bench",
+          "seconds": 7
+        },
+        {
+          "id": "casa-17",
+          "speaker": "动作",
+          "text": "侧门轻轻合上。画面停在店门前，本幕结束，等待观众换幕。",
+          "shot": "door",
+          "seconds": 6
+        }
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "scene": "station",
+      "title": "下一班也行",
+      "note": "能不能用后来过得怎样，判定当初选得对不对？",
+      "sound": "ambience",
+      "audioAssetId": null,
+      "photoAssetId": null,
+      "beats": [
+        {
+          "id": "station-0",
+          "speaker": "动作",
+          "text": "站台全景，路线图压在纸袋下。轨道暂时空着。",
+          "shot": "master",
+          "seconds": 5
+        },
+        {
+          "id": "station-1",
+          "speaker": "余音 · 独白",
+          "text": "他说，以前拿到过成都的一份工作。最后留下来，一留就是好几年。",
+          "shot": "axis",
+          "seconds": 7
+        },
+        {
+          "id": "station-2",
+          "speaker": "余音",
+          "text": "你现在还会想，如果那时候去了，生活会是什么样？",
+          "shot": "axis",
+          "seconds": 6
+        },
+        {
+          "id": "station-3",
+          "speaker": "周行",
+          "text": "会。倒也没觉得现在多差，就是偶尔还想知道。",
+          "shot": "axis",
+          "seconds": 5
+        },
+        {
+          "id": "station-4",
+          "speaker": "动作",
+          "text": "候车位反向镜头。长椅的两个位置空着，风动了一下纸袋。",
+          "shot": "reverse",
+          "seconds": 6
+        },
+        {
+          "id": "station-5",
+          "speaker": "余音",
+          "text": "你去过那边吗？",
+          "shot": "reverse",
+          "seconds": 3
+        },
+        {
+          "id": "station-6",
+          "speaker": "周行",
+          "text": "去过两天。面试完，沿着河走了很久。",
+          "shot": "reverse",
+          "seconds": 5
+        },
+        {
+          "id": "station-7",
+          "speaker": "余音",
+          "text": "那你想念的那份工作，可能还没轮到加班。",
+          "shot": "reverse",
+          "seconds": 5
+        },
+        {
+          "id": "station-8",
+          "speaker": "周行",
+          "text": "你不想这些？",
+          "shot": "reverse",
+          "seconds": 3
+        },
+        {
+          "id": "station-9",
+          "speaker": "余音",
+          "text": "想。我以前想做记者。现在每次忙得不行，还会想当时要是去试试就好了。",
+          "shot": "reverse",
+          "seconds": 7
+        },
+        {
+          "id": "station-10",
+          "speaker": "周行",
+          "text": "记者忙起来，你会不会又想，还不如去量房子？",
+          "shot": "reverse",
+          "seconds": 5
+        },
+        {
+          "id": "station-11",
+          "speaker": "余音",
+          "text": "很可能。但如果那条没走的路，真的会让我更快乐呢？",
+          "shot": "reverse",
+          "seconds": 6
+        },
+        {
+          "id": "station-12",
+          "speaker": "动作",
+          "text": "响一次进站提示。镜头转向轨道，留出列车驶入、经过、驶远的完整时间；这段不放字幕。",
+          "shot": "passing",
+          "seconds": 8
+        },
+        {
+          "id": "station-13",
+          "speaker": "周行",
+          "text": "刚才后半句我没听清。",
+          "shot": "passing",
+          "seconds": 3
+        },
+        {
+          "id": "station-14",
+          "speaker": "余音",
+          "text": "我说，要是后来发现另一条路更好，当时就算选错了吗？",
+          "shot": "passing",
+          "seconds": 6
+        },
+        {
+          "id": "station-15",
+          "speaker": "周行",
+          "text": "当时能知道的，跟现在能知道的，也不一样。可知道这个，我还是会后悔。",
+          "shot": "passing",
+          "seconds": 7
+        },
+        {
+          "id": "station-16",
+          "speaker": "余音",
+          "text": "我也是。有时候连那份工作到底做什么都忘了，只记得自己没去。",
+          "shot": "passing",
+          "seconds": 7
+        },
+        {
+          "id": "station-17",
+          "speaker": "动作",
+          "text": "列车声退远。切回候车长椅，两个空位重新露出。",
+          "shot": "seats",
+          "seconds": 5
+        },
+        {
+          "id": "station-18",
+          "speaker": "余音 · 独白",
+          "text": "我们没把这事聊明白。车过去了，他也没催着走，把剩下的点心分给我。",
+          "shot": "seats",
+          "seconds": 7
+        },
+        {
+          "id": "station-19",
+          "speaker": "动作",
+          "text": "座位与路线图的近景。风声留一拍，本幕结束。",
+          "shot": "seat-detail",
+          "seconds": 5
+        }
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "scene": "interior",
+      "title": "窗边坐一会儿",
+      "note": "《长日将尽》 / 尽责、相信与替自己找理由",
+      "sound": "ambience",
+      "audioAssetId": null,
+      "photoAssetId": null,
+      "beats": [
+        {
+          "id": "interior-0",
+          "speaker": "动作",
+          "text": "直接进入黄昏窗边的电影视角。两杯茶放在并排的座位前，百叶半开。",
+          "shot": "master",
+          "seconds": 7
+        },
+        {
+          "id": "interior-1",
+          "speaker": "余音 · 独白",
+          "text": "路过我做测绘的老房子，我们进去歇了会儿。他包里带着《长日将尽》。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "interior-2",
+          "speaker": "余音",
+          "text": "我读的时候总着急。他解释了那么多，偏偏有些话一直不说。",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "interior-3",
+          "speaker": "周行",
+          "text": "我以前觉得他太克制。这次读，觉得他很会替自己找理由。",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "interior-4",
+          "speaker": "动作",
+          "text": "左侧座位与茶杯近景。杯子轻放，窗外树影移动。",
+          "shot": "man",
+          "seconds": 5
+        },
+        {
+          "id": "interior-5",
+          "speaker": "余音",
+          "text": "可他真相信，替主人把工作做好，就是在做一件有意义的事。",
+          "shot": "man",
+          "seconds": 6
+        },
+        {
+          "id": "interior-6",
+          "speaker": "周行",
+          "text": "相信了，就不用管主人做的事是对是错？",
+          "shot": "man",
+          "seconds": 5
+        },
+        {
+          "id": "interior-7",
+          "speaker": "余音",
+          "text": "当然不是。只是到了后来，要承认信错了，好像连过去几十年都得重新想。",
+          "shot": "man",
+          "seconds": 7
+        },
+        {
+          "id": "interior-8",
+          "speaker": "周行",
+          "text": "所以他越强调自己尽责，就越不肯问，这些事到底值不值得做。",
+          "shot": "man",
+          "seconds": 6
+        },
+        {
+          "id": "interior-9",
+          "speaker": "动作",
+          "text": "翻开的书与软垫特写。问答停下来，留出一段安静的窗光。",
+          "shot": "detail",
+          "seconds": 6
+        },
+        {
+          "id": "interior-10",
+          "speaker": "余音",
+          "text": "也可能是不敢问。要是问完，发现自己连喜欢谁都没认真选过呢？",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "interior-11",
+          "speaker": "周行",
+          "text": "我读着会想到自己。总说等忙完，等安顿好了，再去做真正想做的事。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "interior-12",
+          "speaker": "余音",
+          "text": "但开口也不一定就有好结果。不能读完一本书，就叫所有人都勇敢一点吧。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "interior-13",
+          "speaker": "周行",
+          "text": "是。可我每次说以后再说，听起来都挺合理。后来就真的没再说。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "interior-14",
+          "speaker": "余音",
+          "text": "比如什么？",
+          "shot": "two-shot",
+          "seconds": 3
+        },
+        {
+          "id": "interior-15",
+          "speaker": "周行",
+          "text": "想写一本书。写了三页，一直觉得要改好了，才可以给别人看。",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "interior-16",
+          "speaker": "动作",
+          "text": "书页特写停一拍。两个人暂时不说话，窗光慢慢移动。",
+          "shot": "detail",
+          "seconds": 6
+        },
+        {
+          "id": "interior-17",
+          "speaker": "余音",
+          "text": "那你什么时候才算改好了？",
+          "shot": "detail",
+          "seconds": 4
+        },
+        {
+          "id": "interior-18",
+          "speaker": "周行",
+          "text": "不知道。现在给你看，我可能就没法继续说，等改好了再说。",
+          "shot": "detail",
+          "seconds": 6
+        },
+        {
+          "id": "interior-19",
+          "speaker": "余音",
+          "text": "那就发这三页吧。看完我们可以下次聊。",
+          "shot": "detail",
+          "seconds": 5
+        },
+        {
+          "id": "interior-20",
+          "speaker": "余音 · 独白",
+          "text": "那句下次说得有点早。我先拿起茶杯，假装没看见他在笑。",
+          "shot": "detail",
+          "seconds": 6
+        },
+        {
+          "id": "interior-21",
+          "speaker": "动作",
+          "text": "切到百叶窗与灯光。天色暗一点，两个座位仍在画面里。本幕结束。",
+          "shot": "window",
+          "seconds": 7
+        }
+      ]
+    },
+    {
+      "id": "chapter-4",
+      "scene": "courtyard",
+      "title": "顺路看个院子",
+      "note": "旧房子与旧书 / 保存过去，会不会限制后来的人？",
+      "sound": "ambience",
+      "audioAssetId": null,
+      "photoAssetId": null,
+      "beats": [
+        {
+          "id": "courtyard-0",
+          "speaker": "动作",
+          "text": "黄昏。庭院全景，斜松伸到石径上方。两只茶盏在廊下。",
+          "shot": "master",
+          "seconds": 6
+        },
+        {
+          "id": "courtyard-1",
+          "speaker": "余音 · 独白",
+          "text": "我带他看附近的院子。这里量过好几次，那天第一次这么慢地走进来。",
+          "shot": "master",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-2",
+          "speaker": "余音",
+          "text": "修这种房子，大家总说，恢复最初的样子。可最初是哪一年？",
+          "shot": "pine",
+          "seconds": 6
+        },
+        {
+          "id": "courtyard-3",
+          "speaker": "周行",
+          "text": "越早的，就越算真的？",
+          "shot": "pine",
+          "seconds": 3
+        },
+        {
+          "id": "courtyard-4",
+          "speaker": "动作",
+          "text": "沿石径走近。松枝在头顶，旧墙与灰瓦逐渐完整地进入画面。",
+          "shot": "path",
+          "seconds": 6
+        },
+        {
+          "id": "courtyard-5",
+          "speaker": "余音",
+          "text": "也不一定。后来的窗户、台阶，都是有人嫌不方便，一点点改出来的。",
+          "shot": "path",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-6",
+          "speaker": "周行",
+          "text": "我补旧书也会遇到。有人要把咖啡渍去掉，有人说那是他爸留下的，不许动。",
+          "shot": "path",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-7",
+          "speaker": "余音",
+          "text": "可新住进来的人，也会想添自己的东西。不能一提要改，就说他不懂。",
+          "shot": "path",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-8",
+          "speaker": "周行",
+          "text": "那哪些该留，谁说了算？住的人，还是来看的我们？",
+          "shot": "path",
+          "seconds": 6
+        },
+        {
+          "id": "courtyard-9",
+          "speaker": "动作",
+          "text": "铜环木门近景，门轴轻响。再切到回廊，纸条压在茶盏旁。",
+          "shot": "door",
+          "seconds": 6
+        },
+        {
+          "id": "courtyard-10",
+          "speaker": "余音",
+          "text": "我也不知道。工作时总想留得完整，真搬进来，我会先想把窗开大一点。",
+          "shot": "corridor",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-11",
+          "speaker": "周行",
+          "text": "那你要求别人保留的时候，有没有问过，他们想怎么住？",
+          "shot": "corridor",
+          "seconds": 6
+        },
+        {
+          "id": "courtyard-12",
+          "speaker": "余音",
+          "text": "有时候没问。图纸上能把以前记下来，也不能叫人一直按图纸生活。",
+          "shot": "corridor",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-13",
+          "speaker": "余音 · 独白",
+          "text": "我拿小票给他画了个窗户。他问哪个是门，我自己看了半天，也没认出来。",
+          "shot": "corridor",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-14",
+          "speaker": "动作",
+          "text": "纸灯笼近景停一拍。风很轻，红穗只动了一下。",
+          "shot": "lantern",
+          "seconds": 5
+        },
+        {
+          "id": "courtyard-15",
+          "speaker": "周行",
+          "text": "那本书的主人把字写在空白处。我有时会看，可看完也不能说，我就懂这个人。",
+          "shot": "corridor",
+          "seconds": 8
+        },
+        {
+          "id": "courtyard-16",
+          "speaker": "余音",
+          "text": "我倒容易这样。知道了一点以前的事，就以为知道他为什么是现在这样。",
+          "shot": "corridor",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-17",
+          "speaker": "周行",
+          "text": "但他以后还会改。你量过这院子几次，不也是每次得重新看？",
+          "shot": "corridor",
+          "seconds": 6
+        },
+        {
+          "id": "courtyard-18",
+          "speaker": "余音 · 独白",
+          "text": "他拿手机拍了那棵树，问是不是太暗。我凑过去看，没有急着教他怎么拍。",
+          "shot": "corridor",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-19",
+          "speaker": "动作",
+          "text": "从暗木窗内看院子。两只茶盏仍并排放着，门半开。本幕结束，不自动换幕。",
+          "shot": "window",
+          "seconds": 7
+        },
+        {
+          "id": "courtyard-20",
+          "speaker": "结尾",
+          "text": "庭院留一段空镜，等观众选择下一幕。",
+          "shot": "window",
+          "seconds": 5
+        }
+      ]
+    },
+    {
+      "id": "chapter-5",
+      "scene": "diner",
+      "title": "再点一杯",
+      "note": "坦诚 / 能不能告诉对方自己还没想好？",
+      "sound": "ambience",
+      "audioAssetId": null,
+      "photoAssetId": null,
+      "beats": [
+        {
+          "id": "diner-0",
+          "speaker": "动作",
+          "text": "餐馆全景转到桌面。手机短振一次，没有提示铃声。",
+          "shot": "master",
+          "seconds": 6
+        },
+        {
+          "id": "diner-1",
+          "speaker": "余音 · 独白",
+          "text": "吃饭时，他手机上的提醒响了：别一直说自己的事。我问他，设这个干什么。",
+          "shot": "table",
+          "seconds": 7
+        },
+        {
+          "id": "diner-2",
+          "speaker": "周行",
+          "text": "怕我讲太多。你一直点头，我就不知道你是想听，还是等我讲完。",
+          "shot": "table",
+          "seconds": 7
+        },
+        {
+          "id": "diner-3",
+          "speaker": "余音",
+          "text": "那你可以问。我也不一定会说你想听的。",
+          "shot": "table",
+          "seconds": 5
+        },
+        {
+          "id": "diner-4",
+          "speaker": "动作",
+          "text": "两个餐位的中景。杯子与扣下的手机留在同一画面里。",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "diner-5",
+          "speaker": "余音",
+          "text": "我以前觉得，两个人够亲近，就应该知道对方所有想法。",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "diner-6",
+          "speaker": "周行",
+          "text": "所有？有些想法我第二天自己都不认了。也得有些事让我慢慢想吧。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "diner-7",
+          "speaker": "余音",
+          "text": "有些事如果关系到我，我总得知道。不然你在想什么，我只能猜。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "diner-8",
+          "speaker": "周行",
+          "text": "以前有人问我，会不会一直留在这里。我说会。那时候觉得可以。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "diner-9",
+          "speaker": "余音",
+          "text": "后来还是想去成都？",
+          "shot": "two-shot",
+          "seconds": 3
+        },
+        {
+          "id": "diner-10",
+          "speaker": "周行",
+          "text": "嗯。但没跟她讲。她已经照着我那句话做安排了，我怕再改。",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "diner-11",
+          "speaker": "动作",
+          "text": "切到点唱机。机芯轻响，灯亮着，Moon River 保持很轻的音量。",
+          "shot": "jukebox",
+          "seconds": 7
+        },
+        {
+          "id": "diner-12",
+          "speaker": "余音",
+          "text": "可你改了，我也得有机会重新选。你不能把两个人的计划，一个人在心里改完。",
+          "shot": "two-shot",
+          "seconds": 8
+        },
+        {
+          "id": "diner-13",
+          "speaker": "周行",
+          "text": "我知道。可说了她会难过，不说，我又像是在骗她。那时候不知道怎么办。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "diner-14",
+          "speaker": "余音",
+          "text": "那能不能先说，我现在也不知道？我不一定高兴，但至少不用以为一切都定了。",
+          "shot": "two-shot",
+          "seconds": 8
+        },
+        {
+          "id": "diner-15",
+          "speaker": "周行",
+          "text": "我怕一说不知道，她就不愿意等了。",
+          "shot": "two-shot",
+          "seconds": 4
+        },
+        {
+          "id": "diner-16",
+          "speaker": "余音",
+          "text": "那也是她可以选的吧。你都没问过，怎么知道她一定会走？",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "diner-17",
+          "speaker": "余音 · 独白",
+          "text": "说着别人的事，我却开始担心，他会不会觉得我很难相处。",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "diner-18",
+          "speaker": "动作",
+          "text": "桌面小票近景。杯里的饮料已经喝完，环境声慢慢减少。",
+          "shot": "table",
+          "seconds": 6
+        },
+        {
+          "id": "diner-19",
+          "speaker": "周行",
+          "text": "你说的道理，我知道。真到那时候，我可能还是会害怕。",
+          "shot": "table",
+          "seconds": 6
+        },
+        {
+          "id": "diner-20",
+          "speaker": "余音",
+          "text": "我也会。刚才说得那么肯定，我自己的事也不见得能做好。",
+          "shot": "table",
+          "seconds": 6
+        },
+        {
+          "id": "diner-21",
+          "speaker": "余音 · 独白",
+          "text": "后来又聊了很久。我再要了一杯水，已经不渴了，还是想坐一会儿。",
+          "shot": "table",
+          "seconds": 7
+        },
+        {
+          "id": "diner-22",
+          "speaker": "动作",
+          "text": "餐馆全景停在空桌上。本幕结束。",
+          "shot": "master",
+          "seconds": 4
+        }
+      ]
+    },
+    {
+      "id": "chapter-6",
+      "scene": "alley",
+      "title": "再走一段",
+      "note": "慢慢来 / 给彼此时间，也让彼此能作选择",
+      "sound": "ambience",
+      "audioAssetId": null,
+      "photoAssetId": null,
+      "beats": [
+        {
+          "id": "alley-0",
+          "speaker": "动作",
+          "text": "夜巷远景，两声脚步后静下来。暖灯下的长椅放着一件外套。",
+          "shot": "master",
+          "seconds": 6
+        },
+        {
+          "id": "alley-1",
+          "speaker": "余音 · 独白",
+          "text": "回去时又走过了家门口。我们坐到长椅上，这回不用急着找话题。",
+          "shot": "two-shot",
+          "seconds": 7
+        },
+        {
+          "id": "alley-2",
+          "speaker": "余音",
+          "text": "所以如果你对我也有些事没想好，可以直接说？",
+          "shot": "two-shot",
+          "seconds": 5
+        },
+        {
+          "id": "alley-3",
+          "speaker": "周行",
+          "text": "比如以后会怎么样？确实没想好。想再见你，这个有。",
+          "shot": "two-shot",
+          "seconds": 6
+        },
+        {
+          "id": "alley-4",
+          "speaker": "动作",
+          "text": "切到长椅。外套叠在座面上，蓝色街道留在画面边缘。",
+          "shot": "close",
+          "seconds": 6
+        },
+        {
+          "id": "alley-5",
+          "speaker": "余音",
+          "text": "那慢慢来，怎么知道是给彼此时间，还是一直拖着？",
+          "shot": "close",
+          "seconds": 6
+        },
+        {
+          "id": "alley-6",
+          "speaker": "周行",
+          "text": "我不能先保证结果。但你问的时候，不能永远只得到一句，再等等。",
+          "shot": "close",
+          "seconds": 7
+        },
+        {
+          "id": "alley-7",
+          "speaker": "余音",
+          "text": "可很多人刚开始都这么说。后来等的，总是同一个人。",
+          "shot": "close",
+          "seconds": 6
+        },
+        {
+          "id": "alley-8",
+          "speaker": "周行",
+          "text": "那就别只问一次。如果我想法变了，我得告诉你。你也可以说，不想再等了。",
+          "shot": "close",
+          "seconds": 7
+        },
+        {
+          "id": "alley-9",
+          "speaker": "动作",
+          "text": "小票与花束的近景。纸张有几道折痕，轻轻翻动一下。",
+          "shot": "flowers",
+          "seconds": 6
+        },
+        {
+          "id": "alley-10",
+          "speaker": "余音",
+          "text": "我不是要你今晚就答应什么。我只是希望，不知道也能是一句真的话。",
+          "shot": "profile",
+          "seconds": 7
+        },
+        {
+          "id": "alley-11",
+          "speaker": "周行",
+          "text": "好。那你呢，今天想清楚了多少？",
+          "shot": "profile",
+          "seconds": 4
+        },
+        {
+          "id": "alley-12",
+          "speaker": "余音",
+          "text": "不多。也没太懂你。想再聊一会儿，这个有。",
+          "shot": "profile",
+          "seconds": 5
+        },
+        {
+          "id": "alley-13",
+          "speaker": "余音 · 独白",
+          "text": "这句说出来，我反而没那么紧张了。别的还可以再问，今晚先不用问完。",
+          "shot": "profile",
+          "seconds": 7
+        },
+        {
+          "id": "alley-14",
+          "speaker": "余音",
+          "text": "周六有空吗？晚饭可以订晚一点。",
+          "shot": "profile",
+          "seconds": 4
+        },
+        {
+          "id": "alley-15",
+          "speaker": "周行",
+          "text": "有。那三页我今晚发你。看不下去，也得告诉我。",
+          "shot": "profile",
+          "seconds": 5
+        },
+        {
+          "id": "alley-16",
+          "speaker": "余音 · 独白",
+          "text": "到家他发来了。我回他，第二页那句话，我想听你再讲讲。",
+          "shot": "profile",
+          "seconds": 6
+        },
+        {
+          "id": "alley-17",
+          "speaker": "余音 · 独白",
+          "text": "回完才发现，外套还没脱。我先把周六下午空了出来。",
+          "shot": "profile",
+          "seconds": 6
+        },
+        {
+          "id": "alley-18",
+          "speaker": "动作",
+          "text": "镜头退到街道全景，长椅仍被路灯照着。本幕结束。",
+          "shot": "street",
+          "seconds": 6
+        }
+      ]
+    }
+  ]
+}

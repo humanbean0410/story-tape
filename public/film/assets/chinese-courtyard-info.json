@@ -1,0 +1,192 @@
+{
+  "source": "Original Blender geometry; architectural reference: supplied IMG_8369.PNG / IMG_8370.PNG / IMG_8371.PNG / IMG_8402.PNG",
+  "title": "庭院 · 松影慢行",
+  "coordinateSystem": "Three.js Y-up; Blender X=X, Y=-Z, Z=Y",
+  "bounds": {
+    "min": [
+      -6,
+      -0.4,
+      -12.2
+    ],
+    "max": [
+      6,
+      7.5,
+      3.5
+    ]
+  },
+  "sceneBounds": {
+    "min": [
+      -4.9,
+      0,
+      -7.1
+    ],
+    "max": [
+      5.4,
+      5.7,
+      3.0
+    ]
+  },
+  "practicalPositions": [
+    [
+      3.91,
+      2.98,
+      0.24
+    ],
+    [
+      4.04,
+      2.97,
+      -3.78
+    ]
+  ],
+  "environmentNames": [
+    "CourtyardEnvironment"
+  ],
+  "foregroundNames": [
+    "CourtyardForeground"
+  ],
+  "features": [
+    "Mottled lime plaster PBR textures",
+    "Individually modeled curved overlapping roof tiles",
+    "Wooden doors with real lattice and iron ring knockers",
+    "Asymmetrical articulated pine with modeled needles",
+    "Dark timber corridor with paper lanterns and fine red tassels",
+    "Stone flagstone joints, steps, ferns and moss gardens",
+    "Empty tea table with two cups and physical folio"
+  ],
+  "anchors": {
+    "CourtyardWideAnchor": [
+      0,
+      2.4,
+      10.8
+    ],
+    "CourtyardDoorAnchor": [
+      0.5,
+      1.7,
+      4.8
+    ],
+    "CourtyardCorridorAnchor": [
+      3.8,
+      1.65,
+      2
+    ],
+    "CourtyardPineAnchor": [
+      -3.7,
+      1.5,
+      2.8
+    ],
+    "CourtyardLanternAnchor": [
+      2.4,
+      2.7,
+      1.5
+    ],
+    "CourtyardThresholdAnchor": [
+      0,
+      1.65,
+      -5.05
+    ],
+    "CourtyardBookAnchor": [
+      4.2,
+      0.93,
+      -2.47
+    ],
+    "CourtyardClapperAnchor": [
+      0.2,
+      0.27,
+      2.2
+    ]
+  },
+  "recommendedShots": [
+    {
+      "id": "wide",
+      "position": [
+        0,
+        2.4,
+        10.8
+      ],
+      "target": [
+        0,
+        2,
+        -3
+      ],
+      "fov": 42
+    },
+    {
+      "id": "door",
+      "position": [
+        0.5,
+        1.7,
+        4.8
+      ],
+      "target": [
+        0,
+        1.8,
+        -6.3
+      ],
+      "fov": 42
+    },
+    {
+      "id": "corridor",
+      "position": [
+        3.8,
+        1.65,
+        2
+      ],
+      "target": [
+        -0.6,
+        1.7,
+        -4.4
+      ],
+      "fov": 48
+    },
+    {
+      "id": "pine",
+      "position": [
+        -3.7,
+        1.5,
+        2.8
+      ],
+      "target": [
+        -1.4,
+        2.5,
+        -3.6
+      ],
+      "fov": 42
+    },
+    {
+      "id": "lantern",
+      "position": [
+        2.4,
+        2.7,
+        1.5
+      ],
+      "target": [
+        3.6,
+        3.0,
+        0.24
+      ],
+      "fov": 44
+    },
+    {
+      "id": "threshold",
+      "position": [
+        0,
+        1.65,
+        -5.05
+      ],
+      "target": [
+        0.7,
+        1.8,
+        1.5
+      ],
+      "fov": 50
+    }
+  ],
+  "stats": {
+    "meshCount": 63,
+    "triangles": 268176,
+    "glbBytes": 11255896,
+    "needleTufts": 892,
+    "materials": 32
+  },
+  "editableSource": "/Users/wqr/Documents/Codex/2026-10-10/gpt-site-casa-de-las-bellas/outputs/chinese-courtyard-detailed.blend"
+}

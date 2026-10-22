@@ -1,0 +1,12 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><title>Earphone geometry inspection</title>
+<script type="importmap">{"imports":{"three":"../dist/vendor/three.module.js"}}</script>
+<style>body{margin:0;background:#c6c5ba}canvas{position:fixed;inset:0;width:100%;height:100%}nav{position:fixed;bottom:12px;left:12px;right:12px;display:flex;gap:6px;z-index:3}button{border:0;padding:9px 12px;background:#fff9;cursor:pointer;font:12px system-ui}#entry-status{position:fixed;top:12px;left:12px;font:13px system-ui;z-index:3}#tape-hint,#tape-retry{display:none}</style>
+<div id="film-stage"><canvas id="scene" hidden></canvas></div><div id="tape-entry"><canvas id="tape-scene" tabindex="0"></canvas><p id="entry-status">Loading</p><div id="tape-hint" hidden></div><button id="tape-retry" hidden></button></div><nav aria-label="动画检查帧"></nav>
+<script type="module">
+import {TapeDeck} from '../dist/tape-deck.js?v=20261013-monologue';
+const audio={unlock:async()=>{},setScene(){},mechanism(){},setTapeMotor(){}};
+const deck=new TapeDeck({audio,reducedMotion:{matches:false},onPlay(){},onPause(){}});deck.open();await deck.load();deck.stageReady=true;
+function sample(t){deck.visible=true;deck.root.hidden=false;deck.cassette.position.copy(t<0?deck.rest.pos:new deck.rest.pos.constructor(...deck.meta.cassette.insertPosition));deck.cassette.rotation.copy(deck.rest.rotation);if(t>=0)deck.cassette.rotation.set(...deck.meta.cassette.insertRotation);deck.door.rotation[deck.meta.door.axis]=t<0?deck.meta.door.open:deck.meta.door.closed;
+ deck.earbuds.forEach((o,i)=>{o.visible=true;o.position.copy(deck.earbudRest[i].position);o.quaternion.copy(deck.earbudRest[i].quaternion);});deck.tableCord.visible=t<0;deck.jack.position.copy(deck.rest.jack);deck.jack.quaternion.copy(deck.rest.jackQ);deck.jackCable.visible=t>=0;deck.earbudCables.forEach(m=>m.visible=t>=0);deck.model.updateMatrixWorld(true);deck.animation=t<0?null:{type:'play',start:0,duration:6650};deck.update(Math.max(0,t)*6650,.016);document.getElementById('entry-status').textContent=t<0?'静态桌面':`开场进度 ${Math.round(t*100)}%`;}
+for(const t of [-1,0,.1,.2,.32,.4,.5,.6,.7,.75,.8,.9]){const b=document.createElement('button');b.textContent=t<0?'桌面':`${Math.round(t*100)}%`;b.onclick=()=>sample(t);document.querySelector('nav').append(b);}sample(-1);
+</script></html>

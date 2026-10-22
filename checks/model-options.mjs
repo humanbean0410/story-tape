@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import vm from 'node:vm';
+import ts from 'typescript';
+import { webcrypto } from 'node:crypto';
+import * as zod from 'zod';
+const context=vm.createContext({crypto:webcrypto,console,Set,JSON,String});const modules=new Map();
+const z=new vm.SyntheticModule(Object.keys(zod),function(){for(const key of Object.keys(zod))this.setExport(key,zod[key]);},{context});
+async function compile(name){if(modules.has(name))return modules.get(name);const source=ts.transpileModule(await fs.readFile(name,'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText;const m=new vm.SourceTextModule(source,{context,identifier:name});modules.set(name,m);await m.link(async spec=>spec==='zod'?z:compile(path.resolve(path.dirname(name),spec+'.ts')));return m;}
+const model=await compile(path.resolve('lib/model-options.ts'));await model.evaluate();const projectModule=await compile(path.resolve('lib/previs-model.ts'));await projectModule.evaluate();
+const {ModelOptionSchema,ModelStatusListSchema,modelStatuses,prepareModelTask}=model.namespace;
+const statuses=modelStatuses({OPENAI_API_KEY:'test-secret-not-for-output',MESHY_API_KEY:'  ',RUNWAY_API_KEY:{invalid:true},UNRELATED:'private'});
+assert.equal(statuses[0].status,'configuration_pending','a credential does not imply an execution adapter');
+assert.equal(statuses[1].status,'not_connected');assert.equal(statuses[2].credentialConfigured,false);
+assert.equal(JSON.stringify(statuses).includes('test-secret'),false);assert.equal(JSON.stringify(statuses).includes('UNRELATED'),false);
+assert.equal(ModelStatusListSchema.safeParse(statuses).success,true);
+assert.equal(ModelOptionSchema.safeParse({provider:'openai',task:'asset'}).success,false,'reject unsupported task/provider pairing');
+assert.equal(ModelOptionSchema.safeParse({provider:'openai',task:'shots',instruction:'x'.repeat(1201)}).success,false);
+const p=JSON.parse(JSON.stringify(projectModule.namespace.makePrevisProject('interior'))),s=p.scenes[0];
+s.references.push({id:'accept',name:'窗光.jpg',role:'light',note:'保留侧光',accepted:true},{id:'reject',name:'不采用.jpg',role:'mood',note:'忽略',accepted:false});
+const before=JSON.stringify(p),task=prepareModelTask({provider:'openai',task:'shots',instruction:'比较35与85mm',style:'cinematic',preserveCamera:true},p,s);
+assert.equal(task.status,'prepared');assert.equal(task.input.references.length,1);assert.equal(task.input.references[0].name,'窗光.jpg');
+assert.equal(task.input.shots[0].focal,s.shots[0].focal);assert.match(task.prompt,/比较35与85mm/);assert.match(task.prompt,/缺失尺寸/);assert.match(task.notice,/未执行/);assert.equal(JSON.stringify(p),before,'task preparation preserves the editable project');
+const asset=prepareModelTask({provider:'meshy',task:'asset',instruction:'木椅',style:'realistic',preserveCamera:true},p,s);assert.match(asset.prompt,/不生成整个场景/);
+console.log('PASS: provider/task validation, honest connection state, no credential disclosure, accepted reference context, editable project preserved.');

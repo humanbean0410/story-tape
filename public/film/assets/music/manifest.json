@@ -1,0 +1,328 @@
+{
+  "casa": {
+    "artist": "Khruangbin",
+    "title": "Friday Morning",
+    "duration": 410.74941,
+    "overlap": 0.32,
+    "loudness": "-18 LUFS / -2 dBTP",
+    "source": "User supplied audio",
+    "segments": [
+      {
+        "url": "assets/music/casa-00-dba18157d393.mp3",
+        "start": 0.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "dba18157d393882b39e0fab4ef6f08ef42faeb182cd82958bac4790cbbc62b47"
+      },
+      {
+        "url": "assets/music/casa-01-5fe01be9a05e.mp3",
+        "start": 48.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "5fe01be9a05e72e36f1b81ef809dba5140d1cebb783e19f424a00665adf4f52f"
+      },
+      {
+        "url": "assets/music/casa-02-d6b33b0d7c71.mp3",
+        "start": 96.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "d6b33b0d7c7195b262845aa190efc3f063cdbb84ae61b9a5bdbfd41960c3ffd9"
+      },
+      {
+        "url": "assets/music/casa-03-67f7c1233a7e.mp3",
+        "start": 144.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "67f7c1233a7eafc2f9b73cb94433d35babc82786a5d4ab7d24bee9bf2f742891"
+      },
+      {
+        "url": "assets/music/casa-04-50a38d798c2a.mp3",
+        "start": 192.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "50a38d798c2a185859806cd2ba8d109d2a5a0a9adfcabb750a58ce7c4f16af36"
+      },
+      {
+        "url": "assets/music/casa-05-644623c9bfc7.mp3",
+        "start": 240.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "644623c9bfc7017c427f53b1fa2012dc5078101ec15ff406c33d174712b8b4c0"
+      },
+      {
+        "url": "assets/music/casa-06-c9a42defad00.mp3",
+        "start": 288.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "c9a42defad00a3d8e4f0ec45426f3786b3839477d871846d7bfa19962ac8972a"
+      },
+      {
+        "url": "assets/music/casa-07-632417b4907b.mp3",
+        "start": 336.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "632417b4907b03afa952ddc884fb2b9d8f90377d22a9af9bc9fd3768d621253e"
+      },
+      {
+        "url": "assets/music/casa-08-c832910ab403.mp3",
+        "start": 384.0,
+        "duration": 26.74941,
+        "bytes": 429288,
+        "sha256": "c832910ab40304358b2d3bc798cd1da75a42951115baee587acc72f2574209d6"
+      }
+    ]
+  },
+  "station": {
+    "artist": "Joe Hisaishi",
+    "title": "A Town with an Ocean View",
+    "duration": 238.689546,
+    "overlap": 0.32,
+    "loudness": "-18 LUFS / -2 dBTP",
+    "source": "User supplied audio",
+    "segments": [
+      {
+        "url": "assets/music/station-00-fb2b02c5012a.mp3",
+        "start": 0.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "fb2b02c5012ab1baa38b84c678a167f5f0704930451849cb37dc5aec8d756c7f"
+      },
+      {
+        "url": "assets/music/station-01-83dc8099e562.mp3",
+        "start": 48.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "83dc8099e5624d5b6ce76b80e6825a857aabc999224dfb35df81e2ea3b0ab88f"
+      },
+      {
+        "url": "assets/music/station-02-cea8857d9a9a.mp3",
+        "start": 96.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "cea8857d9a9a5be12357e6afa2f7b448bb4aace598ec0bd7af6b71a2b396ed13"
+      },
+      {
+        "url": "assets/music/station-03-3133d4a40127.mp3",
+        "start": 144.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "3133d4a4012736c76a7738ae1fbc309605e8169206ff5557136542429a423741"
+      },
+      {
+        "url": "assets/music/station-04-5216d4990537.mp3",
+        "start": 192.0,
+        "duration": 46.689546,
+        "bytes": 748191,
+        "sha256": "5216d4990537a07d11b7b737484eab1c717cfee7eb102768a0aad1f347c0d642"
+      }
+    ]
+  },
+  "interior": {
+    "artist": "Ryuichi Sakamoto",
+    "title": "Aqua",
+    "duration": 294.546667,
+    "overlap": 0.32,
+    "loudness": "-18 LUFS / -2 dBTP",
+    "source": "User supplied audio",
+    "segments": [
+      {
+        "url": "assets/music/interior-00-37f5e9e92db4.mp3",
+        "start": 0.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "37f5e9e92db4648d366c9e91931a31030deea336b80a3fc8fb7928d76e1421d2"
+      },
+      {
+        "url": "assets/music/interior-01-8cd7dc3c93b2.mp3",
+        "start": 48.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "8cd7dc3c93b2e9fc584a7a6e0fe95963bf035f6142023ba2f13d7c21a3c194d2"
+      },
+      {
+        "url": "assets/music/interior-02-ec3e4055d097.mp3",
+        "start": 96.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "ec3e4055d097033338bc9f5d2a434808f80e54584d11f4304e908a530b600bd7"
+      },
+      {
+        "url": "assets/music/interior-03-447f87881846.mp3",
+        "start": 144.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "447f878818462e53b398dc2e06457b5da1d21d0f477b0f7ca1acd6a9ef283068"
+      },
+      {
+        "url": "assets/music/interior-04-8c647f0e0427.mp3",
+        "start": 192.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "8c647f0e04273ab9d591de73cb18a8cff33551e5da2601b9b8059d7127819972"
+      },
+      {
+        "url": "assets/music/interior-05-31ca7c2f1244.mp3",
+        "start": 240.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "31ca7c2f1244f216441c13c5f88f6dd0cd45b3b5c3a345707a8fd6e985e851db"
+      },
+      {
+        "url": "assets/music/interior-06-48742d1e46d6.mp3",
+        "start": 288.0,
+        "duration": 6.546667,
+        "bytes": 105787,
+        "sha256": "48742d1e46d626b53eef6136c424709c027e6e02ea5eb4187a6fe6da05af73eb"
+      }
+    ]
+  },
+  "courtyard": {
+    "artist": "Takagi Masakatsu",
+    "title": "Girls",
+    "duration": 282.066667,
+    "overlap": 0.32,
+    "loudness": "-18 LUFS / -2 dBTP",
+    "source": "User supplied audio",
+    "segments": [
+      {
+        "url": "assets/music/courtyard-00-5020d6393dab.mp3",
+        "start": 0.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "5020d6393dabb4c5dd6b718cd90a4b3e9c5ba04a7700ff4239b447f1f6924d80"
+      },
+      {
+        "url": "assets/music/courtyard-01-d3b712ad242f.mp3",
+        "start": 48.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "d3b712ad242fadbf61b138743e334ddbe6fd6653ad11e3fc21569557cb624b2a"
+      },
+      {
+        "url": "assets/music/courtyard-02-9722ca9c54c0.mp3",
+        "start": 96.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "9722ca9c54c0e72d5de804b40639c899c7739619c60c1ef0990059a36ecc298a"
+      },
+      {
+        "url": "assets/music/courtyard-03-846a9d99d621.mp3",
+        "start": 144.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "846a9d99d621d15b9627bb441065d8300f2323463e98c139146355248b6c82dc"
+      },
+      {
+        "url": "assets/music/courtyard-04-0e28d43031df.mp3",
+        "start": 192.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "0e28d43031dfec3a7ecfee0fce0aaf8b49630b0061077d017340d00141859805"
+      },
+      {
+        "url": "assets/music/courtyard-05-c114097505be.mp3",
+        "start": 240.0,
+        "duration": 42.066667,
+        "bytes": 674212,
+        "sha256": "c114097505be8459e790497de57d81ed3bc6a8bfa2fb4707339b270230b7e2af"
+      }
+    ]
+  },
+  "diner": {
+    "artist": "Vince Guaraldi Trio",
+    "title": "Moon River",
+    "duration": 319.541429,
+    "overlap": 0.32,
+    "loudness": "-18 LUFS / -2 dBTP",
+    "source": "User supplied audio",
+    "segments": [
+      {
+        "url": "assets/music/diner-00-9a7535066bde.mp3",
+        "start": 0.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "9a7535066bde142e0a77bbb6a63d6f39fc496979bc2f5beb060c898bb4b26350"
+      },
+      {
+        "url": "assets/music/diner-01-e5c1f2e71b39.mp3",
+        "start": 48.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "e5c1f2e71b394f4ed5aa9188221a20d96839fff4c66b591f40b35d697c3996e6"
+      },
+      {
+        "url": "assets/music/diner-02-3c750ebc2952.mp3",
+        "start": 96.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "3c750ebc2952fed891d0fea40ec7aec9ee76f459f3ca87f05ec24e4aa2231964"
+      },
+      {
+        "url": "assets/music/diner-03-e8fcf81ead60.mp3",
+        "start": 144.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "e8fcf81ead60946ac9b75457cd75669af279c21d39e31395f9a412d5fc85372c"
+      },
+      {
+        "url": "assets/music/diner-04-f3077d055ea5.mp3",
+        "start": 192.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "f3077d055ea5e560eade4f65e354516875c3cea588acd712d6c663646e92f93b"
+      },
+      {
+        "url": "assets/music/diner-05-dd0d31ad5471.mp3",
+        "start": 240.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "dd0d31ad5471b664620863a7eacf2aa8e3adb79a66013d1e4bc82438f6dd305d"
+      },
+      {
+        "url": "assets/music/diner-06-8d6119493ffd.mp3",
+        "start": 288.0,
+        "duration": 31.541429,
+        "bytes": 505774,
+        "sha256": "8d6119493ffd94e74617d1a458e48f57fe6c7080b326e5f203c3e3a5df49e5ab"
+      }
+    ]
+  },
+  "alley": {
+    "artist": "Hermanos Gutiérrez",
+    "title": "Los Amantes",
+    "duration": 156.842653,
+    "overlap": 0.32,
+    "loudness": "-18 LUFS / -2 dBTP",
+    "source": "User supplied audio",
+    "segments": [
+      {
+        "url": "assets/music/alley-00-af4b5d8cd721.mp3",
+        "start": 0.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "af4b5d8cd72121429a5b87dec3a47a242514548a0188581d13408739f5d6e3a5"
+      },
+      {
+        "url": "assets/music/alley-01-9ddd92bc85c7.mp3",
+        "start": 48.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "9ddd92bc85c73d449c70ebbfba9e841b0e2ecd64aa2f98b6e60992717f942b81"
+      },
+      {
+        "url": "assets/music/alley-02-d75998d7e258.mp3",
+        "start": 96.0,
+        "duration": 48.32,
+        "bytes": 774104,
+        "sha256": "d75998d7e25801ef0a2c4ae65568bb23fd6a19b5cc19d327e38f2649c0d21693"
+      },
+      {
+        "url": "assets/music/alley-03-17363b89ae64.mp3",
+        "start": 144.0,
+        "duration": 12.842653,
+        "bytes": 206515,
+        "sha256": "17363b89ae64b462f6619ab2629ad388786b51ffda5ff9a35008cb0d88304a33"
+      }
+    ]
+  }
+}

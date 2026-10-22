@@ -1,0 +1,4590 @@
+
+===== FILE: .npmrc =====
+audit=false
+fund=false
+update-notifier=false
+
+
+===== FILE: .openai/hosting.json =====
+{
+  "project_id": "appgprj_6ac9c5fdee848191b6199e4eecde90e3",
+  "d1": "DB",
+  "r2": "BUCKET"
+}
+
+
+===== FILE: app/api/assets/[assetId]/route.ts =====
+import { api, getAsset } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+type Context = { params: Promise<{ assetId: string }> };
+
+export async function GET(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return getAsset(request, params.assetId);
+  });
+}
+
+
+===== FILE: app/api/model-options/route.ts =====
+import { env } from 'cloudflare:workers';
+import { modelStatuses } from '@/lib/model-options';
+export const dynamic='force-dynamic';
+export function GET(){return Response.json({services:modelStatuses(env as unknown as Record<string,unknown>),executionAvailable:false},{headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});}
+
+
+===== FILE: app/api/public/[token]/events/route.ts =====
+import { api, addEvent } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+type Context = { params: Promise<{ token: string }> };
+
+export async function POST(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return addEvent(request, params.token);
+  });
+}
+
+
+===== FILE: app/api/public/[token]/feedback/route.ts =====
+import { api, addFeedback } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+type Context = { params: Promise<{ token: string }> };
+
+export async function POST(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return addFeedback(request, params.token);
+  });
+}
+
+
+===== FILE: app/api/public/[token]/route.ts =====
+import { api, getPublicStory } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+type Context = { params: Promise<{ token: string }> };
+
+export async function GET(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return getPublicStory(params.token);
+  });
+}
+
+
+===== FILE: app/api/session/route.ts =====
+import { api, session } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+
+export async function GET(): Promise<Response> {
+  return api(async () => {
+    return session();
+  });
+}
+
+
+===== FILE: app/api/stories/[id]/assets/route.ts =====
+import { api, listAssets, uploadAsset } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+type Context = { params: Promise<{ id: string }> };
+
+export async function GET(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return listAssets(params.id);
+  });
+}
+
+export async function POST(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return uploadAsset(request, params.id);
+  });
+}
+
+
+===== FILE: app/api/stories/[id]/insights/route.ts =====
+import { api, insights } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+type Context = { params: Promise<{ id: string }> };
+
+export async function GET(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return insights(params.id);
+  });
+}
+
+
+===== FILE: app/api/stories/[id]/publish/route.ts =====
+import { api, publishStory, revokePublication } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+type Context = { params: Promise<{ id: string }> };
+
+export async function POST(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return publishStory(request, params.id);
+  });
+}
+
+export async function DELETE(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return revokePublication(request, params.id);
+  });
+}
+
+
+===== FILE: app/api/stories/[id]/route.ts =====
+import { api, getStory, updateStory, deleteStory } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+type Context = { params: Promise<{ id: string }> };
+
+export async function GET(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return getStory(params.id);
+  });
+}
+
+export async function PUT(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return updateStory(request, params.id);
+  });
+}
+
+export async function DELETE(request: Request, context: Context): Promise<Response> {
+  return api(async () => {
+    const params = await context.params;
+    return deleteStory(request, params.id);
+  });
+}
+
+
+===== FILE: app/api/stories/route.ts =====
+import { api, listStories, createStory } from '@/lib/story-service';
+
+export const dynamic = 'force-dynamic';
+
+export async function GET(): Promise<Response> {
+  return api(async () => {
+    return listStories();
+  });
+}
+
+export async function POST(request: Request): Promise<Response> {
+  return api(async () => {
+    return createStory(request);
+  });
+}
+
+
+===== FILE: app/chatgpt-auth.ts =====
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+export type ChatGPTUser = {
+  userId: string;
+  displayName: string;
+  email: string;
+  fullName: string | null;
+};
+
+const USER_ID_HEADER = "oai-authenticated-user-id";
+const USER_EMAIL_HEADER = "oai-authenticated-user-email";
+const USER_FULL_NAME_HEADER = "oai-authenticated-user-full-name";
+const USER_FULL_NAME_ENCODING_HEADER =
+  "oai-authenticated-user-full-name-encoding";
+const PERCENT_ENCODED_UTF8 = "percent-encoded-utf-8";
+const SIGN_IN_PATH = "/signin-with-chatgpt";
+const SIGN_OUT_PATH = "/signout-with-chatgpt";
+const CALLBACK_PATH = "/callback";
+
+export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
+  const requestHeaders = await headers();
+  const userId = requestHeaders.get(USER_ID_HEADER);
+  const email = requestHeaders.get(USER_EMAIL_HEADER);
+  if (!userId || !email) return null;
+
+  const encodedFullName = requestHeaders.get(USER_FULL_NAME_HEADER);
+  const fullName =
+    encodedFullName &&
+    requestHeaders.get(USER_FULL_NAME_ENCODING_HEADER) === PERCENT_ENCODED_UTF8
+      ? safeDecodeURIComponent(encodedFullName)
+      : null;
+
+  return {
+    userId,
+    displayName: fullName ?? email,
+    email,
+    fullName,
+  };
+}
+
+export async function requireChatGPTUser(
+  returnTo: string,
+): Promise<ChatGPTUser> {
+  const user = await getChatGPTUser();
+  if (user) return user;
+
+  redirect(chatGPTSignInPath(returnTo));
+}
+
+export function chatGPTSignInPath(returnTo: string): string {
+  const safeReturnTo = safeRelativeReturnPath(returnTo);
+  return `${SIGN_IN_PATH}?return_to=${encodeURIComponent(safeReturnTo)}`;
+}
+
+export function chatGPTSignOutPath(returnTo = "/"): string {
+  const safeReturnTo = safeRelativeReturnPath(returnTo);
+  return `${SIGN_OUT_PATH}?return_to=${encodeURIComponent(safeReturnTo)}`;
+}
+
+function safeRelativeReturnPath(value: string): string {
+  if (!value.startsWith("/") || value.startsWith("//")) return "/";
+
+  let url: URL;
+  try {
+    url = new URL(value, "https://app.local");
+  } catch {
+    return "/";
+  }
+  if (url.origin !== "https://app.local") return "/";
+  if (isReservedAuthPath(url.pathname)) return "/";
+
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function isReservedAuthPath(pathname: string): boolean {
+  return (
+    pathname === SIGN_IN_PATH ||
+    pathname === SIGN_OUT_PATH ||
+    pathname === CALLBACK_PATH
+  );
+}
+
+function safeDecodeURIComponent(value: string): string | null {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return null;
+  }
+}
+
+
+===== FILE: build/connector-preview-plugin.mjs =====
+import { randomUUID } from "node:crypto";
+import { access, readFile, rename, rm, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { setTimeout as delay } from "node:timers/promises";
+import getRawBody from "raw-body";
+
+const moduleId = "virtual:sites-connector-preview";
+const resolvedId = `\0${moduleId}`;
+const endpoint = "/__sites_connector_preview/invoke";
+const contextEndpoint = "/__sites_connector_preview/context";
+const unavailable = {
+  status: "binding_unavailable",
+  message:
+    "Connected apps need an active agent preview session in this preview.",
+};
+const uncertain = {
+  status: "upstream_error",
+  message:
+    "The app did not return a confirmed result. The action may have completed; check before trying again.",
+};
+
+// A development-only adapter. The shared project directory connects the preview
+// process to its owning agent even when they use different network namespaces.
+export function connectorPreview() {
+  const bridgeToken = randomUUID();
+  let root;
+  let server;
+  async function readSession() {
+    const session = JSON.parse(
+      await readFile(path.join(root, "session.json"), "utf8"),
+    );
+    if (
+      !/^[0-9a-f-]{36}$/.test(session.id) ||
+      (session.expiresAt !== null && !(session.expiresAt > Date.now()))
+    )
+      throw new Error("Session ended");
+    if (
+      !Number.isInteger(session.timeoutMs) ||
+      session.timeoutMs <= 0 ||
+      session.timeoutMs > 2 ** 31 - 1
+    )
+      throw new Error("Invalid session deadline");
+    return session;
+  }
+  return {
+    name: "sites-connector-preview",
+    apply: "serve",
+    config(config) {
+      return {
+        server: {
+          host: config.server?.host ?? "127.0.0.1",
+          strictPort: true,
+          fs: {
+            deny: [
+              ".env",
+              ".env.*",
+              "*.{crt,pem}",
+              "**/.git/**",
+              "**/.sites-runtime/**",
+            ],
+          },
+          watch: { ignored: ["**/.sites-runtime/**"] },
+        },
+      };
+    },
+    configResolved(config) {
+      root = path.join(config.root, ".sites-runtime", "connector-preview");
+    },
+    resolveId(id) {
+      if (id === moduleId) return resolvedId;
+    },
+    load(id, options) {
+      if (id !== resolvedId) return;
+      if (
+        this.environment?.name === "client" ||
+        (!this.environment && !options?.ssr)
+      ) {
+        throw new Error(
+          "Connected apps are only available in Site server routes.",
+        );
+      }
+      // Auxiliary Workers load before Vite starts listening. strictPort keeps
+      // this configured address stable when the server opens its socket.
+      const url = `http://127.0.0.1:${server.config.server.port}${endpoint}`;
+      const contextUrl = `http://127.0.0.1:${server.config.server.port}${contextEndpoint}`;
+      return `export default { async getContext() {
+        try {
+          const response = await fetch(${JSON.stringify(contextUrl)}, {
+            headers: { "X-Sites-Preview": ${JSON.stringify(bridgeToken)} }
+          });
+          return response.json();
+        } catch { return { status: "upstream_error" }; }
+      }, async invoke(connectorId, actionName, args) {
+        const response = await fetch(${JSON.stringify(url)}, {
+          method: "POST", headers: { "Content-Type": "application/json", "X-Sites-Preview": ${JSON.stringify(bridgeToken)} },
+          body: JSON.stringify({connectorId, actionName, arguments: args})
+        });
+        return response.json();
+      } };`;
+    },
+    configureServer(vite) {
+      server = vite;
+      vite.middlewares.use(contextEndpoint, async (req, res) => {
+        res.setHeader("Cache-Control", "no-store");
+        res.setHeader("Content-Type", "application/json");
+        if (
+          req.method !== "GET" ||
+          req.headers["x-sites-preview"] !== bridgeToken
+        ) {
+          res.statusCode = 403;
+          res.end(JSON.stringify(unavailable));
+          return;
+        }
+        try {
+          const session = await readSession();
+          // Preview grants do not establish hosted catalog visibility.
+          if (
+            !Array.isArray(session.connectorIds) ||
+            !session.connectorIds.every((id) => typeof id === "string")
+          )
+            throw new Error("Missing selected connectors");
+          res.end(
+            JSON.stringify({
+              status: "success",
+              connectors: session.connectorIds.map((connectorId) => ({
+                connectorId,
+                policy: "enabled",
+                tools: null,
+              })),
+            }),
+          );
+        } catch {
+          res.end(JSON.stringify({ status: "binding_unavailable" }));
+        }
+      });
+      vite.middlewares.use(endpoint, async (req, res) => {
+        res.setHeader("Cache-Control", "no-store");
+        res.setHeader("Content-Type", "application/json");
+        if (
+          req.method !== "POST" ||
+          req.headers["x-sites-preview"] !== bridgeToken
+        ) {
+          res.statusCode = 403;
+          res.end(JSON.stringify(unavailable));
+          return;
+        }
+        let requestPath;
+        let responsePath;
+        let submitted = false;
+        try {
+          const session = await readSession();
+          const raw = await getRawBody(req, { limit: 65536 });
+          const call = JSON.parse(
+            new TextDecoder("utf-8", { fatal: true }).decode(raw),
+          );
+          const body = JSON.stringify(call);
+          const directory = path.join(root, session.id);
+          const id = randomUUID();
+          requestPath = path.join(directory, `${id}.request`);
+          responsePath = path.join(directory, `${id}.response`);
+          await writeFile(`${requestPath}.tmp`, body, { mode: 0o600 });
+          await rename(`${requestPath}.tmp`, requestPath);
+          submitted = true;
+          // Read the owner's deadline per call, so a restarted session can use
+          // longer provider waits without rebuilding or restarting the Site.
+          const deadline = Math.min(
+            session.expiresAt ?? Infinity,
+            Date.now() + session.timeoutMs + 2000,
+          );
+          while (Date.now() < deadline) {
+            try {
+              res.end(await readFile(responsePath));
+              return;
+            } catch (error) {
+              if (error.code !== "ENOENT") throw error;
+              // Session shutdown removes the mailbox. Stop promptly even when
+              // the configured provider deadline is several minutes away.
+              await access(directory);
+            }
+            await delay(50);
+          }
+          res.end(JSON.stringify(uncertain));
+        } catch {
+          // raw-body pauses oversized requests; drain the remainder so the HTTP
+          // connection can finish without retaining an unread request stream.
+          req.resume();
+          res.end(JSON.stringify(submitted ? uncertain : unavailable));
+        } finally {
+          await Promise.all(
+            [requestPath, requestPath && `${requestPath}.tmp`, responsePath]
+              .filter(Boolean)
+              .map((file) => rm(file, { force: true })),
+          );
+        }
+      });
+    },
+  };
+}
+
+
+===== FILE: build/connector-preview-worker.mjs =====
+import { WorkerEntrypoint } from "cloudflare:workers";
+import binding from "virtual:sites-connector-preview";
+
+// Local-only RPC target. The Site entrypoint scopes it to each request; the Node
+// adapter relays each call to the owning agent.
+export class ConnectorPreview extends WorkerEntrypoint {
+  async getContext() {
+    return binding.getContext?.() ?? { status: "binding_unavailable" };
+  }
+
+  async invoke(connectorId, actionName, args) {
+    return binding.invoke(connectorId, actionName, args);
+  }
+}
+export default { fetch() { return new Response("Not found", { status: 404 }); } };
+
+
+===== FILE: build/sites-vite-plugin.LICENSE =====
+MIT License
+
+Copyright (c) 2026 OpenAI
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+===== FILE: build/sites-vite-plugin.ts =====
+// Vendored from @openai/sites-vite-plugin 0.2.0 (openai/sites#9).
+// See sites-vite-plugin.LICENSE for the upstream MIT license.
+import { access, cp, mkdir, rm } from "node:fs/promises";
+import type { IncomingMessage, ServerResponse } from "node:http";
+import { resolve } from "node:path";
+import type { Plugin } from "vite";
+
+const localUserId = "local_seedy";
+const localEmail = "seedy@sites.test";
+const localFullName = "Seedy";
+const localCookieName = "__sites_local_auth";
+const localHosts = new Set(["localhost", "127.0.0.1", "::1"]);
+const localAddresses = new Set(["127.0.0.1", "::1", "::ffff:127.0.0.1"]);
+const authPaths = new Set([
+  "/signin-with-chatgpt",
+  "/signout-with-chatgpt",
+  "/callback",
+]);
+
+async function exists(path: string): Promise<boolean> {
+  try {
+    await access(path);
+    return true;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return false;
+    }
+    throw error;
+  }
+}
+
+export function sites({ mockAuth = true } = {}): Plugin {
+  let root = process.cwd();
+  let command: "build" | "serve" = "build";
+
+  return {
+    name: "sites",
+    configResolved(config) {
+      root = config.root;
+      command = config.command;
+    },
+    configureServer(server) {
+      if (!mockAuth) return;
+      const secure = Boolean(server.config.server.https);
+
+      server.config.logger.info(`Sites local sign-in: ${localEmail}`);
+      server.middlewares.use((request, response, next) => {
+        for (const name of Object.keys(request.headers)) {
+          if (name.startsWith("oai-authenticated-user-")) {
+            removeHeader(request, name);
+          }
+        }
+
+        let authority: URL;
+        let url: URL;
+        try {
+          authority = new URL(
+            `${secure ? "https" : "http"}://${request.headers.host}`,
+          );
+          url = new URL(request.url ?? "/", authority);
+        } catch {
+          if (authPaths.has((request.url ?? "/").split("?")[0])) {
+            respond(response, 403);
+          } else {
+            next();
+          }
+          return;
+        }
+
+        const hostname = authority.hostname
+          .replace(/^\[|\]$/g, "")
+          .toLowerCase();
+        if (
+          !localHosts.has(hostname) ||
+          !localAddresses.has(request.socket.remoteAddress ?? "") ||
+          url.origin !== authority.origin
+        ) {
+          if (authPaths.has(url.pathname)) respond(response, 403);
+          else next();
+          return;
+        }
+
+        const cookies = (request.headers.cookie ?? "")
+          .split(";")
+          .map((cookie) => cookie.trim())
+          .filter(Boolean);
+        const signInCookies = cookies
+          .filter((cookie) => cookie.startsWith(`${localCookieName}=`))
+          .map((cookie) => cookie.slice(localCookieName.length + 1));
+        const applicationCookies = cookies.filter(
+          (cookie) => !cookie.startsWith(`${localCookieName}=`),
+        );
+        if (applicationCookies.length !== cookies.length) {
+          removeHeader(request, "cookie");
+          if (applicationCookies.length) {
+            setHeader(request, "cookie", applicationCookies.join("; "));
+          }
+        }
+
+        if (url.pathname === "/callback") {
+          respond(response, 501);
+          return;
+        }
+
+        const signIn = url.pathname === "/signin-with-chatgpt";
+        const signOut = url.pathname === "/signout-with-chatgpt";
+        if (!signIn && !signOut) {
+          if (signInCookies.length === 1 && signInCookies[0] === "1") {
+            setHeader(request, "oai-authenticated-user-id", localUserId);
+            setHeader(request, "oai-authenticated-user-email", localEmail);
+            setHeader(
+              request,
+              "oai-authenticated-user-full-name",
+              localFullName,
+            );
+            setHeader(
+              request,
+              "oai-authenticated-user-full-name-encoding",
+              "percent-encoded-utf-8",
+            );
+          }
+          next();
+          return;
+        }
+
+        if (
+          (request.headers.origin && request.headers.origin !== url.origin) ||
+          request.headers["sec-fetch-site"] === "cross-site"
+        ) {
+          respond(response, 403);
+          return;
+        }
+
+        if (
+          request.headers["next-router-prefetch"] !== undefined ||
+          request.headers["x-middleware-prefetch"] === "1" ||
+          [request.headers.purpose, request.headers["sec-purpose"]].some(
+            (value) =>
+              typeof value === "string" &&
+              value
+                .split(/[;,]/)
+                .some((part) => part.trim().toLowerCase() === "prefetch"),
+          )
+        ) {
+          respond(response, 204);
+          return;
+        }
+
+        if (
+          request.method !== "GET" &&
+          (!signOut || request.method !== "POST")
+        ) {
+          response.setHeader("Allow", signIn ? "GET" : "GET, POST");
+          respond(response, 405);
+          return;
+        }
+
+        response.statusCode = request.method === "POST" ? 303 : 302;
+        response.setHeader("Cache-Control", "private, no-store");
+        response.setHeader(
+          "Location",
+          safeReturn(url.searchParams.get("return_to")),
+        );
+        response.setHeader(
+          "Set-Cookie",
+          `${localCookieName}=${signIn ? "1" : ""}; Path=/; ${
+            signOut ? "Max-Age=0; " : ""
+          }HttpOnly; SameSite=Lax${secure ? "; Secure" : ""}`,
+        );
+        response.end();
+      });
+    },
+    async closeBundle() {
+      if (command !== "build") return;
+
+      const outputDirectory = resolve(root, "dist", ".openai");
+      const hostingConfig = resolve(root, ".openai", "hosting.json");
+      const drizzleSource = resolve(root, "drizzle");
+
+      await rm(outputDirectory, { recursive: true, force: true });
+      await mkdir(outputDirectory, { recursive: true });
+
+      await cp(hostingConfig, resolve(outputDirectory, "hosting.json"));
+      if (await exists(drizzleSource)) {
+        await cp(drizzleSource, resolve(outputDirectory, "drizzle"), {
+          recursive: true,
+        });
+      }
+    },
+  };
+}
+
+function removeHeader(request: IncomingMessage, name: string): void {
+  delete request.headers[name];
+  for (let index = request.rawHeaders.length - 2; index >= 0; index -= 2) {
+    if (request.rawHeaders[index]?.toLowerCase() === name) {
+      request.rawHeaders.splice(index, 2);
+    }
+  }
+}
+
+function setHeader(
+  request: IncomingMessage,
+  name: string,
+  value: string,
+): void {
+  removeHeader(request, name);
+  request.headers[name] = value;
+  request.rawHeaders.push(name, value);
+}
+
+function respond(response: ServerResponse, status: number): void {
+  response.statusCode = status;
+  response.setHeader("Cache-Control", "private, no-store");
+  response.end();
+}
+
+function safeReturn(value: string | null): string {
+  if (!value?.startsWith("/") || value.startsWith("//")) return "/";
+
+  try {
+    const url = new URL(value, "http://localhost");
+    if (url.origin !== "http://localhost" || authPaths.has(url.pathname)) {
+      return "/";
+    }
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return "/";
+  }
+}
+
+
+===== FILE: build/sites-worker.ts =====
+import handler from "vinext/server/fetch-handler";
+import { runWithConnectorBinding } from "../lib/connector-context";
+import type { ConnectorBinding } from "../lib/connector-contract.mjs";
+
+export default {
+  fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {
+    let binding = ctx.props?.CONNECTORS;
+    // Local preview emulates the same request-scoped capability. This branch and
+    // the auxiliary service binding are absent from production builds.
+    if (import.meta.env.DEV && !binding && env.CONNECTORS) {
+      const preview = env.CONNECTORS;
+      const expiresAt = Date.now() + 60_000;
+      binding = {
+        async getContext() {
+          if (Date.now() >= expiresAt) return { status: "request_context_expired" };
+          return preview.getContext?.() ?? { status: "binding_unavailable" };
+        },
+        async invoke(connectorId, actionName, args) {
+          if (Date.now() >= expiresAt) {
+            return { status: "request_context_expired", message: "This request has expired. Please try again." };
+          }
+          return preview.invoke(connectorId, actionName, args);
+        },
+      };
+    }
+    return runWithConnectorBinding(binding, () => handler.fetch(request, env, ctx));
+  },
+};
+
+
+===== FILE: cloudflare-env.d.ts =====
+declare namespace Cloudflare {
+  interface Env {
+    DB?: D1Database;
+    BUCKET?: R2Bucket;
+  }
+}
+
+
+===== FILE: components.json =====
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {}
+}
+
+
+===== FILE: db/index.ts =====
+import { env } from "cloudflare:workers";
+import { drizzle } from "drizzle-orm/d1";
+import * as schema from "./schema";
+
+export function getDb() {
+  if (!env.DB) {
+    throw new Error(
+      "Cloudflare D1 binding `DB` is unavailable. Set the `d1` field in .openai/hosting.json to `DB` or let your control plane inject the real binding values before using the database."
+    );
+  }
+
+  return drizzle(env.DB, { schema });
+}
+
+
+===== FILE: db/schema.ts =====
+import { sqliteTable, text, integer, index, uniqueIndex } from 'drizzle-orm/sqlite-core';
+
+export const stories = sqliteTable('stories', {
+  id: text('id').primaryKey(),
+  ownerId: text('owner_id').notNull(),
+  data: text('data').notNull(),
+  revision: integer('revision').notNull().default(1),
+  createdAt: integer('created_at').notNull(),
+  updatedAt: integer('updated_at').notNull(),
+}, table => [index('stories_owner_updated').on(table.ownerId, table.updatedAt)]);
+
+export const publications = sqliteTable('publications', {
+  token: text('token').primaryKey(),
+  storyId: text('story_id').notNull().references(() => stories.id, { onDelete: 'cascade' }),
+  data: text('data').notNull(),
+  sourceRevision: integer('source_revision').notNull(),
+  publishedAt: integer('published_at').notNull(),
+  active: integer('active').notNull().default(1),
+}, table => [uniqueIndex('publications_story_unique').on(table.storyId)]);
+
+export const assets = sqliteTable('story_assets', {
+  id: text('id').primaryKey(),
+  storyId: text('story_id').notNull().references(() => stories.id, { onDelete: 'cascade' }),
+  key: text('object_key').notNull(),
+  name: text('name').notNull(),
+  type: text('type').notNull(),
+  size: integer('size').notNull(),
+  ready: integer('ready').notNull().default(0),
+  createdAt: integer('created_at').notNull(),
+}, table => [index('assets_story').on(table.storyId)]);
+
+export const events = sqliteTable('story_events', {
+  id: text('id').primaryKey(),
+  storyId: text('story_id').notNull().references(() => stories.id, { onDelete: 'cascade' }),
+  publicationTime: integer('publication_time').notNull(),
+  sessionHash: text('session_hash').notNull(),
+  event: text('event').notNull(),
+  chapterId: text('chapter_id').notNull().default(''),
+  createdAt: integer('created_at').notNull(),
+}, table => [
+  uniqueIndex('events_dedup').on(table.storyId, table.publicationTime, table.sessionHash, table.event, table.chapterId),
+  index('events_publication').on(table.storyId, table.publicationTime),
+]);
+
+export const feedback = sqliteTable('story_feedback', {
+  id: text('id').primaryKey(),
+  storyId: text('story_id').notNull().references(() => stories.id, { onDelete: 'cascade' }),
+  publicationTime: integer('publication_time').notNull(),
+  sessionHash: text('session_hash').notNull(),
+  choice: text('choice').notNull(),
+  note: text('note').notNull().default(''),
+  createdAt: integer('created_at').notNull(),
+}, table => [
+  uniqueIndex('feedback_dedup').on(table.storyId, table.publicationTime, table.sessionHash),
+  index('feedback_publication').on(table.storyId, table.publicationTime),
+]);
+
+
+===== FILE: drizzle.config.ts =====
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  out: "./drizzle",
+  schema: "./db/schema.ts",
+  dialect: "sqlite",
+});
+
+
+===== FILE: drizzle/0000_military_nightcrawler.sql =====
+CREATE TABLE `story_assets` (
+	`id` text PRIMARY KEY NOT NULL,
+	`story_id` text NOT NULL,
+	`object_key` text NOT NULL,
+	`name` text NOT NULL,
+	`type` text NOT NULL,
+	`size` integer NOT NULL,
+	`ready` integer DEFAULT 0 NOT NULL,
+	`created_at` integer NOT NULL,
+	FOREIGN KEY (`story_id`) REFERENCES `stories`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE INDEX `assets_story` ON `story_assets` (`story_id`);--> statement-breakpoint
+CREATE TABLE `story_events` (
+	`id` text PRIMARY KEY NOT NULL,
+	`story_id` text NOT NULL,
+	`publication_time` integer NOT NULL,
+	`session_hash` text NOT NULL,
+	`event` text NOT NULL,
+	`chapter_id` text DEFAULT '' NOT NULL,
+	`created_at` integer NOT NULL,
+	FOREIGN KEY (`story_id`) REFERENCES `stories`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `events_dedup` ON `story_events` (`story_id`,`publication_time`,`session_hash`,`event`,`chapter_id`);--> statement-breakpoint
+CREATE INDEX `events_publication` ON `story_events` (`story_id`,`publication_time`);--> statement-breakpoint
+CREATE TABLE `story_feedback` (
+	`id` text PRIMARY KEY NOT NULL,
+	`story_id` text NOT NULL,
+	`publication_time` integer NOT NULL,
+	`session_hash` text NOT NULL,
+	`choice` text NOT NULL,
+	`note` text DEFAULT '' NOT NULL,
+	`created_at` integer NOT NULL,
+	FOREIGN KEY (`story_id`) REFERENCES `stories`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `feedback_dedup` ON `story_feedback` (`story_id`,`publication_time`,`session_hash`);--> statement-breakpoint
+CREATE INDEX `feedback_publication` ON `story_feedback` (`story_id`,`publication_time`);--> statement-breakpoint
+CREATE TABLE `publications` (
+	`token` text PRIMARY KEY NOT NULL,
+	`story_id` text NOT NULL,
+	`data` text NOT NULL,
+	`source_revision` integer NOT NULL,
+	`published_at` integer NOT NULL,
+	`active` integer DEFAULT 1 NOT NULL,
+	FOREIGN KEY (`story_id`) REFERENCES `stories`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `publications_story_unique` ON `publications` (`story_id`);--> statement-breakpoint
+CREATE TABLE `stories` (
+	`id` text PRIMARY KEY NOT NULL,
+	`owner_id` text NOT NULL,
+	`data` text NOT NULL,
+	`revision` integer DEFAULT 1 NOT NULL,
+	`created_at` integer NOT NULL,
+	`updated_at` integer NOT NULL
+);
+--> statement-breakpoint
+CREATE INDEX `stories_owner_updated` ON `stories` (`owner_id`,`updated_at`);
+
+===== FILE: drizzle/meta/0000_snapshot.json =====
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "97184e75-a916-4483-af09-d5bbbcd99e81",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "story_assets": {
+      "name": "story_assets",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "story_id": {
+          "name": "story_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "object_key": {
+          "name": "object_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "size": {
+          "name": "size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ready": {
+          "name": "ready",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "assets_story": {
+          "name": "assets_story",
+          "columns": [
+            "story_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "story_assets_story_id_stories_id_fk": {
+          "name": "story_assets_story_id_stories_id_fk",
+          "tableFrom": "story_assets",
+          "tableTo": "stories",
+          "columnsFrom": [
+            "story_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "story_events": {
+      "name": "story_events",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "story_id": {
+          "name": "story_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "publication_time": {
+          "name": "publication_time",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "session_hash": {
+          "name": "session_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "event": {
+          "name": "event",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "chapter_id": {
+          "name": "chapter_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "''"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "events_dedup": {
+          "name": "events_dedup",
+          "columns": [
+            "story_id",
+            "publication_time",
+            "session_hash",
+            "event",
+            "chapter_id"
+          ],
+          "isUnique": true
+        },
+        "events_publication": {
+          "name": "events_publication",
+          "columns": [
+            "story_id",
+            "publication_time"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "story_events_story_id_stories_id_fk": {
+          "name": "story_events_story_id_stories_id_fk",
+          "tableFrom": "story_events",
+          "tableTo": "stories",
+          "columnsFrom": [
+            "story_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "story_feedback": {
+      "name": "story_feedback",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "story_id": {
+          "name": "story_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "publication_time": {
+          "name": "publication_time",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "session_hash": {
+          "name": "session_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "choice": {
+          "name": "choice",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "''"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "feedback_dedup": {
+          "name": "feedback_dedup",
+          "columns": [
+            "story_id",
+            "publication_time",
+            "session_hash"
+          ],
+          "isUnique": true
+        },
+        "feedback_publication": {
+          "name": "feedback_publication",
+          "columns": [
+            "story_id",
+            "publication_time"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "story_feedback_story_id_stories_id_fk": {
+          "name": "story_feedback_story_id_stories_id_fk",
+          "tableFrom": "story_feedback",
+          "tableTo": "stories",
+          "columnsFrom": [
+            "story_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "publications": {
+      "name": "publications",
+      "columns": {
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "story_id": {
+          "name": "story_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data": {
+          "name": "data",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "source_revision": {
+          "name": "source_revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "published_at": {
+          "name": "published_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "active": {
+          "name": "active",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "publications_story_unique": {
+          "name": "publications_story_unique",
+          "columns": [
+            "story_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "publications_story_id_stories_id_fk": {
+          "name": "publications_story_id_stories_id_fk",
+          "tableFrom": "publications",
+          "tableTo": "stories",
+          "columnsFrom": [
+            "story_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "stories": {
+      "name": "stories",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data": {
+          "name": "data",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "revision": {
+          "name": "revision",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "stories_owner_updated": {
+          "name": "stories_owner_updated",
+          "columns": [
+            "owner_id",
+            "updated_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}
+
+===== FILE: drizzle/meta/_journal.json =====
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1791963814459,
+      "tag": "0000_military_nightcrawler",
+      "breakpoints": true
+    }
+  ]
+}
+
+===== FILE: eslint.config.mjs =====
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+  {
+    files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
+    rules: {
+      // These files are vendored verbatim from shadcn@4.17.0. Keep the
+      // registry source intact while applying the stricter rules to Site code.
+      "@typescript-eslint/no-unused-vars": "off",
+      "react-hooks/purity": "off",
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
+]);
+
+export default eslintConfig;
+
+
+===== FILE: lib/connector-context.ts =====
+import { AsyncLocalStorage } from "node:async_hooks";
+import type { ConnectorBinding } from "./connector-contract.mjs";
+
+// Capture the trusted capability before Vinext derives its revalidation context,
+// which does not retain custom execution-context props. Never share across requests.
+const bindings = new AsyncLocalStorage<ConnectorBinding | undefined>();
+
+export function runWithConnectorBinding<T>(
+  binding: ConnectorBinding | undefined,
+  run: () => T,
+): T {
+  return bindings.run(binding, run);
+}
+
+export function getConnectorBinding(): ConnectorBinding | undefined {
+  return bindings.getStore();
+}
+
+
+===== FILE: lib/connector-contract.mts =====
+export type Json =
+  | null
+  | boolean
+  | number
+  | string
+  | Json[]
+  | { [key: string]: Json };
+
+export type ConnectorFailureStatus =
+  | "invalid_request"
+  | "request_context_expired"
+  | "reauthentication_required"
+  | "connector_access_disabled"
+  | "tool_not_found"
+  | "tool_not_allowed"
+  | "rate_limited"
+  | "tool_error"
+  | "upstream_error"
+  | "internal_error"
+  // Starter-only: no runtime capability or active local preview session.
+  | "binding_unavailable";
+
+export type ConnectorContent = {
+  content: Array<{ type: string; [key: string]: Json }>;
+  structuredContent?: Json;
+};
+
+// Matches Sites Dispatch's explicit invocation outcome, plus binding_unavailable.
+export type ConnectorResult =
+  | {
+      status: "success";
+      result: ConnectorContent;
+      requestId?: string;
+    }
+  | {
+      status: ConnectorFailureStatus;
+      message: string;
+      requestId?: string;
+      retryAfterMs?: number;
+      result?: ConnectorContent;
+    };
+
+/** A server-side binding supplied by the runtime, never by a browser. */
+export type ConnectorBinding = {
+  invoke(
+    connectorId: string,
+    actionName: string,
+    args: { [key: string]: Json },
+  ): Promise<ConnectorResult>;
+  getContext?(): Promise<ConnectorContext>;
+};
+
+/** Site policy and cached tool metadata, not authentication or provider health. */
+export type ConnectorContext =
+  | {
+      status: "success";
+      connectors: Array<{
+        connectorId: string;
+        policy: "enabled" | "disabled";
+        tools: Array<{
+          actionName: string;
+          description?: string;
+          inputSchema: Record<string, Json>;
+        }> | null;
+      }>;
+    }
+  | {
+      status:
+        | "request_context_expired"
+        | "internal_error"
+        | "binding_unavailable"
+        | "upstream_error";
+    };
+
+/** Use in a Site server route. Connection selection and credentials stay in the host. */
+export function createConnectors(binding: ConnectorBinding | undefined) {
+  return {
+    async getContext(): Promise<ConnectorContext> {
+      if (typeof window !== "undefined") {
+        throw new Error(
+          "Connected apps are only available in Site server routes.",
+        );
+      }
+      try {
+        if (!binding?.getContext) return { status: "binding_unavailable" };
+        const context = await binding.getContext();
+        if (
+          context?.status === "success" &&
+          Array.isArray(context.connectors)
+        ) {
+          return {
+            status: "success",
+            connectors: context.connectors.map((connector) => {
+              if (
+                !connector ||
+                typeof connector.connectorId !== "string" ||
+                !["enabled", "disabled"].includes(connector.policy) ||
+                (connector.tools !== null && !Array.isArray(connector.tools))
+              ) {
+                throw new Error("Invalid connector context");
+              }
+              return {
+                connectorId: connector.connectorId,
+                policy: connector.policy,
+                tools:
+                  connector.tools?.map((tool) => {
+                    if (
+                      !tool ||
+                      typeof tool.actionName !== "string" ||
+                      (tool.description !== undefined &&
+                        typeof tool.description !== "string") ||
+                      !tool.inputSchema ||
+                      typeof tool.inputSchema !== "object" ||
+                      Array.isArray(tool.inputSchema)
+                    ) {
+                      throw new Error("Invalid connector tool");
+                    }
+                    return {
+                      actionName: tool.actionName,
+                      ...(tool.description !== undefined
+                        ? { description: tool.description }
+                        : {}),
+                      inputSchema: tool.inputSchema,
+                    };
+                  }) ?? null,
+              };
+            }),
+          };
+        }
+        switch (context?.status) {
+          case "request_context_expired":
+          case "internal_error":
+          case "binding_unavailable":
+          case "upstream_error":
+            return { status: context.status };
+          default:
+            return { status: "upstream_error" };
+        }
+      } catch {
+        return { status: "upstream_error" };
+      }
+    },
+    async invoke(
+      connectorId: string,
+      actionName: string,
+      args: { [key: string]: Json },
+    ): Promise<ConnectorResult> {
+      if (typeof window !== "undefined") {
+        throw new Error(
+          "Connected apps are only available in Site server routes.",
+        );
+      }
+      if (!binding) {
+        return {
+          status: "binding_unavailable",
+          message:
+            "This runtime does not provide connected apps for this request.",
+        };
+      }
+      try {
+        // Preserve the host's status, message, result and optional diagnostics.
+        // Do not replay a call after a transport failure: it may have completed.
+        return await binding.invoke(connectorId, actionName, args);
+      } catch {
+        return {
+          status: "upstream_error",
+          message:
+            "The app did not return a confirmed result. The action may have completed; check before trying again.",
+        };
+      }
+    },
+  };
+}
+
+
+===== FILE: lib/connector-errors.mts =====
+import { z } from "zod/v4";
+
+/** Validate and project runtime results onto the public connector response. */
+export function connectorResponse(result: unknown): Response {
+  try {
+    // Keep server-only parsing lazy so client recovery UI can tree-shake it out.
+    const requestId = z
+      .string()
+      .regex(/^[A-Za-z0-9._:-]{1,128}$/)
+      .optional()
+      .catch(undefined);
+    const envelope = {
+      error: z.never().optional(),
+      content: z.never().optional(),
+      structuredContent: z.never().optional(),
+      isError: z.never().optional(),
+      requestId,
+    };
+    const content = z.object({
+      content: z.array(z.object({ type: z.string() }).catchall(z.json())),
+      structuredContent: z.json().optional(),
+      isError: z.never().optional(),
+      error: z.never().optional(),
+    });
+    const failure = z.object({
+      ...envelope,
+      status: z
+        .string()
+        .min(1)
+        .refine((value) => value !== "success"),
+      message: z.string().min(1),
+      retryAfterMs: z.number().int().nonnegative().safe().optional(),
+      result: content.optional(),
+    });
+    const success = z.object({
+      ...envelope,
+      status: z.literal("success"),
+      result: content,
+      message: z.never().optional(),
+      retryAfterMs: z.never().optional(),
+    });
+    const schema =
+      result !== null &&
+      typeof result === "object" &&
+      "status" in result &&
+      result.status === "success"
+        ? success
+        : failure;
+    const parsed = schema.safeParse(result);
+    if (parsed.success) {
+      // As in the binding contract, JSON status determines the outcome.
+      return Response.json(parsed.data, {
+        headers: { "Cache-Control": "private, no-store" },
+      });
+    }
+  } catch {
+    // Cyclic or otherwise non-serializable runtime values are also unconfirmed.
+  }
+  return Response.json(
+    {
+      status: "upstream_error",
+      message:
+        "The app did not return a confirmed result. The action may have completed; check before trying again.",
+    },
+    { status: 502, headers: { "Cache-Control": "private, no-store" } },
+  );
+}
+
+/** Presentation only. The caller supplies the starter's server-generated SIWC URL. */
+export function connectorErrorRecovery(
+  error: { status: string; message: string },
+  connectorName: string,
+  reconnectHref: string,
+): { message: string; action?: { label: string; href: string } } {
+  if (error.status === "reauthentication_required") {
+    return {
+      message: error.message,
+      action: { label: `Connect ${connectorName}`, href: reconnectHref },
+    };
+  }
+  // Other outcomes do not prove that consent is missing or that replay is safe.
+  return { message: error.message };
+}
+
+
+===== FILE: lib/connector-preview.d.ts =====
+declare module "virtual:sites-connector-preview" {
+  const binding: import("./connector-contract.mjs").ConnectorBinding;
+  export default binding;
+}
+
+// Only the local preview uses an environment binding. Hosted Sites receive the
+// request-scoped capability through ctx.props.CONNECTORS in sites-worker.ts.
+declare namespace Cloudflare {
+  interface Env {
+    CONNECTORS?: import("./connector-contract.mjs").ConnectorBinding;
+  }
+}
+
+
+===== FILE: lib/connectors.ts =====
+import { createConnectors } from "./connector-contract.mjs";
+import { getConnectorBinding } from "./connector-context";
+
+/** Keep invocation context on this request; never cache it across visitors. */
+export function connectorsForRequest() {
+  return createConnectors(getConnectorBinding());
+}
+export type {
+  ConnectorContext,
+  ConnectorResult,
+  ConnectorFailureStatus,
+  Json,
+} from "./connector-contract.mjs";
+
+
+===== FILE: lib/story-service.ts =====
+import { env } from 'cloudflare:workers';
+import { getChatGPTUser, type ChatGPTUser } from '../app/chatgpt-auth';
+import { StorySchema, type Story, type StoryRecord } from './story-model';
+import { SCENES } from './scene-catalog';
+import { z } from 'zod';
+
+type StoryRow = { id: string; owner_id: string; data: string; revision: number; created_at: number; updated_at: number; token?: string | null; published_at?: number | null };
+type PublicationRow = { token: string; story_id: string; data: string; source_revision: number; published_at: number; active: number };
+type AssetRow = { id: string; story_id: string; object_key: string; name: string; type: string; size: number; ready: number; created_at: number };
+export type StoryAsset = { id: string; name: string; type: string; size: number; url: string };
+
+export class ApiError extends Error {
+  constructor(public status: number, public code: string, message: string) { super(message); }
+}
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const TOKEN = /^[a-f0-9]{32}$/;
+const JSON_LIMIT = 160 * 1024;
+const MAX_UPLOAD = 12 * 1024 * 1024;
+const STORY_SELECT = `SELECT s.*, p.token, p.published_at FROM stories s LEFT JOIN publications p ON p.story_id=s.id AND p.active=1`;
+const revisionSchema = z.number().int().min(1).max(2147483647);
+const eventSchema = z.object({ event: z.enum(['start', 'chapter', 'complete']), sessionId: z.string().regex(UUID), chapterId: z.string().min(1).max(80).optional(), publishedAt: z.number().int().positive().optional() }).strict();
+const feedbackSchema = z.object({ sessionId: z.string().regex(UUID), choice: z.enum(['moved', 'clear', 'confused']), note: z.string().max(500).default(''), publishedAt: z.number().int().positive().optional() }).strict();
+
+export function json(data: unknown, status = 200): Response {
+  return Response.json(data, { status, headers: { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
+}
+export async function api(action: () => Promise<Response>): Promise<Response> {
+  try { return await action(); }
+  catch (error) {
+    if (error instanceof ApiError) return json({ error: error.code, message: error.message }, error.status);
+    if (error instanceof z.ZodError) return json({ error: 'invalid_input', message: '内容格式不正确，请检查章节、镜头、文字和时长。' }, 400);
+    console.error('Story API request failed', error instanceof Error ? error.message : 'unknown error');
+    return json({ error: 'server_error', message: '暂时无法完成操作，请稍后重试。' }, 500);
+  }
+}
+export function sameOrigin(request: Request): void {
+  const origin = request.headers.get('origin');
+  if (!origin || origin !== new URL(request.url).origin || request.headers.get('sec-fetch-site') === 'cross-site') {
+    throw new ApiError(403, 'origin_rejected', '请在本站页面完成此操作。');
+  }
+}
+export async function user(): Promise<ChatGPTUser> {
+  const value = await getChatGPTUser();
+  if (!value) throw new ApiError(401, 'sign_in_required', '请先使用 ChatGPT 登录，再保存自己的作品。');
+  return value;
+}
+function database(): D1Database {
+  if (!env.DB) throw new ApiError(503, 'storage_unavailable', '作品存储暂时不可用，请稍后重试。');
+  return env.DB;
+}
+function bucket(): R2Bucket {
+  if (!env.BUCKET) throw new ApiError(503, 'storage_unavailable', '文件存储暂时不可用，请稍后重试。');
+  return env.BUCKET;
+}
+function validId(id: string): void { if (!UUID.test(id)) throw new ApiError(404, 'not_found', '找不到这篇作品或文件。'); }
+function validToken(token: string): void { if (!TOKEN.test(token)) throw new ApiError(404, 'not_found', '这个观看链接不存在，或作者已经撤销。'); }
+export async function limitedBody(request: Request, limit: number): Promise<Uint8Array> {
+  const declared = Number(request.headers.get('content-length'));
+  if (Number.isFinite(declared) && declared > limit) throw new ApiError(413, 'too_large', '上传内容超出大小限制。');
+  if (!request.body) throw new ApiError(400, 'empty_body', '请提供要保存的内容。');
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let length = 0;
+  for (;;) {
+    const result = await reader.read();
+    if (result.done) break;
+    length += result.value.byteLength;
+    if (length > limit) { await reader.cancel(); throw new ApiError(413, 'too_large', '上传内容超出大小限制。'); }
+    chunks.push(result.value);
+  }
+  const bytes = new Uint8Array(length);
+  let offset = 0;
+  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+  return bytes;
+}
+export async function readJson(request: Request): Promise<unknown> {
+  if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) throw new ApiError(415, 'invalid_type', '请发送 JSON 内容。');
+  try { return JSON.parse(new TextDecoder().decode(await limitedBody(request, JSON_LIMIT))); }
+  catch (error) { if (error instanceof ApiError) throw error; throw new ApiError(400, 'invalid_json', '提交内容无法读取，请重试。'); }
+}
+export function validateStory(input: unknown): Story {
+  const data = StorySchema.parse(input);
+  const ids = new Set<string>();
+  for (const chapter of data.chapters) {
+    if (ids.has(chapter.id)) throw new ApiError(400, 'duplicate_chapter', '章节编号不能重复。');
+    ids.add(chapter.id);
+    const allowed = SCENES.find(scene => scene.id === chapter.scene)!.shots.map(shot => shot.id as string);
+    const beats = new Set<string>();
+    for (const beat of chapter.beats) {
+      if (beats.has(beat.id)) throw new ApiError(400, 'duplicate_beat', '同一章节的台词编号不能重复。');
+      beats.add(beat.id);
+      if (!allowed.includes(beat.shot)) throw new ApiError(400, 'invalid_shot', '所选机位不属于这个场景。');
+    }
+    if (chapter.sound === 'upload' && !chapter.audioAssetId) throw new ApiError(400, 'audio_required', '请先上传配乐，或选择场景环境声。');
+  }
+  return data;
+}
+export function referencedAssetIds(data: Story): Set<string> {
+  return new Set(data.chapters.flatMap(chapter => [chapter.photoAssetId, chapter.audioAssetId]).filter((id): id is string => !!id));
+}
+function record(row: StoryRow): StoryRecord {
+  return { id: row.id, data: JSON.parse(row.data), revision: row.revision, createdAt: row.created_at, updatedAt: row.updated_at,
+    publication: row.token && row.published_at ? { token: row.token, publishedAt: row.published_at } : null };
+}
+async function owned(id: string, ownerId: string): Promise<StoryRow> {
+  validId(id);
+  const row = await database().prepare(`${STORY_SELECT} WHERE s.id=? AND s.owner_id=?`).bind(id, ownerId).first<StoryRow>();
+  if (!row) throw new ApiError(404, 'not_found', '找不到这篇作品。');
+  return row;
+}
+async function activePublication(token: string): Promise<PublicationRow> {
+  validToken(token);
+  const row = await database().prepare('SELECT * FROM publications WHERE token=? AND active=1').bind(token).first<PublicationRow>();
+  if (!row) throw new ApiError(404, 'not_found', '这个观看链接不存在，或作者已经撤销。');
+  return row;
+}
+async function verifyAssets(id: string, data: Story): Promise<void> {
+  const references = referencedAssetIds(data);
+  if (!references.size) return;
+  const rows = (await database().prepare('SELECT * FROM story_assets WHERE story_id=? AND ready=1').bind(id).all<AssetRow>()).results;
+  for (const chapter of data.chapters) {
+    for (const [assetId, kind] of [[chapter.photoAssetId, 'image/'], [chapter.audioAssetId, 'audio/']] as const) {
+      if (assetId && !rows.some(asset => asset.id === assetId && asset.type.startsWith(kind))) {
+        throw new ApiError(400, 'invalid_asset', '素材不存在、未上传完成，或不属于这篇作品。');
+      }
+    }
+  }
+}
+function conflict(): never { throw new ApiError(409, 'revision_conflict', '另一处已经更新这篇作品。请重新载入后再修改；你当前的内容仍保留在编辑器中。'); }
+function assetRecord(row: AssetRow): StoryAsset { return { id: row.id, name: row.name, type: row.type, size: row.size, url: `/api/assets/${row.id}` }; }
+
+export async function session(): Promise<Response> {
+  const value = await getChatGPTUser();
+  return json({ user: value ? { id: value.userId, name: value.displayName, email: value.email } : null });
+}
+export async function listStories(): Promise<Response> {
+  const owner = await user();
+  const result = await database().prepare(`${STORY_SELECT} WHERE s.owner_id=? ORDER BY s.updated_at DESC LIMIT 100`).bind(owner.userId).all<StoryRow>();
+  return json({ stories: result.results.map(record) });
+}
+export async function createStory(request: Request): Promise<Response> {
+  sameOrigin(request);
+  const owner = await user();
+  const body = z.object({ data: z.unknown() }).strict().parse(await readJson(request));
+  const data = validateStory(body.data);
+  if (referencedAssetIds(data).size) throw new ApiError(400, 'invalid_asset', '先建立作品，再上传这篇作品的素材。');
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  const result = await database().prepare('INSERT INTO stories(id,owner_id,data,revision,created_at,updated_at) SELECT ?,?,?,1,?,? WHERE (SELECT COUNT(*) FROM stories WHERE owner_id=?) < 100')
+    .bind(id, owner.userId, JSON.stringify(data), now, now, owner.userId).run();
+  if (!result.meta.changes) throw new ApiError(429, 'story_limit', '每个账户最多保存 100 篇作品，请整理旧作品后再创建。');
+  return json({ story: record({ id, owner_id: owner.userId, data: JSON.stringify(data), revision: 1, created_at: now, updated_at: now }) }, 201);
+}
+export async function getStory(id: string): Promise<Response> {
+  const owner = await user();
+  return json({ story: record(await owned(id, owner.userId)) });
+}
+export async function updateStory(request: Request, id: string): Promise<Response> {
+  sameOrigin(request);
+  const owner = await user();
+  const existing = await owned(id, owner.userId);
+  const body = z.object({ data: z.unknown(), revision: revisionSchema }).strict().parse(await readJson(request));
+  if (existing.revision !== body.revision) conflict();
+  const data = validateStory(body.data);
+  await verifyAssets(id, data);
+  const result = await database().prepare('UPDATE stories SET data=?,revision=revision+1,updated_at=? WHERE id=? AND owner_id=? AND revision=?')
+    .bind(JSON.stringify(data), Date.now(), id, owner.userId, body.revision).run();
+  if (!result.meta.changes) conflict();
+  return json({ story: record(await owned(id, owner.userId)) });
+}
+export async function deleteStory(request: Request, id: string): Promise<Response> {
+  sameOrigin(request);
+  const owner = await user();
+  await owned(id, owner.userId);
+  const keys = (await database().prepare('SELECT object_key FROM story_assets WHERE story_id=?').bind(id).all<{object_key: string}>()).results.map(value => value.object_key);
+  await database().batch([
+    database().prepare('DELETE FROM story_events WHERE story_id=?').bind(id),
+    database().prepare('DELETE FROM story_feedback WHERE story_id=?').bind(id),
+    database().prepare('DELETE FROM publications WHERE story_id=?').bind(id),
+    database().prepare('DELETE FROM story_assets WHERE story_id=?').bind(id),
+    database().prepare('DELETE FROM stories WHERE id=? AND owner_id=?').bind(id, owner.userId),
+  ]);
+  if (keys.length) await bucket().delete(keys);
+  return json({ ok: true });
+}
+export async function publishStory(request: Request, id: string): Promise<Response> {
+  sameOrigin(request);
+  const owner = await user();
+  const existing = await owned(id, owner.userId);
+  const body = z.object({ revision: revisionSchema }).strict().parse(await readJson(request));
+  if (existing.revision !== body.revision) conflict();
+  const data: Story = JSON.parse(existing.data);
+  await verifyAssets(id, data);
+  const snapshot = JSON.stringify({...data, chapters:data.chapters.map(chapter=>({...chapter,note:''}))});
+  // A revoked link is never reactivated. Active links keep their URL on an explicit republish.
+  const token = existing.token ?? Array.from(crypto.getRandomValues(new Uint8Array(16)), value => value.toString(16).padStart(2, '0')).join('');
+  const publishedAt = Math.max(Date.now(), (existing.published_at ?? 0) + 1);
+  const result = await database().prepare(`INSERT INTO publications(token,story_id,data,source_revision,published_at,active)
+    SELECT ?,id,?,revision,?,1 FROM stories WHERE id=? AND owner_id=? AND revision=?
+    ON CONFLICT(story_id) DO UPDATE SET token=CASE WHEN publications.active=1 THEN publications.token ELSE excluded.token END,data=excluded.data,source_revision=excluded.source_revision,published_at=MAX(publications.published_at+1,excluded.published_at),active=1`)
+    .bind(token, snapshot, publishedAt, id, owner.userId, body.revision).run();
+  if (!result.meta.changes) conflict();
+  const published = await database().prepare('SELECT token,published_at FROM publications WHERE story_id=? AND active=1').bind(id).first<{token:string;published_at:number}>();
+  if (!published) throw new ApiError(409, 'publication_changed', '发布状态已经改变，请重新载入后确认。');
+  return json({ token: published.token, url: `${new URL(request.url).origin}/watch/${published.token}`, publishedAt: published.published_at });
+}
+export async function revokePublication(request: Request, id: string): Promise<Response> {
+  sameOrigin(request);
+  const owner = await user();
+  await owned(id, owner.userId);
+  await database().prepare('UPDATE publications SET active=0 WHERE story_id=?').bind(id).run();
+  return json({ ok: true });
+}
+export async function getPublicStory(token: string): Promise<Response> {
+  const value = await activePublication(token);
+  return json({ id: value.story_id, token: value.token, data: JSON.parse(value.data), publishedAt: value.published_at });
+}
+async function viewerIsAuthor(storyId: string): Promise<boolean> {
+  const viewer = await getChatGPTUser();
+  if (!viewer) return false;
+  return !!(await database().prepare('SELECT 1 AS found FROM stories WHERE id=? AND owner_id=?').bind(storyId, viewer.userId).first());
+}
+export async function sessionHash(token: string, time: number, sessionId: string): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${token}:${time}:${sessionId}`));
+  return Array.from(new Uint8Array(digest), value => value.toString(16).padStart(2, '0')).join('');
+}
+export async function addEvent(request: Request, token: string): Promise<Response> {
+  sameOrigin(request);
+  const publication = await activePublication(token);
+  const body = eventSchema.parse(await readJson(request));
+  if (body.publishedAt && body.publishedAt !== publication.published_at) throw new ApiError(409, 'snapshot_changed', '作者更新了这篇作品，请刷新后继续观看。');
+  const data: Story = JSON.parse(publication.data);
+  if (body.event === 'chapter' && (!body.chapterId || !data.chapters.some(chapter => chapter.id === body.chapterId))) throw new ApiError(400, 'invalid_chapter', '这个章节不在已发布作品中。');
+  if (body.event !== 'chapter' && body.chapterId) throw new ApiError(400, 'invalid_event', '该事件不需要章节编号。');
+  if (await viewerIsAuthor(publication.story_id)) return json({ ok: true, excluded: true });
+  const hash = await sessionHash(token, publication.published_at, body.sessionId);
+  const now = Date.now();
+  // A complete event also records start; completion rate therefore never exceeds 100%.
+  const rows = body.event === 'start' ? ['start'] : ['start', body.event];
+  const result = await database().batch(rows.map(event => database().prepare(`INSERT OR IGNORE INTO story_events(id,story_id,publication_time,session_hash,event,chapter_id,created_at)
+    SELECT ?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM publications WHERE token=? AND active=1 AND published_at=?) AND (SELECT COUNT(*) FROM story_events WHERE story_id=? AND publication_time=?) < 50000`)
+    .bind(crypto.randomUUID(), publication.story_id, publication.published_at, hash, event, event === 'chapter' ? body.chapterId : '', now, token, publication.published_at, publication.story_id, publication.published_at)));
+  if (!result[result.length - 1].meta.changes) {
+    const recorded = await database().prepare('SELECT 1 AS found FROM story_events WHERE story_id=? AND publication_time=? AND session_hash=? AND event=? AND chapter_id=?').bind(publication.story_id, publication.published_at, hash, body.event, body.event === 'chapter' ? body.chapterId : '').first();
+    if (!recorded) {
+      const current = await activePublication(token);
+      if (current.published_at !== publication.published_at) throw new ApiError(409, 'snapshot_changed', '作者更新了这篇作品，请刷新后继续观看。');
+      throw new ApiError(429, 'analytics_limit', '这个发布版本的播放记录已达上限，观看不受影响。');
+    }
+  }
+  return json({ ok: true });
+}
+export async function addFeedback(request: Request, token: string): Promise<Response> {
+  sameOrigin(request);
+  const publication = await activePublication(token);
+  if (!(JSON.parse(publication.data) as Story).feedback) throw new ApiError(403, 'feedback_disabled', '作者未开启观众反馈。');
+  const body = feedbackSchema.parse(await readJson(request));
+  if (body.publishedAt && body.publishedAt !== publication.published_at) throw new ApiError(409, 'snapshot_changed', '作者更新了这篇作品，请刷新后再发送反馈。');
+  if (await viewerIsAuthor(publication.story_id)) throw new ApiError(403, 'author_feedback_excluded', '作者自己的观看与反馈不计入观众数据，请将链接分享给观众后收集回应。');
+  const hash = await sessionHash(token, publication.published_at, body.sessionId);
+  const result = await database().prepare(`INSERT OR IGNORE INTO story_feedback(id,story_id,publication_time,session_hash,choice,note,created_at)
+    SELECT ?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM publications WHERE token=? AND active=1 AND published_at=?) AND (SELECT COUNT(*) FROM story_feedback WHERE story_id=? AND publication_time=?) < 5000`)
+    .bind(crypto.randomUUID(), publication.story_id, publication.published_at, hash, body.choice, body.note.trim(), Date.now(), token, publication.published_at, publication.story_id, publication.published_at).run();
+  if (!result.meta.changes) {
+    const recorded = await database().prepare('SELECT 1 AS found FROM story_feedback WHERE story_id=? AND publication_time=? AND session_hash=?').bind(publication.story_id, publication.published_at, hash).first();
+    if (!recorded) {
+      const current = await activePublication(token);
+      if (current.published_at !== publication.published_at) throw new ApiError(409, 'snapshot_changed', '作者更新了这篇作品，请刷新后再发送反馈。');
+      throw new ApiError(429, 'feedback_limit', '这个发布版本的反馈已达上限，暂时不能接收更多留言。');
+    }
+  }
+  return json({ ok: true });
+}
+export async function insights(id: string): Promise<Response> {
+  const owner = await user();
+  const story = await owned(id, owner.userId);
+  const publication = await database().prepare('SELECT * FROM publications WHERE story_id=? ORDER BY published_at DESC LIMIT 1').bind(id).first<PublicationRow>();
+  const data: Story = publication ? JSON.parse(publication.data) : JSON.parse(story.data);
+  if (!publication) return json({ starts: 0, completions: 0, completionRate: null, chapters: data.chapters.map(chapter => ({ id: chapter.id, title: chapter.title, views: 0 })), feedback: [], feedbackCount: 0 });
+  const db = database();
+  const [eventRows, feedbackRows, totalRows] = await db.batch([
+    db.prepare('SELECT event,chapter_id,COUNT(*) AS count FROM story_events WHERE story_id=? AND publication_time=? GROUP BY event,chapter_id').bind(id, publication.published_at),
+    db.prepare('SELECT choice,note,created_at FROM story_feedback WHERE story_id=? AND publication_time=? ORDER BY created_at DESC LIMIT 100').bind(id, publication.published_at),
+    db.prepare('SELECT COUNT(*) AS count FROM story_feedback WHERE story_id=? AND publication_time=?').bind(id, publication.published_at),
+  ]);
+  const counts = eventRows.results as {event:string; chapter_id:string; count:number}[];
+  const starts = counts.find(value => value.event === 'start')?.count ?? 0;
+  const completions = counts.find(value => value.event === 'complete')?.count ?? 0;
+  return json({ starts, completions, completionRate: starts ? completions / starts : null,
+    chapters: data.chapters.map(chapter => ({ id: chapter.id, title: chapter.title, views: counts.find(value => value.event === 'chapter' && value.chapter_id === chapter.id)?.count ?? 0 })),
+    feedback: (feedbackRows.results as {choice:string;note:string;created_at:number}[]).map(value => ({choice:value.choice,note:value.note,createdAt:value.created_at})),
+    feedbackCount: (totalRows.results[0] as {count:number}).count });
+}
+export async function listAssets(id: string): Promise<Response> {
+  const owner = await user();
+  await owned(id, owner.userId);
+  const result = await database().prepare('SELECT * FROM story_assets WHERE story_id=? AND ready=1 ORDER BY created_at DESC').bind(id).all<AssetRow>();
+  return json({ assets: result.results.map(assetRecord) });
+}
+export function sniffAsset(bytes: Uint8Array): {type: string; maxSize: number} | null {
+  const ascii = (start: number, end: number) => String.fromCharCode(...bytes.slice(start,end));
+  if (bytes.length >= 8 && bytes[0] === 137 && ascii(1,4) === 'PNG' && bytes[4] === 13 && bytes[5] === 10 && bytes[6] === 26 && bytes[7] === 10) return {type:'image/png', maxSize:5*1024*1024};
+  if (bytes.length >= 4 && bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255) return {type:'image/jpeg', maxSize:5*1024*1024};
+  if (bytes.length >= 12 && ascii(0,4) === 'RIFF' && ascii(8,12) === 'WEBP') return {type:'image/webp', maxSize:5*1024*1024};
+  if (bytes.length >= 12 && ascii(0,4) === 'RIFF' && ascii(8,12) === 'WAVE') return {type:'audio/wav', maxSize:MAX_UPLOAD};
+  if (bytes.length >= 27 && ascii(0,4) === 'OggS') return {type:'audio/ogg', maxSize:MAX_UPLOAD};
+  if (bytes.length >= 12 && ascii(4,8) === 'ftyp' && ['M4A ', 'M4B ', 'isom', 'mp42'].includes(ascii(8,12))) return {type:'audio/mp4', maxSize:MAX_UPLOAD};
+  if (bytes.length >= 4 && (ascii(0,3) === 'ID3' || (bytes[0] === 255 && (bytes[1] & 0xe0) === 0xe0 && (bytes[1] & 6) !== 0 && (bytes[2] & 0xf0) !== 0xf0))) return {type:'audio/mpeg', maxSize:MAX_UPLOAD};
+  return null;
+}
+export async function uploadAsset(request: Request, id: string): Promise<Response> {
+  sameOrigin(request);
+  const owner = await user();
+  await owned(id, owner.userId);
+  const contentType = request.headers.get('content-type');
+  if (!contentType?.startsWith('multipart/form-data;')) throw new ApiError(415, 'invalid_type', '请上传 JPG、PNG、WebP 或 MP3、M4A、OGG、WAV 文件。');
+  const bytes = await limitedBody(request, MAX_UPLOAD + 16384);
+  let form: FormData;
+  try { form = await new Response(bytes.buffer as ArrayBuffer, {headers:{'content-type':contentType}}).formData(); }
+  catch { throw new ApiError(400, 'invalid_upload', '文件提交不完整，请重新上传。'); }
+  const file = form.get('file');
+  if (!(file instanceof File) || form.getAll('file').length !== 1) throw new ApiError(400, 'invalid_upload', '每次请选择一个文件。');
+  if (!file.size) throw new ApiError(400, 'empty_file', '不能上传空文件。');
+  const fileBytes = new Uint8Array(await file.arrayBuffer());
+  const detected = sniffAsset(fileBytes);
+  if (!detected) throw new ApiError(415, 'unsupported_file', '文件内容不是支持的图片或音频格式。');
+  if (file.size > detected.maxSize) throw new ApiError(413, 'too_large', detected.type.startsWith('image/') ? '图片最多 5 MiB。' : '音频最多 12 MiB。');
+  const assetId = crypto.randomUUID();
+  const key = `stories/${id}/${assetId}`;
+  const name = file.name.replace(/[\x00-\x1f\x7f/\\]/g, '_').slice(0,160) || '素材';
+  const now = Date.now();
+  const db = database();
+  const reserved = await db.prepare(`INSERT INTO story_assets(id,story_id,object_key,name,type,size,ready,created_at)
+    SELECT ?,?,?,?,?,?,0,? WHERE EXISTS(SELECT 1 FROM stories WHERE id=? AND owner_id=?) AND (SELECT COUNT(*) FROM story_assets WHERE story_id=?) < 20`)
+    .bind(assetId, id, key, name, detected.type, file.size, now, id, owner.userId, id).run();
+  if (!reserved.meta.changes) throw new ApiError(409, 'asset_limit', '每篇作品最多上传 20 个文件。请重新载入确认作品仍然存在。');
+  try {
+    await bucket().put(key, fileBytes, { httpMetadata: { contentType: detected.type }, customMetadata: {storyId: id} });
+    const ready = await db.prepare('UPDATE story_assets SET ready=1 WHERE id=? AND EXISTS(SELECT 1 FROM stories WHERE id=? AND owner_id=?)').bind(assetId,id,owner.userId).run();
+    if (!ready.meta.changes) { await bucket().delete(key); throw new ApiError(404,'not_found','作品已经删除，文件未保存。'); }
+  } catch (error) { await db.prepare('DELETE FROM story_assets WHERE id=?').bind(assetId).run(); throw error; }
+  return json({ asset: assetRecord({id:assetId,story_id:id,object_key:key,name,type:detected.type,size:file.size,ready:1,created_at:now}) }, 201);
+}
+export async function getAsset(request: Request, assetId: string): Promise<Response> {
+  validId(assetId);
+  const db = database();
+  const value = await db.prepare('SELECT a.*, s.owner_id FROM story_assets a JOIN stories s ON s.id=a.story_id WHERE a.id=? AND a.ready=1').bind(assetId).first<AssetRow & {owner_id:string}>();
+  if (!value) throw new ApiError(404,'not_found','素材不存在或已删除。');
+  const viewer = await getChatGPTUser();
+  if (viewer?.userId !== value.owner_id) {
+    const token = new URL(request.url).searchParams.get('publication');
+    if (!token || !TOKEN.test(token)) throw new ApiError(404,'not_found','素材不存在或尚未公开。');
+    const publication = await activePublication(token);
+    if (publication.story_id !== value.story_id || !referencedAssetIds(JSON.parse(publication.data)).has(assetId)) throw new ApiError(404,'not_found','素材不存在或尚未公开。');
+  }
+  let range: {offset:number;length:number} | undefined;
+  const requested = request.headers.get('range');
+  if (requested) {
+    const match = /^bytes=(\d*)-(\d*)$/.exec(requested);
+    if (!match || (!match[1] && !match[2])) return new Response(null,{status:416,headers:{'Content-Range':`bytes */${value.size}`}});
+    const start = match[1] ? Number(match[1]) : Math.max(0, value.size-Number(match[2]));
+    const end = match[1] ? (match[2] ? Math.min(Number(match[2]),value.size-1) : value.size-1) : value.size-1;
+    if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start > end || start >= value.size || start < 0) return new Response(null,{status:416,headers:{'Content-Range':`bytes */${value.size}`}});
+    range = {offset:start,length:end-start+1};
+  }
+  const object = await bucket().get(value.object_key, range ? {range} : undefined);
+  if (!object) throw new ApiError(404,'not_found','素材文件暂时无法读取。');
+  const headers = new Headers({ 'Content-Type':value.type, 'Content-Length':String(range?.length ?? value.size), 'Cache-Control':'private, no-store', 'Accept-Ranges':'bytes', 'X-Content-Type-Options':'nosniff', 'Content-Disposition':`inline; filename*=UTF-8''${encodeURIComponent(value.name)}` });
+  if (range) headers.set('Content-Range',`bytes ${range.offset}-${range.offset+range.length-1}/${value.size}`);
+  return new Response(object.body,{status:range?206:200,headers});
+}
+
+
+===== FILE: next.config.ts =====
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+
+
+===== FILE: postcss.config.mjs =====
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+
+
+===== FILE: scripts/build-verified.sh =====
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [[ "${SITES_ENV_READY:-}" != "1" ]]; then
+  exec "${script_dir}/sites-env.sh" -- "$0" "$@"
+fi
+
+command -v timeout || {
+  echo "build-verified.sh requires GNU timeout." >&2
+  exit 69
+}
+
+vinext="${SITES_PROJECT_ROOT}/node_modules/.bin/vinext"
+if [[ ! -x "${vinext}" ]]; then
+  echo "vinext is unavailable. Run npm run install:ci and wait for it to finish before building." >&2
+  exit 69
+fi
+
+echo "Running bounded vinext build..."
+timeout \
+  --signal=TERM \
+  --kill-after="${SITES_BUILD_KILL_AFTER:-10s}" \
+  "${SITES_BUILD_TIMEOUT:-3m}" \
+  "${vinext}" build
+
+
+===== FILE: scripts/connector-preview/connector-preview-session.mjs =====
+import { randomUUID } from "node:crypto";
+import {
+  mkdir,
+  readFile,
+  readdir,
+  rename,
+  rm,
+  writeFile,
+} from "node:fs/promises";
+import path from "node:path";
+import { createInterface } from "node:readline";
+import { parseArgs } from "node:util";
+import { JSONRPCClient } from "json-rpc-2.0";
+import { createPreviewBinding } from "./host-binding.mjs";
+import {
+  driverMessageSchema,
+  grantsSchema,
+  sessionOptionsSchema,
+} from "./protocol.mjs";
+
+// The agent starts this script through its terminal tool after creating a local
+// Site and selecting connector read actions, following references/app-integrations.md#local-preview:
+//   node <site-directory>/scripts/connector-preview/connector-preview-session.mjs <site-directory> <grants.json>
+// During the agent development loop, the Site preview writes requests into a shared folder.
+// This script checks each request with host-binding.mjs, then asks the agent over
+// stdout to call the connector. The agent returns the tool result through stdin,
+// and this script writes it back for the Site. The agent stops the script when
+// previewing ends; neither the browser nor a deployed Site starts this process.
+const { positionals, values } = parseArgs({
+  allowPositionals: true,
+  options: {
+    concurrency: { type: "string" },
+    "timeout-ms": { type: "string" },
+    "lifetime-ms": { type: "string" },
+    "max-calls": { type: "string" },
+  },
+});
+const [project, grantsFile] = positionals;
+if (positionals.length !== 2 || !path.isAbsolute(project)) {
+  throw new Error(
+    "Usage: node connector-preview-session.mjs <absolute-site-directory> <grants.json> [--concurrency 64] [--timeout-ms 120000] [--lifetime-ms N] [--max-calls N]",
+  );
+}
+const limits = sessionOptionsSchema.parse(
+  Object.fromEntries(
+    [
+      ["maxConcurrent", values.concurrency],
+      ["timeoutMs", values["timeout-ms"]],
+      ["lifetimeMs", values["lifetime-ms"]],
+      ["maxCalls", values["max-calls"]],
+    ]
+      .filter(([, value]) => value !== undefined)
+      .map(([key, value]) => [key, Number(value)]),
+  ),
+);
+const grants = grantsSchema.parse(
+  JSON.parse(await readFile(grantsFile, "utf8")),
+);
+const root = path.join(project, ".sites-runtime", "connector-preview");
+const id = randomUUID();
+const directory = path.join(root, id);
+const descriptor = path.join(root, "session.json");
+const active = new Set();
+const rpc = new JSONRPCClient(
+  (message) =>
+    new Promise((resolve, reject) => {
+      process.stdout.write(`${JSON.stringify(message)}\n`, (error) =>
+        error ? reject(error) : resolve(),
+      );
+    }),
+);
+const emit = (method, params) => rpc.notify(method, params);
+let closing = false;
+const binding = createPreviewBinding({
+  ...limits,
+  tools: grants.map((grant) => ({
+    ...grant,
+    async invoke(args) {
+      const requestId = randomUUID();
+      // JSON-RPC owns response matching and pending-call cleanup. Do not put an
+      // RPC timeout here: uncertain calls occupy their slot until they settle.
+      const response = await rpc.requestAdvanced({
+        jsonrpc: "2.0",
+        id: requestId,
+        method: "invoke",
+        params: {
+          connectorId: grant.connectorId,
+          actionName: grant.actionName,
+          arguments: args,
+        },
+      });
+      if (!closing)
+        emit("receipt", { id: requestId, at: new Date().toISOString() });
+      if (response.error)
+        throw new Error("The agent did not confirm a connector result.");
+      return response.result;
+    },
+  })),
+});
+await mkdir(directory, { recursive: true, mode: 0o700 });
+try {
+  // One owner per project. A crashed session must be explicitly cleaned up;
+  // never silently take over another agent's connector session.
+  await writeFile(
+    descriptor,
+    JSON.stringify({
+      id,
+      expiresAt:
+        limits.lifetimeMs === undefined ? null : Date.now() + limits.lifetimeMs,
+      timeoutMs: limits.timeoutMs,
+      connectorIds: [...new Set(grants.map((grant) => grant.connectorId))],
+    }),
+    { flag: "wx", mode: 0o600 },
+  );
+} catch (error) {
+  binding.close();
+  await rm(directory, { recursive: true, force: true });
+  throw error;
+}
+async function serve(name) {
+  active.add(name);
+  try {
+    const body = await readFile(path.join(directory, name), "utf8");
+    const response = await binding.fetch(
+      new Request("http://preview/invoke", { method: "POST", body }),
+    );
+    if (!closing) {
+      const output = path.join(
+        directory,
+        name.replace(".request", ".response"),
+      );
+      await writeFile(`${output}.tmp`, await response.text(), { mode: 0o600 });
+      await rename(`${output}.tmp`, output);
+    }
+  } catch {
+    // A timed-out caller can remove its request. The native call is never retried.
+  } finally {
+    await rm(path.join(directory, name), { force: true });
+    active.delete(name);
+  }
+}
+let scanning = false;
+// The mailbox crosses network namespaces through the shared project directory.
+// Atomic renames keep the reader from seeing partially written messages.
+const poller = setInterval(async () => {
+  if (closing || scanning) return;
+  scanning = true;
+  try {
+    for (const name of await readdir(directory)) {
+      if (/^[0-9a-f-]{36}\.request$/.test(name) && !active.has(name))
+        void serve(name);
+    }
+  } catch (error) {
+    if (!closing) {
+      emit("session_error", { code: error.code });
+      void close();
+    }
+  } finally {
+    scanning = false;
+  }
+}, 50);
+const expiry =
+  limits.lifetimeMs === undefined
+    ? undefined
+    : setTimeout(() => {
+        void close();
+      }, limits.lifetimeMs);
+if (process.stdin.isTTY) process.stdin.setRawMode(true);
+const input = createInterface({ input: process.stdin, terminal: false });
+input.on("line", (line) => {
+  try {
+    const message = driverMessageSchema.parse(JSON.parse(line));
+    if (message.method === "stop") {
+      void close();
+      return;
+    }
+    rpc.receive(message);
+  } catch {
+    emit("invalid_driver_message");
+  }
+});
+async function close() {
+  if (closing) return;
+  closing = true;
+  clearInterval(poller);
+  clearTimeout(expiry);
+  binding.close();
+  rpc.rejectAllPendingRequests("The connector preview session ended.");
+  await rm(descriptor, { force: true });
+  await rm(directory, { recursive: true, force: true });
+  if (process.stdin.isTTY) process.stdin.setRawMode(false);
+  input.close();
+  process.stdin.pause();
+  emit("closed");
+}
+input.on("close", () => {
+  void close();
+});
+process.stdin.on("data", (chunk) => {
+  if (chunk.includes(3)) void close();
+});
+process.on("SIGTERM", () => {
+  void close();
+});
+process.on("SIGINT", () => {
+  void close();
+});
+emit("ready", {
+  expiresInSeconds:
+    limits.lifetimeMs === undefined ? null : limits.lifetimeMs / 1000,
+  maxCalls: limits.maxCalls ?? null,
+  maxConcurrent: limits.maxConcurrent,
+  timeoutMs: limits.timeoutMs,
+});
+
+
+===== FILE: scripts/connector-preview/host-binding.mjs =====
+import { Readable } from "node:stream";
+import { setMaxListeners } from "node:events";
+import getRawBody from "raw-body";
+import { z } from "zod/v4";
+import {
+  grantSchema,
+  invocationSchema,
+  sessionOptionsSchema,
+} from "./protocol.mjs";
+
+// Checks connector calls while the agent builds and tests a Site locally.
+// connector-preview-session.mjs uses this helper after the agent chooses the read
+// actions the Site may use. For each Site request, it checks that selection and
+// the session limits before asking the agent to make the actual tool call.
+// It also handles timeouts, shutdown, and which result fields reach the Site.
+// This runs in the agent's temporary session, not in the deployed Site.
+const messages = {
+  invalid_request: "This app request is invalid or too large.",
+  binding_unavailable:
+    "Connected apps need an active agent preview session in this preview.",
+  tool_not_allowed: "This preview cannot use the requested app action.",
+  rate_limited:
+    "A request limit was reached while using this connector. Please wait before trying again.",
+  tool_error: "An error was reported while running this connector action.",
+  upstream_error:
+    "The app did not return a confirmed result. The action may have completed; check before trying again.",
+};
+const failure = (status) => ({ status, message: messages[status] });
+const reply = (result) =>
+  Response.json(result, { headers: { "Cache-Control": "no-store" } });
+const requestIdSchema = z
+  .string()
+  .regex(/^[A-Za-z0-9._:-]{1,128}$/)
+  .optional()
+  .catch(undefined);
+const resultSchema = z.object({
+  error: z.never().optional(),
+  status: z.never().optional(),
+  content: z.array(z.object({ type: z.string() }).catchall(z.json())),
+  structuredContent: z.json().optional(),
+  isError: z.boolean().optional(),
+  requestId: requestIdSchema,
+});
+
+export function createPreviewBinding({ tools, ...options }) {
+  const { lifetimeMs, timeoutMs, maxCalls, maxConcurrent } =
+    sessionOptionsSchema.parse(options);
+  const grants = new Map();
+  for (const tool of tools) {
+    const { invoke, ...grant } = tool;
+    if (!grantSchema.safeParse(grant).success || typeof invoke !== "function")
+      throw new Error(
+        "Preview tools must be authenticated, resolved read actions.",
+      );
+    const key = JSON.stringify([tool.connectorId, tool.actionName]);
+    if (grants.has(key))
+      throw new Error(
+        "Ambiguous connector action; the host must resolve its connection first.",
+      );
+    grants.set(key, tool.invoke);
+  }
+  const expiresAt =
+    lifetimeMs === undefined ? Infinity : Date.now() + lifetimeMs;
+  const ended = new AbortController();
+  setMaxListeners(maxConcurrent, ended.signal);
+  const expiry =
+    lifetimeMs === undefined
+      ? undefined
+      : setTimeout(() => ended.abort(), lifetimeMs);
+  expiry?.unref();
+  let remaining = maxCalls ?? Infinity;
+  let active = 0;
+
+  return {
+    close() {
+      clearTimeout(expiry);
+      ended.abort();
+    },
+    async fetch(request) {
+      if (ended.signal.aborted || Date.now() >= expiresAt)
+        return reply(failure("binding_unavailable"));
+      if (
+        request.method !== "POST" ||
+        new URL(request.url).pathname !== "/invoke"
+      )
+        return reply(failure("invalid_request"));
+      let call;
+      try {
+        const body = await readBounded(request, 65536);
+        call = invocationSchema.parse(JSON.parse(body));
+      } catch {
+        return reply(failure("invalid_request"));
+      }
+      // Recheck after reading the request; shutdown can happen while it streams.
+      if (ended.signal.aborted || Date.now() >= expiresAt)
+        return reply(failure("binding_unavailable"));
+      const invoke = grants.get(
+        JSON.stringify([call.connectorId, call.actionName]),
+      );
+      if (!invoke || remaining === 0) return reply(failure("tool_not_allowed"));
+      if (active >= maxConcurrent) return reply(failure("rate_limited"));
+      active++;
+      remaining--;
+      let deadline;
+      let onEnd;
+      try {
+        const result = await Promise.race([
+          // A timeout ends our wait, not the provider call. Count that work
+          // against concurrency until it settles, without blocking other slots.
+          Promise.resolve()
+            .then(() => invoke(call.arguments))
+            .then(publicResult)
+            .finally(() => {
+              active--;
+            }),
+          new Promise((resolve) => {
+            deadline = setTimeout(
+              () => resolve(failure("upstream_error")),
+              timeoutMs,
+            );
+          }),
+          new Promise((resolve) => {
+            onEnd = () => resolve(failure("upstream_error"));
+            ended.signal.addEventListener("abort", onEnd, { once: true });
+          }),
+        ]);
+        if (ended.signal.aborted || Date.now() >= expiresAt)
+          return reply(failure("upstream_error"));
+        if (
+          new TextEncoder().encode(JSON.stringify(result)).byteLength >
+          8 * 1024 * 1024
+        )
+          return reply(failure("upstream_error"));
+        return reply(result);
+      } catch {
+        return reply(failure("upstream_error"));
+      } finally {
+        clearTimeout(deadline);
+        ended.signal.removeEventListener("abort", onEnd);
+      }
+    },
+  };
+}
+
+export async function readBounded(request, limit) {
+  if (!request.body) throw new Error("Missing body");
+  const stream = Readable.fromWeb(request.body);
+  try {
+    // raw-body owns byte limits and stream errors; strict decoding rejects
+    // malformed UTF-8 instead of silently changing the caller's arguments.
+    return new TextDecoder("utf-8", { fatal: true }).decode(
+      await getRawBody(stream, { limit }),
+    );
+  } finally {
+    stream.destroy();
+  }
+}
+
+function publicResult(result) {
+  const parsed = resultSchema.safeParse(result);
+  if (!parsed.success) return failure("upstream_error");
+  result = parsed.data;
+  // Native tools return MCP results; convert once at the preview host boundary.
+  // Never accept provider-authored top-level status or transport metadata.
+  const payload = {
+    content: result.content,
+    // Like the hosted binding, preserve every JSON value, including null.
+    ...(result.structuredContent !== undefined
+      ? { structuredContent: result.structuredContent }
+      : {}),
+  };
+  const requestId =
+    result.requestId === undefined ? {} : { requestId: result.requestId };
+  if (result.isError === true) {
+    const detail = result.structuredContent;
+    if (detail?.error_code === "RATE_LIMITED") {
+      const retryAfterMs =
+        readRetryAfterMs(detail.retry_after_seconds) ??
+        readRetryAfterMs(detail.retry_after);
+      return {
+        ...failure("rate_limited"),
+        ...requestId,
+        ...(retryAfterMs === undefined ? {} : { retryAfterMs }),
+      };
+    }
+    const invalidArguments =
+      detail?.error_code === "INVALID_ARGUMENT" &&
+      detail.error_data?.type === "invalid_action_arguments" &&
+      detail.error_data?.failure_stage === "argument_binding";
+    return {
+      ...failure(invalidArguments ? "invalid_request" : "tool_error"),
+      result: payload,
+      ...requestId,
+    };
+  }
+  return { status: "success", result: payload, ...requestId };
+}
+
+function readRetryAfterMs(value) {
+  let milliseconds;
+  if (
+    typeof value === "number" ||
+    (typeof value === "string" && /^\d+$/.test(value.trim()))
+  ) {
+    milliseconds = Number(value) * 1000;
+  } else if (
+    typeof value === "string" &&
+    /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \d{2} [A-Z][a-z]{2} \d{4} \d{2}:\d{2}:\d{2} GMT$/.test(
+      value.trim(),
+    )
+  ) {
+    milliseconds = Math.max(0, Date.parse(value) - Date.now());
+  }
+  return Number.isSafeInteger(milliseconds) && milliseconds >= 0
+    ? milliseconds
+    : undefined;
+}
+
+
+===== FILE: scripts/connector-preview/protocol.mjs =====
+import { z } from "zod";
+
+const name = z
+  .string()
+  .min(1)
+  .max(256)
+  .regex(/^[^\s/\x00-\x1f\x7f]+$/u);
+const fields = { connectorId: name, actionName: name };
+
+// Reject extra invocation fields: account selection and native tool names belong
+// to the owning agent, not to the generated Site's request envelope.
+export const invocationSchema = z
+  .object({ ...fields, arguments: z.record(z.unknown()) })
+  .strict();
+export const grantSchema = z
+  .object({ ...fields, readOnly: z.literal(true) })
+  .strict();
+export const grantsSchema = z.array(grantSchema);
+
+// Only the owning agent sets these limits. Sessions otherwise last until their
+// owner closes them; Node timers need a signed 32-bit millisecond duration.
+const duration = z
+  .number()
+  .int()
+  .positive()
+  .max(2 ** 31 - 1);
+export const sessionOptionsSchema = z
+  .object({
+    timeoutMs: duration.default(120000),
+    maxConcurrent: z.number().int().positive().safe().default(64),
+    lifetimeMs: duration.optional(),
+    maxCalls: z.number().int().positive().safe().optional(),
+  })
+  .strict();
+
+// The pipe carries JSON-RPC responses and a stop notification. Provider failures
+// still travel inside result as MCP results; JSON-RPC errors mean driver failure.
+export const driverMessageSchema = z.union([
+  z.object({ jsonrpc: z.literal("2.0"), method: z.literal("stop") }).strict(),
+  z
+    .object({
+      jsonrpc: z.literal("2.0"),
+      id: z.string().uuid(),
+      result: z.record(z.unknown()),
+    })
+    .strict(),
+  z
+    .object({
+      jsonrpc: z.literal("2.0"),
+      id: z.string().uuid(),
+      error: z
+        .object({
+          code: z.number().int(),
+          message: z.string(),
+          data: z.unknown().optional(),
+        })
+        .strict(),
+    })
+    .strict(),
+]);
+
+
+===== FILE: scripts/execution-profile.mjs =====
+import { readFileSync } from "node:fs";
+
+export function readExecutionProfile() {
+  let settings;
+  try {
+    settings = JSON.parse(readFileSync(new URL("../.sites-runtime/execution-profile.json", import.meta.url), "utf8"));
+  } catch (error) {
+    // Clean clones and remote builds have no checkout-local selection.
+    if (error.code === "ENOENT") return "portable";
+    throw error;
+  }
+  if (!["managed-linux", "portable"].includes(settings?.executionProfile)) {
+    throw new Error("Invalid local execution profile; rerun the Sites plugin's configure-execution-profile.mjs.");
+  }
+  return settings.executionProfile;
+}
+
+
+===== FILE: scripts/install-ci.mjs =====
+import { spawnSync } from "node:child_process";
+import { accessSync, constants } from "node:fs";
+import path from "node:path";
+import { projectRoot } from "./sites-env.mjs";
+import { readExecutionProfile } from "./execution-profile.mjs";
+import { runNpmInstall } from "./npm-install.mjs";
+
+if (!process.env.npm_execpath) {
+  throw new Error("Run this installer with npm run install:ci.");
+}
+
+if (![
+  "SHARP_IGNORE_GLOBAL_LIBVIPS",
+  "SHARP_FORCE_GLOBAL_LIBVIPS",
+  "npm_config_build_from_source",
+  "NPM_CONFIG_BUILD_FROM_SOURCE",
+].some((key) => key in process.env)) {
+  process.env.SHARP_IGNORE_GLOBAL_LIBVIPS = "1";
+}
+
+if (readExecutionProfile() === "managed-linux") {
+  const result = spawnSync("bash", [path.join(projectRoot, "scripts/install-ci.sh")], {
+    stdio: "inherit",
+  });
+  if (result.error) throw result.error;
+  process.exit(result.status ?? 1);
+}
+
+// Invoke npm's JavaScript entrypoint, avoiding platform-specific shell shims.
+const installed = await runNpmInstall([
+  process.execPath,
+    process.env.npm_execpath, "ci", "--prefix", projectRoot, "--workspaces=false",
+    "--include=dev", "--include=optional", "--prefer-offline", "--no-audit", "--no-fund",
+]);
+if (installed.signal) process.kill(process.pid, installed.signal);
+if (installed.code !== 0 || installed.signal) process.exit(installed.code || 1);
+
+try {
+  accessSync(
+    path.join(
+      projectRoot, "node_modules", ".bin",
+      process.platform === "win32" ? "vinext.cmd" : "vinext",
+    ),
+    process.platform === "win32" ? constants.F_OK : constants.X_OK,
+  );
+} catch {
+  console.error("npm ci exited successfully but the local vinext executable is unavailable.");
+  process.exitCode = 69;
+}
+
+
+===== FILE: scripts/install-ci.sh =====
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [[ "${SITES_ENV_READY:-}" != "1" ]]; then
+  exec "${script_dir}/sites-env.sh" -- "$0" "$@"
+fi
+
+command -v flock || {
+  echo "install-ci.sh requires Linux flock." >&2
+  exit 69
+}
+command -v timeout || {
+  echo "install-ci.sh requires GNU timeout." >&2
+  exit 69
+}
+command -v curl || {
+  echo "install-ci.sh requires curl for the locked-tarball preflight." >&2
+  exit 69
+}
+command -v sha256sum || {
+  echo "install-ci.sh requires sha256sum for cache and install verification." >&2
+  exit 69
+}
+
+runtime_root="${SITES_RUNTIME_ROOT:-${SITES_PROJECT_ROOT}/.sites-runtime}"
+expected_home="${runtime_root}/home"
+expected_cache="${runtime_root}/npm-cache"
+
+echo "[sites] validating writable install environment"
+if [[ "${HOME}" != "${expected_home}" ]]; then
+  echo "Expected HOME=${expected_home}, got HOME=${HOME}." >&2
+  exit 78
+fi
+actual_cache="$(npm --prefix "${SITES_PROJECT_ROOT}" --workspaces=false config get cache)"
+if [[ "${actual_cache}" != "${expected_cache}" ]]; then
+  echo "Expected npm cache ${expected_cache}, got ${actual_cache}." >&2
+  exit 78
+fi
+touch "${HOME}/.sites-write-test" "${expected_cache}/.sites-write-test"
+rm -f "${HOME}/.sites-write-test" "${expected_cache}/.sites-write-test"
+echo "[sites] environment passed: HOME=${HOME}, cache=${expected_cache}"
+
+lock_file="${runtime_root}/install.lock"
+exec 9>"${lock_file}"
+if ! flock -n 9; then
+  echo "Another dependency install is already running for ${SITES_PROJECT_ROOT}." >&2
+  exit 75
+fi
+
+# Catch an installer started outside this helper. Linux exposes both its command
+# line and working directory through /proc, so avoid broad process-name matches.
+for process in /proc/[0-9]*; do
+  pid="${process##*/}"
+  [[ "${pid}" != "$$" && "${pid}" != "${PPID}" ]] || continue
+  process_cwd="$(readlink -f "${process}/cwd" || true)"
+  [[ "${process_cwd}" == "${SITES_PROJECT_ROOT}" ]] || continue
+  process_command="$(tr '\0' ' ' <"${process}/cmdline" || true)"
+  if [[ "${process_command}" == *"npm ci"* ]]; then
+    echo "Another npm ci is visible in ${SITES_PROJECT_ROOT}; refusing to overlap installs." >&2
+    exit 75
+  fi
+done
+
+lockfile_sha256="$(sha256sum "${SITES_PROJECT_ROOT}/package-lock.json" | awk '{print $1}')"
+use_seeded_cache=0
+# Report seed selection separately from package cache hits or downloads.
+cache_seed_result=seed_unavailable
+seed_cache="${SITES_NPM_CACHE_SEED:-}"
+if [[ -n "${seed_cache}" && -d "${seed_cache}" ]]; then
+  seed_lockfile_sha256="$(cat "${seed_cache}/.sites-lockfile-sha256" || true)"
+  if [[ "${seed_lockfile_sha256}" == "${lockfile_sha256}" ]]; then
+    echo "[sites] restoring image-seeded npm cache"
+    cp -a "${seed_cache}/." "${expected_cache}/"
+    use_seeded_cache=1
+    cache_seed_result=seed_used
+    echo "[sites] image cache seed matched; registry fallback remains available"
+  else
+    cache_seed_result=seed_lockfile_mismatch
+    echo "[sites] image cache seed does not match this lockfile; using the network path"
+  fi
+fi
+
+locked_vinext_output="$({ node --input-type=module - "${SITES_PROJECT_ROOT}/package-lock.json" <<'NODE'
+import { readFile } from "node:fs/promises";
+
+const lock = JSON.parse(await readFile(process.argv[2], "utf8"));
+const vinext = lock.packages?.["node_modules/vinext"];
+if (!vinext?.resolved || !vinext?.integrity) {
+  throw new Error("package-lock.json does not contain a resolved, integrity-pinned vinext tarball");
+}
+console.log(vinext.resolved);
+console.log(vinext.integrity);
+NODE
+})" || {
+  echo "Could not read the integrity-pinned vinext tarball from package-lock.json." >&2
+  exit 65
+}
+mapfile -t locked_vinext <<<"${locked_vinext_output}"
+if [[ "${#locked_vinext[@]}" -ne 2 ]]; then
+  echo "Expected exactly one Vinext URL and integrity value from package-lock.json." >&2
+  exit 65
+fi
+
+locked_tarball="${locked_vinext[0]}"
+locked_integrity="${locked_vinext[1]}"
+
+if [[ "${use_seeded_cache}" == "0" ]]; then
+  registry="$(npm --prefix "${SITES_PROJECT_ROOT}" --workspaces=false config get registry)"
+  preflight_url="$({ node --input-type=module - "${locked_tarball}" "${registry}" <<'NODE'
+const locked = new URL(process.argv[2]);
+const registry = new URL(process.argv[3]);
+if (locked.hostname === "registry.npmjs.org") {
+  locked.protocol = registry.protocol;
+  locked.host = registry.host;
+  locked.pathname = `${registry.pathname.replace(/\/$/, "")}${locked.pathname}`;
+}
+process.stdout.write(locked.href);
+NODE
+})" || {
+  echo "Could not construct the locked-tarball preflight URL." >&2
+  exit 65
+  }
+
+  preflight_dir="${runtime_root}/preflight"
+  preflight_tarball="${preflight_dir}/vinext.tgz"
+  mkdir -p "${preflight_dir}"
+
+  echo "[sites] downloading the complete locked vinext tarball"
+  curl \
+    --fail \
+    --location \
+    --silent \
+    --show-error \
+    --retry 0 \
+    --connect-timeout 15 \
+    --max-time 120 \
+    --output "${preflight_tarball}" \
+    "${preflight_url}"
+
+  echo "[sites] verifying locked vinext tarball integrity"
+  node --input-type=module - "${preflight_tarball}" "${locked_integrity}" <<'NODE'
+import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+
+const [algorithm, expected] = process.argv[3].split("-", 2);
+if (!algorithm || !expected) {
+  throw new Error(`unsupported integrity value: ${process.argv[3]}`);
+}
+const actual = createHash(algorithm)
+  .update(await readFile(process.argv[2]))
+  .digest("base64");
+if (actual !== expected) {
+  throw new Error(`vinext tarball integrity mismatch for ${algorithm}`);
+}
+NODE
+  echo "[sites] network and integrity preflight passed"
+fi
+
+echo "[sites] running exactly one bounded npm ci"
+export NPM_CONFIG_MAXSOCKETS=1
+export NPM_CONFIG_FETCH_RETRIES=0
+export NPM_CONFIG_FETCH_TIMEOUT=30000
+npm_ci_args=(ci --prefix "${SITES_PROJECT_ROOT}" --workspaces=false --include=dev --include=optional --cache "${expected_cache}")
+if [[ "${use_seeded_cache}" == "1" ]]; then
+  npm_ci_args+=(--prefer-offline)
+fi
+timeout \
+  --signal=TERM \
+  --kill-after="${SITES_INSTALL_KILL_AFTER:-15s}" \
+  "${SITES_INSTALL_TIMEOUT:-8m}" \
+  node "${script_dir}/npm-install.mjs" "${cache_seed_result}" npm "${npm_ci_args[@]}"
+
+vinext="${SITES_PROJECT_ROOT}/node_modules/.bin/vinext"
+if [[ ! -x "${vinext}" ]]; then
+  echo "npm ci exited successfully but node_modules/.bin/vinext is unavailable." >&2
+  exit 69
+fi
+
+node --input-type=module - "${SITES_PROJECT_ROOT}/node_modules/.sites-install.json" "${lockfile_sha256}" <<'NODE'
+import { writeFile } from "node:fs/promises";
+
+await writeFile(
+  process.argv[2],
+  `${JSON.stringify({
+    lockfile_sha256: process.argv[3],
+    node: process.version,
+    platform: `${process.platform}-${process.arch}`,
+  }, null, 2)}\n`,
+);
+NODE
+echo "[sites] npm ci passed and vinext is available"
+
+
+===== FILE: scripts/install-pnpm.sh =====
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ "${SITES_ENV_READY:-}" != "1" ]]; then
+  exec "${script_dir}/sites-env.sh" -- "$0" "$@"
+fi
+
+require_shared=0
+prepare_only=0
+for argument in "$@"; do
+  case "${argument}" in
+    --require-shared) require_shared=1 ;;
+    --prepare-store) prepare_only=1 ;;
+    *) echo "Unknown pnpm installation option: ${argument}" >&2; exit 64 ;;
+  esac
+done
+
+for tool in flock timeout node; do
+  command -v "${tool}" >/dev/null || { echo "pnpm setup requires Linux flock, GNU timeout, and Node.js." >&2; exit 69; }
+done
+cache_seed=decision_unavailable
+store_scope=unknown
+store_state=unavailable
+report_store() {
+  node "${script_dir}/pnpm-install.mjs" --report-store "${cache_seed}" "${store_scope}" "${store_state}" "${prepare_only}"
+}
+# Publish preparation failures too; the optional report never decides success.
+trap 'report_store || true' EXIT
+
+if [[ -n "${SITES_PNPM_BIN:-}" && -f "${SITES_PNPM_BIN}" && -r "${SITES_PNPM_BIN}" ]]; then
+  pnpm_command=(node "${SITES_PNPM_BIN}")
+elif [[ "${require_shared}" == 1 ]]; then
+  echo "[sites] the image-pinned pnpm is unavailable" >&2
+  exit 69
+elif command -v corepack >/dev/null; then
+  # Corepack honors the established project's pin even when PATH has a different
+  # pnpm version. A bare pnpm is used only if Corepack is absent, then verified.
+  pnpm_command=(corepack pnpm)
+elif command -v pnpm >/dev/null; then
+  pnpm_command=(pnpm)
+else
+  echo "This pnpm project requires pnpm 11.25.0 or Corepack." >&2
+  exit 69
+fi
+
+runtime_root="${SITES_RUNTIME_ROOT:-${SITES_PROJECT_ROOT}/.sites-runtime}"
+private_store="${runtime_root}/pnpm-store"
+if [[ "${HOME}" != "${runtime_root}/home" || -L "${private_store}" ]]; then
+  echo "Dependency setup requires a project-owned writable home and pnpm store." >&2
+  exit 78
+fi
+# A single Node process owns the regular-file descriptors for both leases.
+# Closing its input (including this shell exiting) releases the project lock.
+coproc SITES_INSTALL_LOCKS {
+  node "${script_dir}/pnpm-install.mjs" --hold-install-locks \
+    "${runtime_root}/install.lock" "${SITES_PNPM_SHARED_STORE:-}.seed.lock" \
+    "${SITES_PNPM_STORE_LOCK_TIMEOUT:-30}"
+}
+install_lock_pid="${SITES_INSTALL_LOCKS_PID}"
+install_lock_output="${SITES_INSTALL_LOCKS[0]}"
+install_lock_input="${SITES_INSTALL_LOCKS[1]}"
+lock_status=unavailable
+read -r lock_status <&"${install_lock_output}" || true
+if [[ "${lock_status}" != locked ]]; then
+  exec {install_lock_input}>&-
+  exec {install_lock_output}<&-
+  wait "${install_lock_pid}" || true
+  if [[ "${lock_status}" == busy ]]; then
+    echo "Another dependency install is already running for ${SITES_PROJECT_ROOT}." >&2
+    exit 75
+  fi
+  echo "Dependency setup requires a regular, writable project install lock." >&2
+  exit 78
+fi
+export XDG_CACHE_HOME="${runtime_root}/xdg-cache" XDG_DATA_HOME="${runtime_root}/xdg-data"
+mkdir -p "${XDG_CACHE_HOME}" "${XDG_DATA_HOME}" || exit 70
+pnpm_version="$(timeout --signal=TERM --kill-after="${SITES_INSTALL_KILL_AFTER:-15s}" \
+  "${SITES_PNPM_BOOTSTRAP_TIMEOUT:-30s}" "${pnpm_command[@]}" --version)"
+if [[ "${pnpm_version}" != "11.25.0" ]]; then
+  echo "This project requires pnpm 11.25.0 and its v11 store format." >&2
+  exit 69
+fi
+
+can_write_directory() {
+  local probe
+  # access()/test -w can succeed even when a kernel sandbox denies a write.
+  probe="$(mktemp "${1}/.sites-store-probe.XXXXXX" 2>/dev/null)" || return 1
+  rm -f -- "${probe}" 2>/dev/null
+}
+
+release_shared_lock() {
+  if [[ "${shared_lock_held:-}" == 1 ]]; then
+    printf '%s\n' release-shared >&"${install_lock_input}"
+    local status
+    read -r status <&"${install_lock_output}" && [[ "${status}" == released ]] || return 70
+    shared_lock_held=0
+  fi
+}
+
+acquire_shared_lock() {
+  # The Node holder opens this workspace-controlled entry with no-follow and
+  # nonblocking flags, then verifies a regular file before bounded flock.
+  printf '%s\n' shared >&"${install_lock_input}"
+  local status
+  if read -r status <&"${install_lock_output}" && [[ "${status}" == locked ]]; then
+    shared_lock_held=1
+    return 0
+  fi
+  return 1
+}
+
+writable_store="${private_store}"
+shared_store="${SITES_PNPM_SHARED_STORE:-}"
+if [[ "${shared_store}" == "/workspace/.sites-runtime/pnpm-store" &&
+      ! -L "${shared_store}" && ! -L "${shared_store%/*}" &&
+      -d "${shared_store%/*/*}" ]]; then
+  # Normal Work already writes this owner's workspace. Narrower profiles must
+  # pass the actual create probe, without widening their permissions.
+  if mkdir -p "${shared_store%/*}" 2>/dev/null &&
+      can_write_directory "${shared_store%/*}" &&
+      acquire_shared_lock; then
+    if [[ ! -L "${shared_store}" && ! -L "${shared_store%/*}" &&
+          ( ! -e "${shared_store}" || ( -d "${shared_store}" && ! -L "${shared_store}" && -w "${shared_store}" ) ) ]] &&
+        { [[ ! -d "${shared_store}" ]] || can_write_directory "${shared_store}"; }; then
+      writable_store="${shared_store}"
+      store_scope=workspace
+    else
+      release_shared_lock
+    fi
+  else
+    release_shared_lock
+  fi
+fi
+if [[ "${store_scope}" != workspace ]]; then
+  if [[ "${require_shared}" == 1 ]]; then
+    echo "[sites] the workspace pnpm store is unavailable" >&2
+    exit 69
+  fi
+  store_scope=project
+fi
+
+seed="${SITES_PNPM_CACHE_SEED:-}"
+cache_seed=seed_unavailable
+if [[ -d "${writable_store}" ]]; then
+  # Never merge a newer image seed into an existing mutable store.
+  store_state=reused
+  cache_seed=not_applicable
+  if [[ -f "${writable_store}/.sites-pnpm-seed-applied.json" ]]; then cache_seed=seed_used; fi
+else
+  seed_compatible=0
+  if [[ -n "${seed}" && -d "${seed}/v11" ]] && node --input-type=module - "${seed}/.sites-pnpm-seed.json" <<'NODE'
+import { readFileSync, statSync } from "node:fs";
+try {
+  const filename = process.argv[2];
+  if (statSync(filename).size > 4096) process.exit(1);
+  const seed = JSON.parse(readFileSync(filename, "utf8"));
+  process.exit(seed.version === 1 && seed.pnpm_version === "11.25.0" &&
+    seed.store_version === "v11" && /^[a-f0-9]{64}$/.test(seed.lockfile_sha256) ? 0 : 1);
+} catch { process.exit(1); }
+NODE
+  then seed_compatible=1; fi
+  if [[ "${seed_compatible}" == 1 ]]; then
+    if [[ "${prepare_only}" == 1 ]]; then
+      echo "[sites] copying the image seed into the writable ${store_scope} pnpm store" >&2
+    else
+      echo "[sites] copying the image seed into the writable ${store_scope} pnpm store"
+    fi
+    seed_stage="$(mktemp -d "${writable_store}.seed.XXXXXX")" || exit 70
+    trap 'if [[ -n "${seed_stage:-}" ]]; then rm -rf -- "${seed_stage}"; fi; report_store || true' EXIT
+    timeout --signal=TERM --kill-after="${SITES_INSTALL_KILL_AFTER:-15s}" \
+      "${SITES_PNPM_STORE_PREPARE_TIMEOUT:-60s}" bash -c \
+      'cp -a --no-preserve=ownership "$1/." "$2/" && chmod -R u+rwX "$2"' _ "${seed}" "${seed_stage}" || exit 70
+    cp "${seed}/.sites-pnpm-seed.json" "${seed_stage}/.sites-pnpm-seed-applied.json" || exit 70
+    # An ordinary pnpm command can initialize the store without our seed lock.
+    # Publish without replacing even an empty directory created by that command.
+    mv -T --update=none "${seed_stage}" "${writable_store}" || exit 70
+    if [[ -d "${seed_stage}" ]]; then
+      if [[ -L "${writable_store}" || ! -d "${writable_store}" ]]; then exit 78; fi
+      rm -rf -- "${seed_stage}" || exit 70
+      store_state=reused
+      cache_seed=not_applicable
+      if [[ -f "${writable_store}/.sites-pnpm-seed-applied.json" ]]; then cache_seed=seed_used; fi
+    else
+      store_state=seeded
+      cache_seed=seed_used
+    fi
+    seed_stage=""
+  else
+    mkdir -p "${writable_store}" || exit 70
+    store_state=created
+  fi
+fi
+if ! can_write_directory "${writable_store}"; then store_state=unavailable; exit 70; fi
+release_shared_lock
+report_store
+trap - EXIT
+if [[ "${prepare_only}" == 1 ]]; then exit 0; fi
+
+# Configuration travels with source without embedding an absolute machine path.
+# A later restricted session selects a private store before its frozen repair.
+configured_store=.sites-runtime/pnpm-store
+if [[ "${store_scope}" == workspace ]]; then
+  configured_store='${SITES_PNPM_SHARED_STORE:-.sites-runtime/pnpm-store}'
+elif [[ "${runtime_root}" != "${SITES_PROJECT_ROOT}/.sites-runtime" ]]; then
+  configured_store='${SITES_RUNTIME_ROOT:-.sites-runtime}/pnpm-store'
+fi
+"${pnpm_command[@]}" config set package-import-method auto --location project
+"${pnpm_command[@]}" config set store-dir "${configured_store}" --location project
+"${pnpm_command[@]}" config set cache-dir "${configured_store}/policy-cache" --location project
+
+# CI=true lets native pnpm install rebuild modules whose store moved, without a
+# prompt, --force, changing the lockfile, or translating the project into npm.
+CI=true timeout --signal=TERM --kill-after="${SITES_INSTALL_KILL_AFTER:-15s}" \
+  "${SITES_INSTALL_TIMEOUT:-8m}" node "${script_dir}/pnpm-install.mjs" \
+  "${cache_seed}" "${store_scope}" "${store_state}" "${writable_store}" "${pnpm_command[@]}"
+
+
+===== FILE: scripts/npm-install.mjs =====
+import { spawn, spawnSync } from "node:child_process";
+import {
+  closeSync,
+  constants,
+  fstatSync,
+  ftruncateSync,
+  openSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
+import { constants as osConstants } from "node:os";
+import path from "node:path";
+import { createInterface } from "node:readline";
+import { fileURLToPath } from "node:url";
+
+const MAX_PACKAGES = 100_000;
+
+// npm reports tarball cache reads separately from registry metadata requests.
+// Count unique installed tarball URLs, not image seeds or network bytes. Require
+// complete coverage of npm's installed lock so older/partial logs stay unknown.
+export class NpmCacheProgress {
+  entries = new Map();
+  invalid = false;
+
+  constructor(registry) {
+    try {
+      const value = new URL(registry);
+      if (["http:", "https:"].includes(value.protocol)) this.registry = value;
+    } catch {}
+  }
+
+  accept(line) {
+    const match = line.match(
+      /^npm http (?:cache |fetch GET 200 )(\S+) \d+ms(?: attempt #\d+)? \(cache (hit|miss|revalidated|updated|skip)\)$/,
+    );
+    if (!match) return;
+    const [, spec, status] = match;
+    // Pacote's direct content-cache log uses name@URL; HTTP cache logs use URL.
+    const url = spec.replace(/^(?:@[^/]+\/)?[^@/]+@(?=https?:\/\/)/, "");
+    if (
+      url.length > 4096 ||
+      (this.entries.size >= MAX_PACKAGES && !this.entries.has(url))
+    ) {
+      this.invalid = true;
+      return;
+    }
+    const downloaded = !["hit", "revalidated"].includes(status);
+    this.entries.set(url, downloaded || this.entries.get(url) === true);
+  }
+
+  counts(lock) {
+    if (this.invalid || lock?.lockfileVersion !== 3 || !lock.packages)
+      return {};
+    const urls = new Set(
+      Object.values(lock.packages)
+        .map((pkg) => pkg?.resolved)
+        .filter((url) => typeof url === "string" && /^https?:\/\//.test(url)),
+    );
+    if (!urls.size || urls.size > MAX_PACKAGES) return {};
+    const observed = new Set();
+    let downloaded = 0;
+    for (const url of urls) {
+      let candidates = [url];
+      if (this.registry) {
+        const locked = new URL(url);
+        if (locked.hostname === "registry.npmjs.org") {
+          // Match npm/pacote's host rewrite and registry-fetch's path prefix
+          // using npm's effective configuration, never an arbitrary suffix.
+          candidates = [
+            ...new Set([
+              url,
+              new URL(locked.pathname, this.registry).href,
+              this.registry.href.replace(/\/$/, "") +
+                locked.pathname +
+                locked.search,
+            ]),
+          ];
+        }
+      }
+      const matches = candidates.filter((candidate) =>
+        this.entries.has(candidate),
+      );
+      if (
+        !matches.length ||
+        matches.some((candidate) => observed.has(candidate))
+      )
+        return {};
+      for (const candidate of matches) observed.add(candidate);
+      // A corrupt direct-cache hit followed by a mirror fetch is a download.
+      if (matches.some((candidate) => this.entries.get(candidate)))
+        downloaded++;
+    }
+    return {
+      packages_reused: urls.size - downloaded,
+      packages_downloaded: downloaded,
+    };
+  }
+}
+
+export async function runNpmInstall(command, cacheSeed = "not_applicable") {
+  let descriptor;
+  try {
+    if (process.env.SITES_INSTALL_REPORT_PATH && constants.O_NOFOLLOW) {
+      descriptor = openSync(
+        process.env.SITES_INSTALL_REPORT_PATH,
+        constants.O_WRONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK,
+      );
+      if (!fstatSync(descriptor).isFile()) {
+        closeSync(descriptor);
+        descriptor = undefined;
+      }
+    }
+  } catch {
+    if (descriptor !== undefined) {
+      try {
+        closeSync(descriptor);
+      } catch {}
+    }
+    descriptor = undefined;
+  }
+  const env = { ...process.env };
+  delete env.SITES_INSTALL_REPORT_PATH;
+  const [executable, ...args] = command;
+  let registry;
+  const installIndex = args.indexOf("ci");
+  if (descriptor !== undefined && installIndex >= 0) {
+    try {
+      const configured = spawnSync(
+        executable,
+        [...args.slice(0, installIndex), "config", "get", "registry"],
+        {
+          env,
+          encoding: "utf8",
+          stdio: ["ignore", "pipe", "ignore"],
+          timeout: 3000,
+          maxBuffer: 4096,
+        },
+      );
+      if (configured.status === 0) registry = configured.stdout.trim();
+    } catch {}
+  }
+  const progress = new NpmCacheProgress(registry);
+  let receivedSignal;
+  const handlers = ["SIGINT", "SIGHUP", "SIGTERM"].map((signal) => {
+    const handler = () => {
+      receivedSignal ??= signal;
+    };
+    process.on(signal, handler);
+    return [signal, handler];
+  });
+  let result = { code: 1, signal: null };
+  try {
+    const child = spawn(executable, [...args, "--loglevel=http"], {
+      env,
+      stdio: ["inherit", "inherit", "pipe"],
+    });
+    const lines = createInterface({ input: child.stderr, crlfDelay: Infinity });
+    lines.on("line", (line) => {
+      progress.accept(line);
+      // Do not add package URLs to normal helper output just for telemetry.
+      if (!line.startsWith("npm http ")) process.stderr.write(`${line}\n`);
+    });
+    let startError;
+    child.once("error", (error) => {
+      startError = error;
+    });
+    result = await new Promise((resolve) =>
+      child.once("close", (code, signal) => {
+        resolve({
+          code: startError ? (startError.code === "ENOENT" ? 127 : 1) : code,
+          signal,
+        });
+      }),
+    );
+    lines.close();
+    if (startError) process.stderr.write("Unable to start npm.\n");
+  } finally {
+    for (const [signal, handler] of handlers)
+      process.removeListener(signal, handler);
+    result.signal ??= receivedSignal;
+    try {
+      let counts = {};
+      if (result.code === 0 && !result.signal) {
+        try {
+          counts = progress.counts(
+            JSON.parse(readFileSync("node_modules/.package-lock.json", "utf8")),
+          );
+        } catch {}
+      }
+      if (descriptor !== undefined) {
+        ftruncateSync(descriptor, 0);
+        writeFileSync(
+          descriptor,
+          `${JSON.stringify({
+            version: 1,
+            cache_seed:
+              result.code === 0 && !result.signal
+                ? cacheSeed
+                : "decision_unavailable",
+            ...counts,
+          })}\n`,
+        );
+      }
+    } catch {
+      // Telemetry must not change installation behavior.
+    } finally {
+      if (descriptor !== undefined) {
+        try {
+          closeSync(descriptor);
+        } catch {}
+      }
+    }
+  }
+  return result;
+}
+
+if (
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
+  const [cacheSeed, ...command] = process.argv.slice(2);
+  const result = await runNpmInstall(command, cacheSeed);
+  process.exitCode = result.signal
+    ? 128 + (osConstants.signals[result.signal] ?? 0)
+    : result.code ?? 1;
+  if (result.signal) {
+    try {
+      process.kill(process.pid, result.signal);
+    } catch {}
+  }
+}
+
+
+===== FILE: scripts/pnpm-install.mjs =====
+import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
+import {
+  accessSync,
+  closeSync,
+  constants,
+  fstatSync,
+  ftruncateSync,
+  openSync,
+  readFileSync,
+  writeFileSync,
+  writeSync,
+} from "node:fs";
+import { constants as osConstants } from "node:os";
+import path from "node:path";
+import { createInterface } from "node:readline";
+import { fileURLToPath } from "node:url";
+
+const MAX_PACKAGES = 100_000;
+const CACHE_SEEDS = new Set(["seed_used", "seed_unavailable", "seed_lockfile_mismatch", "decision_unavailable", "not_applicable"]);
+const STORE_STATES = new Set(["created", "seeded", "reused", "unavailable"]);
+// The caller may use operational status only for
+// initial-setup fallback; an established project always retains pnpm. Broad
+// fetch failures can include TLS/auth errors and stay fatal.
+const OPERATIONAL_FAILURE_CODES = new Set([
+  "ERR_PNPM_UNEXPECTED_STORE",
+  "ERR_PNPM_UNEXPECTED_VIRTUAL_STORE",
+  "ERR_PNPM_OUTDATED_LOCKFILE",
+  "ERR_PNPM_FROZEN_LOCKFILE_WITH_OUTDATED_LOCKFILE",
+  "ERR_PNPM_NO_LOCKFILE",
+  "ERR_PNPM_FETCH_408",
+  "ERR_PNPM_FETCH_429",
+  "ERR_PNPM_FETCH_500",
+  "ERR_PNPM_FETCH_502",
+  "ERR_PNPM_FETCH_503",
+  "ERR_PNPM_FETCH_504",
+]);
+
+// These are pnpm-reported package IDs, not an assertion about network bytes or
+// image-cache provenance. Do not interpret an installed-tree no-op as 100% reuse.
+export class InstallProgress {
+  constructor(project) {
+    this.project = path.resolve(project);
+    this.reused = new Set();
+    this.downloaded = new Set();
+    this.complete = false;
+    this.added = undefined;
+    this.invalid = false;
+  }
+
+  accept(event) {
+    if (event?.name === "pnpm:stats" && event.prefix === this.project &&
+        Number.isSafeInteger(event.added) && event.added >= 0) this.added = event.added;
+    if (event?.name === "pnpm:stage" && event.stage === "importing_done" &&
+        event.prefix === this.project) this.complete = true;
+    if (event?.name !== "pnpm:progress" || event.requester !== this.project ||
+        !["fetched", "found_in_store"].includes(event.status)) return;
+    if (typeof event.packageId !== "string" || !event.packageId || event.packageId.length > 4096 ||
+        this.reused.size + this.downloaded.size >= MAX_PACKAGES) {
+      this.invalid = true;
+      return;
+    }
+    if (event.status === "fetched") {
+      this.reused.delete(event.packageId);
+      this.downloaded.add(event.packageId);
+    } else if (!this.downloaded.has(event.packageId)) {
+      this.reused.add(event.packageId);
+    }
+  }
+
+  counts(success) {
+    if (!success || !this.complete || !(this.added > 0) || this.invalid ||
+        this.reused.size + this.downloaded.size === 0) return {};
+    return { packages_reused: this.reused.size, packages_downloaded: this.downloaded.size };
+  }
+}
+
+function openReport() {
+  const report = process.env.SITES_INSTALL_REPORT_PATH;
+  if (!report || !constants.O_NOFOLLOW) return undefined;
+  let fd;
+  try {
+    fd = openSync(report, constants.O_WRONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK);
+    if (fstatSync(fd).isFile()) return fd;
+  } catch {}
+  if (fd !== undefined) closeSync(fd);
+  return undefined;
+}
+
+function writeReport(fd, report) {
+  if (fd === undefined) return;
+  try {
+    const body = `${JSON.stringify(report)}\n`;
+    writeSync(fd, body, 0, "utf8");
+    ftruncateSync(fd, Buffer.byteLength(body));
+  } catch {
+    // Optional telemetry must not change installation behavior or expose its path.
+  }
+}
+
+function showLine(line, progress, failure) {
+  let event;
+  try {
+    event = JSON.parse(line);
+  } catch {
+    process.stdout.write(`${line}\n`);
+    return;
+  }
+  progress.accept(event);
+  if (event?.level === "error" && failure.code !== 65) {
+    failure.code = event.name === "pnpm" && OPERATIONAL_FAILURE_CODES.has(event.err?.code)
+      ? 70 : 65;
+  }
+  const message = event?.message ?? event?.err?.message;
+  if (event?.name === "pnpm:lifecycle" && typeof event.line === "string") {
+    process.stdout.write(`${event.line}\n`);
+  } else if (typeof message === "string" && ["warn", "error", "info"].includes(event.level)) {
+    const output = event.level === "error" ? process.stderr : process.stdout;
+    output.write(`${message}\n`);
+  }
+}
+
+async function openLock(filename, waitSeconds) {
+  let fd;
+  try {
+    if (!filename || !constants.O_NOFOLLOW || !constants.O_NONBLOCK) throw new Error("Unsupported lock");
+    fd = openSync(filename, constants.O_CREAT | constants.O_RDWR | constants.O_NOFOLLOW | constants.O_NONBLOCK, 0o600);
+    if (!fstatSync(fd).isFile()) throw new Error("Expected a regular lock file");
+    const child = spawn("flock", ["-w", waitSeconds, "3"], { stdio: ["ignore", "ignore", "ignore", fd] });
+    const code = await new Promise((resolve) => {
+      child.once("error", () => resolve(undefined));
+      child.once("close", resolve);
+    });
+    if (code === 0) return { status: "locked", fd };
+    closeSync(fd);
+    return { status: code === undefined ? "unavailable" : "busy" };
+  } catch {
+    if (fd !== undefined) closeSync(fd);
+    return { status: "unavailable" };
+  }
+}
+
+async function holdInstallLocks(projectLock, sharedLock, waitSeconds) {
+  // The shell holds both leases through stdin. EOF (including caller exit)
+  // releases the same open file descriptions that flock locked in its child.
+  const requests = createInterface({ input: process.stdin, crlfDelay: Infinity });
+  const project = await openLock(projectLock, "0");
+  let shared;
+  try {
+    process.stdout.write(`${project.status}\n`);
+    for await (const request of requests) {
+      if (request === "shared" && project.fd !== undefined) {
+        shared ??= await openLock(sharedLock, waitSeconds);
+        process.stdout.write(`${shared.status}\n`);
+      } else if (request === "release-shared") {
+        if (shared?.fd !== undefined) closeSync(shared.fd);
+        shared = undefined;
+        process.stdout.write("released\n");
+      } else {
+        process.stdout.write("unavailable\n");
+      }
+    }
+  } finally {
+    if (shared?.fd !== undefined) closeSync(shared.fd);
+    if (project.fd !== undefined) closeSync(project.fd);
+    requests.close();
+  }
+}
+
+async function main() {
+  const argsIn = process.argv.slice(2);
+  if (argsIn[0] === "--hold-install-locks") {
+    await holdInstallLocks(argsIn[1], argsIn[2], argsIn[3]);
+    return;
+  }
+  if (argsIn[0] === "--report-store") {
+    const [, cacheSeed, storeScope, storeState, stdout] = argsIn;
+    if (!CACHE_SEEDS.has(cacheSeed) || !["project", "workspace", "unknown"].includes(storeScope) ||
+        !STORE_STATES.has(storeState)) { process.exitCode = 64; return; }
+    const report = { version: 1, cache_seed: cacheSeed, store_scope: storeScope, store_state: storeState };
+    const fd = openReport();
+    writeReport(fd, report);
+    if (fd !== undefined) closeSync(fd);
+    if (stdout === "1") process.stdout.write(`${JSON.stringify(report)}\n`);
+    return;
+  }
+  const [cacheSeed, storeScope, storeState, store, executable, ...prefix] = argsIn;
+  if (!CACHE_SEEDS.has(cacheSeed) || !["project", "workspace"].includes(storeScope) ||
+      !STORE_STATES.has(storeState) || storeState === "unavailable" ||
+      !store || !path.isAbsolute(store) || !executable) {
+    process.stderr.write("Invalid pnpm installation arguments.\n");
+    process.exitCode = 64;
+    return;
+  }
+  const fd = openReport();
+  const report = { version: 1, cache_seed: cacheSeed, store_scope: storeScope, store_state: storeState };
+  writeReport(fd, report);
+  const progress = new InstallProgress(process.cwd());
+  const failure = {};
+  const env = { ...process.env };
+  delete env.SITES_INSTALL_REPORT_PATH;
+  const args = [...prefix, "install", "--prod=false", "--ignore-scripts=false",
+    "--frozen-lockfile", "--prefer-offline", "--store-dir", store,
+    "--cache-dir", path.join(store, "policy-cache"), "--fetch-retries=0",
+    "--fetch-timeout=30000", "--network-concurrency=1", "--reporter=ndjson",
+    "--package-import-method=auto"];
+  let result = { code: 1, signal: null };
+  let receivedSignal;
+  try {
+    const child = spawn(executable, args, { env, stdio: ["inherit", "pipe", "inherit"] });
+    const lines = createInterface({ input: child.stdout, crlfDelay: Infinity });
+    lines.on("line", (line) => showLine(line, progress, failure));
+    // timeout/exec owns the inherited group. Relaying would deliver signals twice.
+    const signalHandlers = ["SIGINT", "SIGHUP", "SIGTERM"].map((signal) => {
+      const handler = () => { receivedSignal ??= signal; };
+      process.on(signal, handler);
+      return [signal, handler];
+    });
+    let spawnError;
+    child.once("error", (error) => { spawnError = error; });
+    result = await new Promise((resolve) => child.once("close", (code, signal) => {
+      resolve({ code: spawnError ? (spawnError.code === "ENOENT" ? 127 : 1) : code, signal });
+    }));
+    for (const [signal, handler] of signalHandlers) process.removeListener(signal, handler);
+    lines.close();
+    result.signal ??= receivedSignal;
+    if (spawnError) {
+      process.stderr.write("Unable to start pnpm.\n");
+      result.code = spawnError.code === "ENOENT" ? 127 : 65;
+    } else if (result.code !== 0 && !result.signal) {
+      result.code = failure.code ?? 65;
+    }
+    if (result.code === 0 && !result.signal) {
+      accessSync("node_modules/.bin/vinext", constants.X_OK);
+      const lock = readFileSync("pnpm-lock.yaml");
+      writeFileSync("node_modules/.sites-install.json", `${JSON.stringify({
+        package_manager: "pnpm@11.25.0",
+        lockfile_sha256: createHash("sha256").update(lock).digest("hex"),
+        node: process.version,
+        platform: `${process.platform}-${process.arch}`,
+      }, null, 2)}\n`);
+    }
+  } catch {
+    process.stderr.write("Dependency setup did not produce a usable Vinext installation.\n");
+    result = { code: 65, signal: receivedSignal ?? null };
+  } finally {
+    Object.assign(report, progress.counts(result.code === 0 && !result.signal));
+    writeReport(fd, report);
+    if (fd !== undefined) closeSync(fd);
+  }
+  if (report.packages_reused !== undefined) {
+    process.stdout.write(`[sites] pnpm reused ${report.packages_reused} packages and downloaded ${report.packages_downloaded}\n`);
+  }
+  if (result.code === 0 && !result.signal) process.stdout.write("[sites] dependency setup passed\n");
+  process.exitCode = result.signal ? 128 + (osConstants.signals[result.signal] ?? 0) : result.code ?? 1;
+  if (result.signal) {
+    try { process.kill(process.pid, result.signal); } catch {}
+  }
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await main();
+
+
+===== FILE: scripts/run-framework.mjs =====
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { readExecutionProfile } from "./execution-profile.mjs";
+
+const [command, ...args] = process.argv.slice(2);
+if (!["dev", "build"].includes(command)) throw new Error("Expected dev or build.");
+const managedLinux = readExecutionProfile() === "managed-linux";
+
+if (managedLinux && command === "build") {
+  const result = spawnSync("bash", [
+    fileURLToPath(new URL("./build-verified.sh", import.meta.url)), ...args,
+  ], { stdio: "inherit" });
+  if (result.error) throw result.error;
+  process.exit(result.status ?? 1);
+}
+
+// Import in this process so the preview owner retains its PID and signals.
+const cli = new URL(managedLinux
+  ? "../node_modules/vite/bin/vite.js"
+  : "../node_modules/vinext/dist/cli.js", import.meta.url);
+process.argv = [process.execPath, fileURLToPath(cli), command,
+  ...(!managedLinux && command === "dev" ? ["--port", "5173"] : []), ...args];
+await import(cli.href);
+
+
+===== FILE: scripts/sites-env.mjs =====
+import { mkdirSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+export const projectRoot = fileURLToPath(new URL("../", import.meta.url));
+const runtimeRoot = process.env.SITES_RUNTIME_ROOT || path.join(projectRoot, ".sites-runtime");
+
+process.env.CLOUDFLARE_CF_FETCH_ENABLED ||= "false";
+process.env.WRANGLER_SEND_METRICS ||= "false";
+process.env.WRANGLER_WRITE_LOGS ||= "false";
+process.env.WRANGLER_LOG_PATH ||= path.join(runtimeRoot, "wrangler/logs");
+process.env.WRANGLER_REGISTRY_PATH ||= path.join(runtimeRoot, "wrangler/dev-registry");
+process.env.MINIFLARE_REGISTRY_PATH ||= path.join(runtimeRoot, "wrangler/registry");
+
+process.chdir(projectRoot);
+for (const directory of [
+  path.dirname(process.env.WRANGLER_LOG_PATH),
+  process.env.WRANGLER_REGISTRY_PATH,
+  process.env.MINIFLARE_REGISTRY_PATH,
+]) {
+  mkdirSync(directory, { recursive: true });
+}
+
+
+===== FILE: scripts/sites-env.sh =====
+#!/usr/bin/env bash
+set -euo pipefail
+
+project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+runtime_root="${SITES_RUNTIME_ROOT:-${project_root}/.sites-runtime}"
+
+mkdir -p \
+  "${runtime_root}/home" \
+  "${runtime_root}/npm-cache" \
+  "${runtime_root}/xdg-config" \
+  "${runtime_root}/tmp" \
+  "${runtime_root}/wrangler/logs"
+
+export SITES_ENV_READY=1
+export SITES_PROJECT_ROOT="${project_root}"
+export HOME="${runtime_root}/home"
+export XDG_CONFIG_HOME="${runtime_root}/xdg-config"
+export TMPDIR="${runtime_root}/tmp"
+export WRANGLER_WRITE_LOGS=false
+export WRANGLER_LOG_PATH="${runtime_root}/wrangler/logs"
+export MINIFLARE_REGISTRY_PATH="${runtime_root}/wrangler/registry"
+
+# The runtime may provide a global npm cache. Keep the image's read-only Sites
+# seed separate and make this project's writable cache authoritative.
+unset NPM_CONFIG_CACHE npm_config_cache || true
+export npm_config_cache="${runtime_root}/npm-cache"
+export npm_config_audit=false
+export npm_config_fund=false
+export npm_config_update_notifier=false
+
+# The runtime already supplies the standard HTTP(S)_PROXY variables. Remove
+# npm-specific aliases so npm 11 does not reinterpret or warn about them.
+unset \
+  npm_config_proxy \
+  npm_config_http_proxy \
+  npm_config_https_proxy \
+  NPM_CONFIG_PROXY \
+  NPM_CONFIG_HTTP_PROXY \
+  NPM_CONFIG_HTTPS_PROXY \
+  || true
+
+if [[ "${1:-}" == "--" ]]; then
+  shift
+fi
+
+if [[ "$#" -eq 0 ]]; then
+  echo "usage: scripts/sites-env.sh -- command [args...]" >&2
+  exit 64
+fi
+
+cd "${project_root}"
+exec "$@"
+
+
+===== FILE: tsconfig.json =====
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "types": [
+      "node",
+      "@cloudflare/workers-types"
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": [
+    "node_modules",
+    "examples"
+  ]
+}
+
+
+===== FILE: vendor/shadcn-tailwind-4.13.0.LICENSE.md =====
+MIT License
+
+Copyright (c) 2023 shadcn
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+===== FILE: vendor/shadcn-tailwind-4.13.0.css =====
+@theme inline {
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(
+        --radix-accordion-content-height,
+        var(--accordion-panel-height, auto)
+      );
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(
+        --radix-accordion-content-height,
+        var(--accordion-panel-height, auto)
+      );
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/* Custom variants */
+@custom-variant data-open {
+  &:where([data-state="open"]),
+  &:where([data-open]:not([data-open="false"])) {
+    @slot;
+  }
+}
+
+@custom-variant data-closed {
+  &:where([data-state="closed"]),
+  &:where([data-closed]:not([data-closed="false"])) {
+    @slot;
+  }
+}
+
+@custom-variant data-checked {
+  &:where([data-state="checked"]),
+  &:where([data-checked]:not([data-checked="false"])) {
+    @slot;
+  }
+}
+
+@custom-variant data-unchecked {
+  &:where([data-state="unchecked"]),
+  &:where([data-unchecked]:not([data-unchecked="false"])) {
+    @slot;
+  }
+}
+
+@custom-variant data-selected {
+  &:where([data-selected="true"]) {
+    @slot;
+  }
+}
+
+@custom-variant data-disabled {
+  &:where([data-disabled="true"]),
+  &:where([data-disabled]:not([data-disabled="false"])) {
+    @slot;
+  }
+}
+
+@custom-variant data-active {
+  &:where([data-state="active"]),
+  &:where([data-active]:not([data-active="false"])) {
+    @slot;
+  }
+}
+
+@custom-variant data-horizontal {
+  &:where([data-orientation="horizontal"]) {
+    @slot;
+  }
+}
+
+@custom-variant data-vertical {
+  &:where([data-orientation="vertical"]) {
+    @slot;
+  }
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* scroll-fade */
+@property --scroll-fade-t {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --scroll-fade-b {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --scroll-fade-s {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --scroll-fade-e {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --scroll-fade-mask {
+  syntax: "*";
+  inherits: false;
+}
+
+@theme inline {
+  @keyframes scroll-fade-reveal-t {
+    from {
+      --scroll-fade-t: 0px;
+    }
+    to {
+      --scroll-fade-t: var(--_scroll-fade-size-t, var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10))));
+    }
+  }
+  @keyframes scroll-fade-reveal-b {
+    from {
+      --scroll-fade-b: var(--_scroll-fade-size-b, var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10))));
+    }
+    to {
+      --scroll-fade-b: 0px;
+    }
+  }
+  @keyframes scroll-fade-reveal-s {
+    from {
+      --scroll-fade-s: 0px;
+    }
+    to {
+      --scroll-fade-s: var(--_scroll-fade-size-s, var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10))));
+    }
+  }
+  @keyframes scroll-fade-reveal-e {
+    from {
+      --scroll-fade-e: var(--_scroll-fade-size-e, var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10))));
+    }
+    to {
+      --scroll-fade-e: 0px;
+    }
+  }
+}
+
+@utility scroll-fade {
+  --_scroll-fade-size-t: var(
+    --scroll-fade-t-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --_scroll-fade-size-b: var(
+    --scroll-fade-b-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-block: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--scroll-fade-t, 0px),
+    #000 calc(100% - var(--scroll-fade-b, 0px)),
+    transparent 100%
+  );
+  -webkit-mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));
+  mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation:
+      scroll-fade-reveal-t 1ms ease-in-out,
+      scroll-fade-reveal-b 1ms ease-in-out;
+    animation-timeline: scroll(self y), scroll(self y);
+    animation-range:
+      0 var(--scroll-fade-reveal, calc(var(--spacing) * 24)),
+      calc(100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))) 100%;
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-t: var(--_scroll-fade-size-t);
+    --scroll-fade-b: var(--_scroll-fade-size-b);
+  }
+}
+
+@utility scroll-fade-y {
+  --_scroll-fade-size-t: var(
+    --scroll-fade-t-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --_scroll-fade-size-b: var(
+    --scroll-fade-b-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-block: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--scroll-fade-t, 0px),
+    #000 calc(100% - var(--scroll-fade-b, 0px)),
+    transparent 100%
+  );
+  -webkit-mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));
+  mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation:
+      scroll-fade-reveal-t 1ms ease-in-out,
+      scroll-fade-reveal-b 1ms ease-in-out;
+    animation-timeline: scroll(self y), scroll(self y);
+    animation-range:
+      0 var(--scroll-fade-reveal, calc(var(--spacing) * 24)),
+      calc(100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))) 100%;
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-t: var(--_scroll-fade-size-t);
+    --scroll-fade-b: var(--_scroll-fade-size-b);
+  }
+}
+
+@utility scroll-fade-x {
+  --_scroll-fade-size-s: var(
+    --scroll-fade-s-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --_scroll-fade-size-e: var(
+    --scroll-fade-e-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-inline: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--scroll-fade-s, 0px),
+    #000 calc(100% - var(--scroll-fade-e, 0px)),
+    transparent 100%
+  );
+  &:where([dir="rtl"], [dir="rtl"] *) {
+    --scroll-fade-inline: linear-gradient(
+      to left,
+      transparent 0,
+      #000 var(--scroll-fade-s, 0px),
+      #000 calc(100% - var(--scroll-fade-e, 0px)),
+      transparent 100%
+    );
+  }
+  -webkit-mask-image: var(--scroll-fade-mask, var(--scroll-fade-inline));
+  mask-image: var(--scroll-fade-mask, var(--scroll-fade-inline));
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation:
+      scroll-fade-reveal-s 1ms ease-in-out,
+      scroll-fade-reveal-e 1ms ease-in-out;
+    animation-timeline: scroll(self inline), scroll(self inline);
+    animation-range:
+      0 var(--scroll-fade-reveal, calc(var(--spacing) * 24)),
+      calc(100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))) 100%;
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-s: var(--_scroll-fade-size-s);
+    --scroll-fade-e: var(--_scroll-fade-size-e);
+  }
+}
+
+@utility scroll-fade-t {
+  --_scroll-fade-size-t: var(
+    --scroll-fade-t-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-mask: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--scroll-fade-t, 0px),
+    #000 100%
+  );
+  -webkit-mask-image: var(--scroll-fade-mask);
+  mask-image: var(--scroll-fade-mask);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-fade-reveal-t 1ms ease-in-out;
+    animation-timeline: scroll(self y);
+    animation-range: 0 var(--scroll-fade-reveal, calc(var(--spacing) * 24));
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-t: var(--_scroll-fade-size-t);
+  }
+}
+
+@utility scroll-fade-b {
+  --_scroll-fade-size-b: var(
+    --scroll-fade-b-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-mask: linear-gradient(
+    to bottom,
+    #000 0,
+    #000 calc(100% - var(--scroll-fade-b, 0px)),
+    transparent 100%
+  );
+  -webkit-mask-image: var(--scroll-fade-mask);
+  mask-image: var(--scroll-fade-mask);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-fade-reveal-b 1ms ease-in-out;
+    animation-timeline: scroll(self y);
+    animation-range: calc(
+        100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))
+      )
+      100%;
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-b: var(--_scroll-fade-size-b);
+  }
+}
+
+@utility scroll-fade-l {
+  --_scroll-fade-size-s: var(
+    --scroll-fade-s-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-mask: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--scroll-fade-s, 0px),
+    #000 100%
+  );
+  -webkit-mask-image: var(--scroll-fade-mask);
+  mask-image: var(--scroll-fade-mask);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-fade-reveal-s 1ms ease-in-out;
+    animation-timeline: scroll(self x);
+    animation-range: 0 var(--scroll-fade-reveal, calc(var(--spacing) * 24));
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-s: var(--_scroll-fade-size-s);
+  }
+}
+
+@utility scroll-fade-r {
+  --_scroll-fade-size-e: var(
+    --scroll-fade-e-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-mask: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(100% - var(--scroll-fade-e, 0px)),
+    transparent 100%
+  );
+  -webkit-mask-image: var(--scroll-fade-mask);
+  mask-image: var(--scroll-fade-mask);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-fade-reveal-e 1ms ease-in-out;
+    animation-timeline: scroll(self x);
+    animation-range: calc(
+        100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))
+      )
+      100%;
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-e: var(--_scroll-fade-size-e);
+  }
+}
+
+@utility scroll-fade-s {
+  --_scroll-fade-size-s: var(
+    --scroll-fade-s-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-mask: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--scroll-fade-s, 0px),
+    #000 100%
+  );
+  &:where([dir="rtl"], [dir="rtl"] *) {
+    --scroll-fade-mask: linear-gradient(
+      to left,
+      transparent 0,
+      #000 var(--scroll-fade-s, 0px),
+      #000 100%
+    );
+  }
+  -webkit-mask-image: var(--scroll-fade-mask);
+  mask-image: var(--scroll-fade-mask);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-fade-reveal-s 1ms ease-in-out;
+    animation-timeline: scroll(self inline);
+    animation-range: 0 var(--scroll-fade-reveal, calc(var(--spacing) * 24));
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-s: var(--_scroll-fade-size-s);
+  }
+}
+
+@utility scroll-fade-e {
+  --_scroll-fade-size-e: var(
+    --scroll-fade-e-size,
+    var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+  );
+  --scroll-fade-mask: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(100% - var(--scroll-fade-e, 0px)),
+    transparent 100%
+  );
+  &:where([dir="rtl"], [dir="rtl"] *) {
+    --scroll-fade-mask: linear-gradient(
+      to left,
+      #000 0,
+      #000 calc(100% - var(--scroll-fade-e, 0px)),
+      transparent 100%
+    );
+  }
+  -webkit-mask-image: var(--scroll-fade-mask);
+  mask-image: var(--scroll-fade-mask);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-fade-reveal-e 1ms ease-in-out;
+    animation-timeline: scroll(self inline);
+    animation-range: calc(
+        100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))
+      )
+      100%;
+    animation-fill-mode: both;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    --scroll-fade-e: var(--_scroll-fade-size-e);
+  }
+}
+
+@utility scroll-fade-* {
+  --scroll-fade-size: calc(var(--spacing) * --value(integer));
+  --scroll-fade-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-t-* {
+  --scroll-fade-t-size: calc(var(--spacing) * --value(integer));
+  --scroll-fade-t-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-b-* {
+  --scroll-fade-b-size: calc(var(--spacing) * --value(integer));
+  --scroll-fade-b-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-s-* {
+  --scroll-fade-s-size: calc(var(--spacing) * --value(integer));
+  --scroll-fade-s-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-e-* {
+  --scroll-fade-e-size: calc(var(--spacing) * --value(integer));
+  --scroll-fade-e-size: --value([length], [percentage]);
+}
+
+@utility scroll-fade-none {
+  --scroll-fade-mask: none;
+}
+
+/* shimmer */
+@property --shimmer-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 20deg;
+}
+@property --shimmer-image {
+  syntax: "*";
+  inherits: false;
+}
+@property --shimmer-text-fill {
+  syntax: "*";
+  inherits: false;
+}
+
+@theme inline {
+  @keyframes tw-shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: 0 0;
+    }
+  }
+}
+
+@utility shimmer {
+  --_spread: var(--shimmer-spread, calc(3ch + 40px));
+  --_base: currentColor;
+  --_highlight: var(
+    --shimmer-color,
+    oklch(from currentColor l c h / calc(alpha* 0.2))
+  );
+
+  background-image: var(
+    --shimmer-image,
+    linear-gradient(
+      calc(90deg + var(--shimmer-angle)),
+      var(--_base) calc(50% - var(--_spread)),
+      color-mix(in oklch, var(--_highlight), var(--_base) 50%)
+        calc(50% - var(--_spread) * 0.5),
+      var(--_highlight) 50%,
+      color-mix(in oklch, var(--_highlight), var(--_base) 50%)
+        calc(50% + var(--_spread) * 0.5),
+      var(--_base) calc(50% + var(--_spread))
+    )
+  );
+  background-repeat: no-repeat;
+  background-size: calc(200% + var(--_spread) * 2) 100%;
+  background-position: 0 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--shimmer-text-fill, transparent);
+  animation: tw-shimmer var(--shimmer-duration, 2s) linear infinite;
+
+  @variant dark {
+    --_highlight: var(
+      --shimmer-color,
+      oklch(from currentColor max(0.8, calc(l + 0.4)) c h / calc(alpha + 0.4))
+    );
+  }
+
+  &:where([dir="rtl"], [dir="rtl"] *) {
+    animation-direction: reverse;
+  }
+}
+
+@utility shimmer-once {
+  animation-iteration-count: 1;
+}
+
+@utility shimmer-reverse {
+  animation-direction: reverse;
+}
+
+@utility shimmer-none {
+  --shimmer-image: none;
+  --shimmer-text-fill: currentColor;
+}
+
+@utility shimmer-color-* {
+  --shimmer-color: --value(--color, [color]);
+  --shimmer-color: color-mix(
+    in oklch,
+    --value(--color, [color]) calc(--modifier(integer) * 1%),
+    transparent
+  );
+}
+
+@utility shimmer-duration-* {
+  --shimmer-duration: calc(--value(integer) * 1ms);
+}
+
+@utility shimmer-spread-* {
+  --shimmer-spread: calc(var(--spacing) * --value(integer));
+  --shimmer-spread: --value([length], [percentage]);
+}
+
+@utility shimmer-angle-* {
+  --shimmer-angle: calc(--value(integer) * 1deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer {
+    animation: none;
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+
+===== FILE: vite.config.ts =====
+import vinext from "vinext";
+import { defineConfig } from "vite";
+import hostingConfig from "./.openai/hosting.json";
+import { readExecutionProfile } from "./scripts/execution-profile.mjs";
+import { sites } from "./build/sites-vite-plugin";
+import { connectorPreview } from "./build/connector-preview-plugin.mjs";
+
+const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
+  "00000000-0000-4000-8000-000000000000";
+
+const { d1, r2 } = hostingConfig;
+
+// macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
+const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
+const managedLinux = readExecutionProfile() === "managed-linux";
+
+const localBindingConfig = {
+  main: "./build/sites-worker.ts",
+  compatibility_flags: ["nodejs_compat"],
+  d1_databases: d1
+    ? [
+        {
+          binding: d1,
+          database_name: "site-creator-d1",
+          database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
+        },
+      ]
+    : [],
+  r2_buckets: r2
+    ? [
+        {
+          binding: r2,
+          bucket_name: "site-creator-r2",
+        },
+      ]
+    : [],
+};
+
+export default defineConfig(async ({ command }) => {
+  // Use Miniflare's local Request.cf placeholder unless fetching is requested.
+  process.env.CLOUDFLARE_CF_FETCH_ENABLED ??= "false";
+  process.env.WRANGLER_SEND_METRICS ??= "false";
+
+  // Keep Wrangler and Miniflare state project-local. These are non-secret tool
+  // settings; application environment belongs in ignored `.env*` files.
+  process.env.WRANGLER_WRITE_LOGS ??= "false";
+  process.env.WRANGLER_LOG_PATH ??= ".wrangler/logs";
+  process.env.WRANGLER_REGISTRY_PATH ??= ".wrangler/dev-registry";
+  process.env.MINIFLARE_REGISTRY_PATH ??= ".wrangler/registry";
+
+  // Wrangler snapshots its log path while the Cloudflare plugin is imported.
+  const { cloudflare } = await import("@cloudflare/vite-plugin");
+
+  return {
+    server: {
+      ...(managedLinux
+        ? { host: "0.0.0.0", allowedHosts: ["terminal.local"] }
+        : {}),
+      ...(isCodexSeatbeltSandbox
+        ? { watch: { useFsEvents: false, usePolling: true } }
+        : {}),
+    },
+    plugins: [
+      vinext(),
+      sites({ mockAuth: !managedLinux }),
+      connectorPreview(),
+      cloudflare({
+        viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
+        inspectorPort: false,
+        config: {
+          ...localBindingConfig,
+          ...(command === "serve"
+            ? {
+                services: [
+                  {
+                    binding: "CONNECTORS",
+                    service: "sites-connector-preview",
+                    entrypoint: "ConnectorPreview",
+                  },
+                ],
+              }
+            : {}),
+        },
+        ...(command === "serve"
+          ? {
+              auxiliaryWorkers: [
+                {
+                  config: {
+                    name: "sites-connector-preview",
+                    main: "./build/connector-preview-worker.mjs",
+                    compatibility_date: "2026-05-15",
+                  },
+                },
+              ],
+            }
+          : {}),
+      }),
+    ],
+  };
+});
+
+
+===== FILE: next-env.d.ts =====
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+import "vinext/types/augmentations";
+

@@ -1,0 +1,1845 @@
+{
+  "version": 2,
+  "code": [
+    {
+      "path": ".npmrc",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 26,
+      "bytes": 45,
+      "sha256": "a3909ac0447c469fda12c57374993be70f47ce73e49fd3124678c7c047f2214d"
+    },
+    {
+      "path": ".openai/hosting.json",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 112,
+      "bytes": 95,
+      "sha256": "50bf4920257e95608c97d6074daa0f4b1ac2aee431dca887d7df567645d9dfe0"
+    },
+    {
+      "path": "app/api/assets/[assetId]/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 261,
+      "bytes": 357,
+      "sha256": "85aec64f4f63a01a2dfb3b2e7bdcc35513dab9bdf1e4333a7ac4f6b092d45b75"
+    },
+    {
+      "path": "app/api/model-options/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 669,
+      "bytes": 345,
+      "sha256": "ec361877364865e68570252e40df3f2f32514fba551ddf2a05fdfa2f7244cac8"
+    },
+    {
+      "path": "app/api/public/[token]/events/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 1073,
+      "bytes": 354,
+      "sha256": "9d7bae65c5043f4902771313aef09608a65afac453580fc6e0e649f51d1ff6f8"
+    },
+    {
+      "path": "app/api/public/[token]/feedback/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 1488,
+      "bytes": 360,
+      "sha256": "8d3105abbafc0d90c39cb73be4723060124c5b802747e8adad568eaaf5a400dc"
+    },
+    {
+      "path": "app/api/public/[token]/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 1900,
+      "bytes": 356,
+      "sha256": "cdb3ba5ee892f54c0b2589444fdc26eea1991c9327ddd784cc387cb72cf42a63"
+    },
+    {
+      "path": "app/api/session/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 2301,
+      "bytes": 200,
+      "sha256": "3b6f380ecfede5c0bb199d779d48943bfee32af1995ab396a87c44df505cfafa"
+    },
+    {
+      "path": "app/api/stories/[id]/assets/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 2558,
+      "bytes": 560,
+      "sha256": "31c010f20aa5cc767c5e51d9f703d31462f8e9d6ad9bccacf2ac4fafb0411455"
+    },
+    {
+      "path": "app/api/stories/[id]/insights/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 3177,
+      "bytes": 338,
+      "sha256": "298854cfe94e0e2314489e3d89291fbcc94841fe75b14f6cabd8817ec77ffb71"
+    },
+    {
+      "path": "app/api/stories/[id]/publish/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 3573,
+      "bytes": 588,
+      "sha256": "f30e1be74bbbc50695af42e4b606f3a9fd140a53e8f6a3eda335bcb56b1959e0"
+    },
+    {
+      "path": "app/api/stories/[id]/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 4211,
+      "bytes": 775,
+      "sha256": "6923a4984e200df070b291a2ebe893952d6b027d6156333c7a2322545cf865e7"
+    },
+    {
+      "path": "app/api/stories/route.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 5031,
+      "bytes": 356,
+      "sha256": "163cff6700072bb17bbda9cb23ef612366175884e32b73187398a4510c493f4c"
+    },
+    {
+      "path": "app/capabilities/capabilities.css",
+      "source": "01-frontend-code.txt",
+      "offset": 53,
+      "bytes": 8905,
+      "sha256": "e300b0625dbb54e6de0b5073c3c378510c4cec903b9d9e660acd484a8c5fd877"
+    },
+    {
+      "path": "app/capabilities/page.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 9004,
+      "bytes": 4294,
+      "sha256": "7302ca249b39f5404f41e2ce86af215e76b12c48d69119c6fe3f752df7d8258b"
+    },
+    {
+      "path": "app/chatgpt-auth.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 5427,
+      "bytes": 2550,
+      "sha256": "4265a2e7c2dcb3a6f4b7026f762bf5b6e4caec76cc13c0a45987ee9a9f2e42cc"
+    },
+    {
+      "path": "app/globals.css",
+      "source": "01-frontend-code.txt",
+      "offset": 13334,
+      "bytes": 44934,
+      "sha256": "c6fdf0bee30b471a5e796632294b431d08e9afbe6b53457100dc45ee45f55064"
+    },
+    {
+      "path": "app/layout.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 58303,
+      "bytes": 534,
+      "sha256": "f85dc00931933f07bd7b2310daae3a57d0ce679ade04755c6ec15a42f71e66db"
+    },
+    {
+      "path": "app/page.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 58870,
+      "bytes": 4803,
+      "sha256": "65f5551299239bf0a2caa1c940492a679c5e8c0cdb2cce447b1a69ecf8d12305"
+    },
+    {
+      "path": "app/plan/page.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 63711,
+      "bytes": 101,
+      "sha256": "ebdf90f999b5a7a771c022da3fb48ef8798fdbddf832cd13bc33e69522b5e7d6"
+    },
+    {
+      "path": "app/previs/page.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 63852,
+      "bytes": 140,
+      "sha256": "fa704d0255882584dfe44f4431a6eae3d82d29de7eb43c0c5d59909ee2fcffdc"
+    },
+    {
+      "path": "app/previs/previs.css",
+      "source": "01-frontend-code.txt",
+      "offset": 64034,
+      "bytes": 25350,
+      "sha256": "d7c201a62b5a7520f3c2b587bfdd371ccf85b4c934507f33b05e1fbc5a534fc1"
+    },
+    {
+      "path": "app/studio/page.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 89424,
+      "bytes": 118,
+      "sha256": "38874292b7d7e5abe3ed5d1f1b3331b19b8bbd6afd3ada538e5a9ac870ea4e97"
+    },
+    {
+      "path": "app/watch/[token]/page.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 89589,
+      "bytes": 213,
+      "sha256": "fe003856c7a184ddd1adfe28147f82647a0b3c78b6b0a011aed4ab1b830671ea"
+    },
+    {
+      "path": "build/connector-preview-plugin.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 8032,
+      "bytes": 7211,
+      "sha256": "a6a9fe2086e302f94a3f91e3c1a68a45bb3aa07d4a79faf01b14732191eb4e80"
+    },
+    {
+      "path": "build/connector-preview-worker.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 15298,
+      "bytes": 594,
+      "sha256": "c1b6b2c420cb67d9e28f8f4ae440f578c0dfd4cb840a12cfe4b58076629a17ba"
+    },
+    {
+      "path": "build/sites-vite-plugin.LICENSE",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 15944,
+      "bytes": 1063,
+      "sha256": "7de1e115d165f176e68f962acdb809b5ab8d8ae78d3981e0701392b2ac50c713"
+    },
+    {
+      "path": "build/sites-vite-plugin.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 17054,
+      "bytes": 7185,
+      "sha256": "07af20e7097d9ed1d76f7c446d02997550b8fc5ca89668b249e25eabd62c6834"
+    },
+    {
+      "path": "build/sites-worker.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 24281,
+      "bytes": 1279,
+      "sha256": "28a75f74adfc226a773d1c00d5779c26412eea40a104da5c77f7d0f0fc30f0e8"
+    },
+    {
+      "path": "cloudflare-env.d.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 25600,
+      "bytes": 99,
+      "sha256": "8b0eca84aa3364cc7ccc43cc3af6beb88dd34ebd410de08690bf094ce39fbcb0"
+    },
+    {
+      "path": "components.json",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 25735,
+      "bytes": 420,
+      "sha256": "31f4ca67a4a62572571003d3d5aac85ee6fbfca67a192924bac6b168d95e98fd"
+    },
+    {
+      "path": "components/legacy-film-link.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 89854,
+      "bytes": 281,
+      "sha256": "c9b39553a97030804aa7a1508a5db459bcf3b4cec33794128a588a5cf068dfae"
+    },
+    {
+      "path": "components/model-options-panel.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 90190,
+      "bytes": 7233,
+      "sha256": "9d30a1dd125d289cb254f6e9d115f99d6cfa650e498dc0d29e172a9315645441"
+    },
+    {
+      "path": "components/previs-studio.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 97472,
+      "bytes": 36165,
+      "sha256": "08797563f3aa7f53cd9881865c4ea40ca80ecdd4dc8c56e1cc43013efefe15a3"
+    },
+    {
+      "path": "components/story-studio.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 133685,
+      "bytes": 46791,
+      "sha256": "264d21f8919d895a72457ac53135494918218d3cd831eeb3534527053f917302"
+    },
+    {
+      "path": "components/studio-onboarding.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 180529,
+      "bytes": 6217,
+      "sha256": "79349c57b687dfa9089d4edaaa42d9440baba11259c4f4ba6ef4fb3cfa0ee4bf"
+    },
+    {
+      "path": "components/watch-story.tsx",
+      "source": "01-frontend-code.txt",
+      "offset": 186793,
+      "bytes": 5914,
+      "sha256": "70c52f8334e02e527b7611f6d53ad551c70e641bb8fec8939a0f2c4b236a36f7"
+    },
+    {
+      "path": "db/index.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 26187,
+      "bytes": 423,
+      "sha256": "dc7610b00b918e0ffff1360a63626f16655ced3064b2eaf96095a4101fb14bcd"
+    },
+    {
+      "path": "db/schema.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 26643,
+      "bytes": 2609,
+      "sha256": "499d649390e4ad9a19a40bef25d672ad7fad1f8bf79b9a831d2280f6b4ff02e4"
+    },
+    {
+      "path": "drizzle.config.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 29290,
+      "bytes": 148,
+      "sha256": "af081f7384aaeb0082cf422e29f139d137ca2f6a57c69b2c37b9fb1f8479867b"
+    },
+    {
+      "path": "drizzle/0000_military_nightcrawler.sql",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 29497,
+      "bytes": 2468,
+      "sha256": "e7659f6200494189c5af53ecd116e6c2193bc536179c021ca4b8598aebdf1ec1"
+    },
+    {
+      "path": "drizzle/meta/0000_snapshot.json",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 32017,
+      "bytes": 10671,
+      "sha256": "31d28c1f3ffcb2d9fa7e42944409666ebde3cbb9604bdd5687b8e1ea0b1189a5"
+    },
+    {
+      "path": "drizzle/meta/_journal.json",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 42735,
+      "bytes": 211,
+      "sha256": "b29f1ea721d97f9090a7009379c310c4ccf479913075725a0e54cfc3bf6f9b44"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 42984,
+      "bytes": 846,
+      "sha256": "f22a254df7d934bbf9be499d3c969a13abb7f7f64c03f5967d0095cad81dfe06"
+    },
+    {
+      "path": "lib/connector-context.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 43875,
+      "bytes": 612,
+      "sha256": "bbddff68689cb0f6926fecd4b8b96f12f2054277c296e97b0df07d4ad5ece24e"
+    },
+    {
+      "path": "lib/connector-contract.mts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 44534,
+      "bytes": 5362,
+      "sha256": "e1a7b24a8793af34b595690d9b1300c897c7321c14f215cedf58ad95799d7c3e"
+    },
+    {
+      "path": "lib/connector-errors.mts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 49941,
+      "bytes": 2717,
+      "sha256": "a22edf13d6873ae832c4a2a0d579fc666c73ec996ef0722d39172649d38f0871"
+    },
+    {
+      "path": "lib/connector-preview.d.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 52705,
+      "bytes": 433,
+      "sha256": "abd69a94f7f61f1359063bb557574faae35e8ff5a028cc4c04b9ee248ef52642"
+    },
+    {
+      "path": "lib/connectors.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 53176,
+      "bytes": 416,
+      "sha256": "1c93d747e384c8e17e3e3dd5361b24412babf5eba2a11d2ae7a75f4e0924112c"
+    },
+    {
+      "path": "lib/model-options.ts",
+      "source": "01-frontend-code.txt",
+      "offset": 192748,
+      "bytes": 3864,
+      "sha256": "e642cacb644733d2f11a6b6f0495ace18808fbf821050f73817994a5d65425f0"
+    },
+    {
+      "path": "lib/previs-audio.ts",
+      "source": "01-frontend-code.txt",
+      "offset": 196652,
+      "bytes": 2831,
+      "sha256": "eef292bf6ae15bb133ddb20eb895c8a5436a645a203f0683a02f665b6ee8e05f"
+    },
+    {
+      "path": "lib/previs-media.ts",
+      "source": "01-frontend-code.txt",
+      "offset": 199523,
+      "bytes": 2659,
+      "sha256": "8aea6f8320ce3183f974ac2953b63a3a074113bbee725607e76d67ada52a51fd"
+    },
+    {
+      "path": "lib/previs-model.ts",
+      "source": "01-frontend-code.txt",
+      "offset": 202222,
+      "bytes": 6660,
+      "sha256": "0bcf3c8b66067b05d65c06d31ebb80ea71c25e724e43fb2645c72f5dfd77b3ea"
+    },
+    {
+      "path": "lib/scene-catalog.ts",
+      "source": "01-frontend-code.txt",
+      "offset": 208923,
+      "bytes": 7547,
+      "sha256": "2f11bf3983dbb18b7f9617a5e8eb1421bc2f897b01b77f1e46d3912ea82e0ead"
+    },
+    {
+      "path": "lib/story-model.ts",
+      "source": "01-frontend-code.txt",
+      "offset": 216509,
+      "bytes": 1941,
+      "sha256": "0296e23a9684e2ec6bb68dc83999dc68a748a256ff05ef8520560d6a57aa1a99"
+    },
+    {
+      "path": "lib/story-service.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 53633,
+      "bytes": 27891,
+      "sha256": "a95cafa028429d45d874f2fbaff081d374aa6f390da414bebc4cd007cdcb4266"
+    },
+    {
+      "path": "lib/story-templates.ts",
+      "source": "01-frontend-code.txt",
+      "offset": 218493,
+      "bytes": 4715,
+      "sha256": "fef64fc3de84fd4039a5f44c9f378e2f5300340ed6ca4bcc21ee88268f5932d7"
+    },
+    {
+      "path": "next.config.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 81559,
+      "bytes": 133,
+      "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 81731,
+      "bytes": 94,
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "path": "scripts/build-verified.sh",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 81871,
+      "bytes": 661,
+      "sha256": "2ae5329ac860076070c9217a43106a15cb5ecf907a0f7baeb9ef903f76b53c68"
+    },
+    {
+      "path": "scripts/connector-preview/connector-preview-session.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 82608,
+      "bytes": 6855,
+      "sha256": "57224ad185a25115a14fccc68d3217e55b199260c3dd98a2c807beffec1a0a9b"
+    },
+    {
+      "path": "scripts/connector-preview/host-binding.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 89526,
+      "bytes": 7793,
+      "sha256": "9e44ab6864133a5c82f834a5904ebb7d6104cb783c24efba3c0fe1a161182cea"
+    },
+    {
+      "path": "scripts/connector-preview/protocol.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 97378,
+      "bytes": 1781,
+      "sha256": "111e062ebf08d3f180130f5bc3dcb3c1414c1d7be3c032c9d675a61c0c7513a8"
+    },
+    {
+      "path": "scripts/execution-profile.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 99209,
+      "bytes": 624,
+      "sha256": "2e71116f4d2b70cff8bb70436f8dd5c709ec7ff62893424530f404e0193d3630"
+    },
+    {
+      "path": "scripts/install-ci.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 99876,
+      "bytes": 1685,
+      "sha256": "4a5a92d60a08d0ba54effd8373da2da06284312c55b767287c68a0bec7200da7"
+    },
+    {
+      "path": "scripts/install-ci.sh",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 101603,
+      "bytes": 6783,
+      "sha256": "10d8764a61be50351dc3496e13588270de7956f0aa5f1189c49cabb2d89fe5c0"
+    },
+    {
+      "path": "scripts/install-pnpm.sh",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 108430,
+      "bytes": 9015,
+      "sha256": "a684c02c2b493dfbf262a66252a5cd36f81ca995a4024761728662ae63aa40c0"
+    },
+    {
+      "path": "scripts/npm-install.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 117489,
+      "bytes": 7025,
+      "sha256": "9715c6a32d1d4a0289ef6376a0e819c3b6a6416b8a9877733d9fb4339ce626b6"
+    },
+    {
+      "path": "scripts/pnpm-install.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 124559,
+      "bytes": 10633,
+      "sha256": "a83164e344c1947053def83b546be8115deaa827314bbaead7afe6b6451c5cdf"
+    },
+    {
+      "path": "scripts/run-framework.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 135238,
+      "bytes": 993,
+      "sha256": "9bf9f41a29314cabe0238b8e9c540ec3f7b5a6adafc7c8fb6c3940722d061dca"
+    },
+    {
+      "path": "scripts/sites-env.mjs",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 136273,
+      "bytes": 906,
+      "sha256": "5de99d6806b01f0ee0b941af3684d75dcf1afbbcff22cb95bfa2e584c5dafa88"
+    },
+    {
+      "path": "scripts/sites-env.sh",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 137220,
+      "bytes": 1530,
+      "sha256": "df86ebfc27d2f00860036658e933ac0ddd7b5f6879aa5d51218f0863c7e1fb60"
+    },
+    {
+      "path": "tsconfig.json",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 138784,
+      "bytes": 800,
+      "sha256": "7199c6e4e400921e8049729840165a39f1476fa97901bed00239e7697bfe8da4"
+    },
+    {
+      "path": "vendor/shadcn-tailwind-4.13.0.LICENSE.md",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 139645,
+      "bytes": 1063,
+      "sha256": "1564074e13439397221ffd522e2e504d56561994a23d371aa5e3ad43e4f5423f"
+    },
+    {
+      "path": "vendor/shadcn-tailwind-4.13.0.css",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 140762,
+      "bytes": 16041,
+      "sha256": "bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a"
+    },
+    {
+      "path": "vite.config.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 156838,
+      "bytes": 3115,
+      "sha256": "6f6d890794fbe23f3e35cceb327f49d5977432a5aaf715e040a6408932da395b"
+    },
+    {
+      "path": "next-env.d.ts",
+      "source": "03-backend-and-config-code.txt",
+      "offset": 159987,
+      "bytes": 118,
+      "sha256": "16a06b2a6eba60af82efd85724fe84cfcd446d36d87ec602e01bee5c3a16c530"
+    },
+    {
+      "path": "public/film/index.html",
+      "source": "01-frontend-code.txt",
+      "offset": 223251,
+      "bytes": 5157,
+      "sha256": "979e9929e4883c735f5fe9f63cf325fdf4ac70bcca6374ecc1e01eee735fdb03"
+    },
+    {
+      "path": "public/film/previs.html",
+      "source": "01-frontend-code.txt",
+      "offset": 228452,
+      "bytes": 970,
+      "sha256": "59aa7010c2ecb21d4c35ee7d42ec8b718b94983e9e4e169ac3977a459b886402"
+    }
+  ],
+  "assets": [
+    {
+      "path": "public/film/assets/casa-day-baked.jpg",
+      "bytes": 655602,
+      "sha256": "eac64c73b560e95b2c9c746dc674d4f9a591819db640c0edb9c04da17dd9f3e6",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/casa-day-baked.jpg"
+    },
+    {
+      "path": "public/film/assets/casa-night-baked.jpg",
+      "bytes": 455184,
+      "sha256": "c6ca2b5c0290a763efc4c26bbcfc4704774a2e86ee831982e4e4119c3d8868c0",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/casa-night-baked.jpg"
+    },
+    {
+      "path": "public/film/assets/casa-storefront.glb",
+      "bytes": 7352820,
+      "sha256": "344134428463ac95dc854796b2e4f5ea6306335dea09f0edb344ecd078445686",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/casa-storefront.glb"
+    },
+    {
+      "path": "public/film/assets/casa.jpg",
+      "bytes": 1374742,
+      "sha256": "f5d8a40e7505088909d0d9f0ccbe28f8b2bcdc65aecb61df25e18fba28a7bd9f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/casa.jpg"
+    },
+    {
+      "path": "public/film/assets/cassette-deck.glb",
+      "bytes": 10389176,
+      "sha256": "9bef89d656ea45a6c8b5446f4c2341839e807caef237788f25333bc9406e29d1",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/cassette-deck.glb"
+    },
+    {
+      "path": "public/film/assets/chinese-courtyard.glb",
+      "bytes": 11255896,
+      "sha256": "2984908aa058764b875505ea647e313dc453eb20db92642b187ecba9cd2ecf9f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/chinese-courtyard.glb"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-aged-elm-timber-normal.png",
+      "bytes": 159637,
+      "sha256": "38e3b29c74e2ce42b435ec70b0464c5d1d401090d0ce90801e02ac1dbe265806",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-aged-elm-timber-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-aged-elm-timber.jpg",
+      "bytes": 93316,
+      "sha256": "6b2a7e7532e304e7ab41c11f5ef79119abe8e7b171e89b0b2129d5cb671e45af",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-aged-elm-timber.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-bonsai-stoneware-normal.png",
+      "bytes": 217778,
+      "sha256": "84c6802d173046631af28b4655dbeb946e11f45745fd66843f6dc0725bf3e5ed",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-bonsai-stoneware-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-bonsai-stoneware.jpg",
+      "bytes": 25397,
+      "sha256": "0f277e994da7279d6dfb375c6908457764827425493dfa1c977638dc89a62aa5",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-bonsai-stoneware.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-damp-slate-normal.png",
+      "bytes": 217768,
+      "sha256": "78faca7a46b381bbadb8e1d6032c5416db4999b99969044423c229858c271e06",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-damp-slate-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-damp-slate.jpg",
+      "bytes": 22521,
+      "sha256": "84217ebcffd46f60055d3d83b7b6c92988babff8f0519ce6c688ace8a9f3480f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-damp-slate.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-fired-grey-tile-02-normal.png",
+      "bytes": 217839,
+      "sha256": "364315478a9fc2d16b8ada08f2f3dd050ffe5dc6189b9c972e09dbb1b5b19980",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-fired-grey-tile-02-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-fired-grey-tile-02.jpg",
+      "bytes": 26424,
+      "sha256": "1937150acbd27ce611f0d0b94a02c504bf655c9c0a40a9aeecc1c7ee4ea79cc1",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-fired-grey-tile-02.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-furrowed-pine-bark-normal.png",
+      "bytes": 209486,
+      "sha256": "852dcb48a497363d52922dc291075b18ae42d940e5fba19c8c78582e4bc13870",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-furrowed-pine-bark-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-furrowed-pine-bark.jpg",
+      "bytes": 49672,
+      "sha256": "bdc46151beb9d03f65d4cfbd4619f379852e4d4ef6d478ec27188df82c19695c",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-furrowed-pine-bark.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-ivory-limewash-normal.png",
+      "bytes": 220890,
+      "sha256": "f00867c62c6cc3c1d98ef8ea0b501a48e6824e0ae5a24f51bf841a104b1e977f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-ivory-limewash-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-ivory-limewash.jpg",
+      "bytes": 54568,
+      "sha256": "fc974e4f2fe1a9a5d6d10f468e641b51c6f2f27e8e1716fa5a11c84b83aeb5ab",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-ivory-limewash.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-lantern-mulberry-paper-normal.png",
+      "bytes": 127559,
+      "sha256": "ae0c4094bc8c85320a7c06cd11639bed5d0f3ffffac66c156ee3f557d7a91204",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-lantern-mulberry-paper-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-lantern-mulberry-paper.jpg",
+      "bytes": 32197,
+      "sha256": "8bbbef1e6d77afc3d8fa30ad4c80d1621448153937b6f9987b1439d2042636f6",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-lantern-mulberry-paper.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-limestone-repair-normal.png",
+      "bytes": 212369,
+      "sha256": "d3d39ae9043accfb104ecb12b520d18ae7c1dbcb5167c4946657131cc451be25",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-limestone-repair-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-limestone-repair.jpg",
+      "bytes": 17705,
+      "sha256": "1631ab913e60aba402b57e9a706580e88cd0763fba6f45b7c93342acaf219b72",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-limestone-repair.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-living-moss-normal.png",
+      "bytes": 178463,
+      "sha256": "993e162ddb04556834fda7cbcab97bcf5851ab5ba8f056859d7904c876d7b7e9",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-living-moss-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-living-moss.jpg",
+      "bytes": 23667,
+      "sha256": "56a0704924ab69ee4f6fda37c0911005ee4c18aff9a11ab75bcda41cdf658d04",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-living-moss.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-loamy-garden-soil-normal.png",
+      "bytes": 217725,
+      "sha256": "23d0b96c32ac1e9e4727bd27107cee018cb472f78f6ebbace9df690f7325096b",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-loamy-garden-soil-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-loamy-garden-soil.jpg",
+      "bytes": 17606,
+      "sha256": "8471a90857b92e00ceba7c7036445adc7b173cefb18b28801c4602748e7ad199",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-loamy-garden-soil.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-raised-stone-carving-normal.png",
+      "bytes": 217683,
+      "sha256": "c22fcde80bcf79c858e7faab887943c714d267b6377ac679eafa1b75c75c41d0",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-raised-stone-carving-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-raised-stone-carving.jpg",
+      "bytes": 34506,
+      "sha256": "63879429578dc97f377d6c8cb7f41828c65e17db599d317ad96f7d3e01bf5861",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-raised-stone-carving.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-rubbed-timber-moulding-normal.png",
+      "bytes": 179796,
+      "sha256": "534f7ca57531f2bfacc70d4fb2505d588e55f72d913ff0fbeee9d38529195b27",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-rubbed-timber-moulding-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-rubbed-timber-moulding.jpg",
+      "bytes": 34339,
+      "sha256": "9399d41c9afbd8b7763647a8915ecdae666ef3d7569013b3401e33e03ac3c852",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-rubbed-timber-moulding.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-smoked-corridor-timber-normal.png",
+      "bytes": 179828,
+      "sha256": "83382956aa3626e1a4e3e49ac83ffd75aa5f61768e1a54ced42dd8f2cb136827",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-smoked-corridor-timber-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-smoked-corridor-timber.jpg",
+      "bytes": 19804,
+      "sha256": "84fa2db80e61d559cc206e889ec54b391f40e383a89486831ce932d4d6b69f83",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-smoked-corridor-timber.jpg"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-worn-grey-sandstone-normal.png",
+      "bytes": 217788,
+      "sha256": "d9cf8c71b1208bf0c10d21c05a3e13f3a15df3b5bdb3ea065f07cff2b568934d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-worn-grey-sandstone-normal.png"
+    },
+    {
+      "path": "public/film/assets/courtyard-textures/courtyard-worn-grey-sandstone.jpg",
+      "bytes": 29541,
+      "sha256": "fb3fa5325e427b3f68cf0f6b66c459d00c474819e64a092b1b8f30774ee5b386",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/courtyard-textures/courtyard-worn-grey-sandstone.jpg"
+    },
+    {
+      "path": "public/film/assets/diner-jacket-weave.png",
+      "bytes": 966,
+      "sha256": "8d95a754edabdc18ad405363705baddd8dea44e682cbec59d8a9eda77a5aec40",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/diner-jacket-weave.png"
+    },
+    {
+      "path": "public/film/assets/diner-upholstery.glb",
+      "bytes": 507244,
+      "sha256": "a0c9d5cfaead7d1fd6751c3137fb040a8c79f7270abb45e1b9126b98c1256460",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/diner-upholstery.glb"
+    },
+    {
+      "path": "public/film/assets/diner-warm-baked.jpg",
+      "bytes": 941057,
+      "sha256": "237d92aa7881d57291f3f061a88add57b30279c4bb5aa4b23a4ad19b23f02c82",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/diner-warm-baked.jpg"
+    },
+    {
+      "path": "public/film/assets/hasedera-station.glb",
+      "bytes": 7538588,
+      "sha256": "057b9bf1664d4647252e1607ab69ad6bae1bf1cf10daff97ff782a22d2e7f3cf",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/hasedera-station.glb"
+    },
+    {
+      "path": "public/film/assets/interior-room.glb",
+      "bytes": 9804956,
+      "sha256": "c35e26bf8254f960413330bd3a8391b994197da989845eb0231723e13523677a",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/interior-room.glb"
+    },
+    {
+      "path": "public/film/assets/interior-warm-baked.jpg",
+      "bytes": 926514,
+      "sha256": "8f7bbc5c35a6c2e188cccf5ec70c9c08da65af2d38b7d9f39608b6e7502d255d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/interior-warm-baked.jpg"
+    },
+    {
+      "path": "public/film/assets/music/alley-00-af4b5d8cd721.mp3",
+      "bytes": 774104,
+      "sha256": "af4b5d8cd72121429a5b87dec3a47a242514548a0188581d13408739f5d6e3a5",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/alley-00-af4b5d8cd721.mp3"
+    },
+    {
+      "path": "public/film/assets/music/alley-01-9ddd92bc85c7.mp3",
+      "bytes": 774104,
+      "sha256": "9ddd92bc85c73d449c70ebbfba9e841b0e2ecd64aa2f98b6e60992717f942b81",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/alley-01-9ddd92bc85c7.mp3"
+    },
+    {
+      "path": "public/film/assets/music/alley-02-d75998d7e258.mp3",
+      "bytes": 774104,
+      "sha256": "d75998d7e25801ef0a2c4ae65568bb23fd6a19b5cc19d327e38f2649c0d21693",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/alley-02-d75998d7e258.mp3"
+    },
+    {
+      "path": "public/film/assets/music/alley-03-17363b89ae64.mp3",
+      "bytes": 206515,
+      "sha256": "17363b89ae64b462f6619ab2629ad388786b51ffda5ff9a35008cb0d88304a33",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/alley-03-17363b89ae64.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-00-dba18157d393.mp3",
+      "bytes": 774104,
+      "sha256": "dba18157d393882b39e0fab4ef6f08ef42faeb182cd82958bac4790cbbc62b47",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-00-dba18157d393.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-01-5fe01be9a05e.mp3",
+      "bytes": 774104,
+      "sha256": "5fe01be9a05e72e36f1b81ef809dba5140d1cebb783e19f424a00665adf4f52f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-01-5fe01be9a05e.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-02-d6b33b0d7c71.mp3",
+      "bytes": 774104,
+      "sha256": "d6b33b0d7c7195b262845aa190efc3f063cdbb84ae61b9a5bdbfd41960c3ffd9",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-02-d6b33b0d7c71.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-03-67f7c1233a7e.mp3",
+      "bytes": 774104,
+      "sha256": "67f7c1233a7eafc2f9b73cb94433d35babc82786a5d4ab7d24bee9bf2f742891",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-03-67f7c1233a7e.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-04-50a38d798c2a.mp3",
+      "bytes": 774104,
+      "sha256": "50a38d798c2a185859806cd2ba8d109d2a5a0a9adfcabb750a58ce7c4f16af36",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-04-50a38d798c2a.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-05-644623c9bfc7.mp3",
+      "bytes": 774104,
+      "sha256": "644623c9bfc7017c427f53b1fa2012dc5078101ec15ff406c33d174712b8b4c0",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-05-644623c9bfc7.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-06-c9a42defad00.mp3",
+      "bytes": 774104,
+      "sha256": "c9a42defad00a3d8e4f0ec45426f3786b3839477d871846d7bfa19962ac8972a",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-06-c9a42defad00.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-07-632417b4907b.mp3",
+      "bytes": 774104,
+      "sha256": "632417b4907b03afa952ddc884fb2b9d8f90377d22a9af9bc9fd3768d621253e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-07-632417b4907b.mp3"
+    },
+    {
+      "path": "public/film/assets/music/casa-08-c832910ab403.mp3",
+      "bytes": 429288,
+      "sha256": "c832910ab40304358b2d3bc798cd1da75a42951115baee587acc72f2574209d6",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/casa-08-c832910ab403.mp3"
+    },
+    {
+      "path": "public/film/assets/music/courtyard-00-5020d6393dab.mp3",
+      "bytes": 774104,
+      "sha256": "5020d6393dabb4c5dd6b718cd90a4b3e9c5ba04a7700ff4239b447f1f6924d80",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/courtyard-00-5020d6393dab.mp3"
+    },
+    {
+      "path": "public/film/assets/music/courtyard-01-d3b712ad242f.mp3",
+      "bytes": 774104,
+      "sha256": "d3b712ad242fadbf61b138743e334ddbe6fd6653ad11e3fc21569557cb624b2a",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/courtyard-01-d3b712ad242f.mp3"
+    },
+    {
+      "path": "public/film/assets/music/courtyard-02-9722ca9c54c0.mp3",
+      "bytes": 774104,
+      "sha256": "9722ca9c54c0e72d5de804b40639c899c7739619c60c1ef0990059a36ecc298a",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/courtyard-02-9722ca9c54c0.mp3"
+    },
+    {
+      "path": "public/film/assets/music/courtyard-03-846a9d99d621.mp3",
+      "bytes": 774104,
+      "sha256": "846a9d99d621d15b9627bb441065d8300f2323463e98c139146355248b6c82dc",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/courtyard-03-846a9d99d621.mp3"
+    },
+    {
+      "path": "public/film/assets/music/courtyard-04-0e28d43031df.mp3",
+      "bytes": 774104,
+      "sha256": "0e28d43031dfec3a7ecfee0fce0aaf8b49630b0061077d017340d00141859805",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/courtyard-04-0e28d43031df.mp3"
+    },
+    {
+      "path": "public/film/assets/music/courtyard-05-c114097505be.mp3",
+      "bytes": 674212,
+      "sha256": "c114097505be8459e790497de57d81ed3bc6a8bfa2fb4707339b270230b7e2af",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/courtyard-05-c114097505be.mp3"
+    },
+    {
+      "path": "public/film/assets/music/diner-00-9a7535066bde.mp3",
+      "bytes": 774104,
+      "sha256": "9a7535066bde142e0a77bbb6a63d6f39fc496979bc2f5beb060c898bb4b26350",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/diner-00-9a7535066bde.mp3"
+    },
+    {
+      "path": "public/film/assets/music/diner-01-e5c1f2e71b39.mp3",
+      "bytes": 774104,
+      "sha256": "e5c1f2e71b394f4ed5aa9188221a20d96839fff4c66b591f40b35d697c3996e6",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/diner-01-e5c1f2e71b39.mp3"
+    },
+    {
+      "path": "public/film/assets/music/diner-02-3c750ebc2952.mp3",
+      "bytes": 774104,
+      "sha256": "3c750ebc2952fed891d0fea40ec7aec9ee76f459f3ca87f05ec24e4aa2231964",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/diner-02-3c750ebc2952.mp3"
+    },
+    {
+      "path": "public/film/assets/music/diner-03-e8fcf81ead60.mp3",
+      "bytes": 774104,
+      "sha256": "e8fcf81ead60946ac9b75457cd75669af279c21d39e31395f9a412d5fc85372c",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/diner-03-e8fcf81ead60.mp3"
+    },
+    {
+      "path": "public/film/assets/music/diner-04-f3077d055ea5.mp3",
+      "bytes": 774104,
+      "sha256": "f3077d055ea5e560eade4f65e354516875c3cea588acd712d6c663646e92f93b",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/diner-04-f3077d055ea5.mp3"
+    },
+    {
+      "path": "public/film/assets/music/diner-05-dd0d31ad5471.mp3",
+      "bytes": 774104,
+      "sha256": "dd0d31ad5471b664620863a7eacf2aa8e3adb79a66013d1e4bc82438f6dd305d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/diner-05-dd0d31ad5471.mp3"
+    },
+    {
+      "path": "public/film/assets/music/diner-06-8d6119493ffd.mp3",
+      "bytes": 505774,
+      "sha256": "8d6119493ffd94e74617d1a458e48f57fe6c7080b326e5f203c3e3a5df49e5ab",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/diner-06-8d6119493ffd.mp3"
+    },
+    {
+      "path": "public/film/assets/music/interior-00-37f5e9e92db4.mp3",
+      "bytes": 774104,
+      "sha256": "37f5e9e92db4648d366c9e91931a31030deea336b80a3fc8fb7928d76e1421d2",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/interior-00-37f5e9e92db4.mp3"
+    },
+    {
+      "path": "public/film/assets/music/interior-01-8cd7dc3c93b2.mp3",
+      "bytes": 774104,
+      "sha256": "8cd7dc3c93b2e9fc584a7a6e0fe95963bf035f6142023ba2f13d7c21a3c194d2",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/interior-01-8cd7dc3c93b2.mp3"
+    },
+    {
+      "path": "public/film/assets/music/interior-02-ec3e4055d097.mp3",
+      "bytes": 774104,
+      "sha256": "ec3e4055d097033338bc9f5d2a434808f80e54584d11f4304e908a530b600bd7",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/interior-02-ec3e4055d097.mp3"
+    },
+    {
+      "path": "public/film/assets/music/interior-03-447f87881846.mp3",
+      "bytes": 774104,
+      "sha256": "447f878818462e53b398dc2e06457b5da1d21d0f477b0f7ca1acd6a9ef283068",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/interior-03-447f87881846.mp3"
+    },
+    {
+      "path": "public/film/assets/music/interior-04-8c647f0e0427.mp3",
+      "bytes": 774104,
+      "sha256": "8c647f0e04273ab9d591de73cb18a8cff33551e5da2601b9b8059d7127819972",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/interior-04-8c647f0e0427.mp3"
+    },
+    {
+      "path": "public/film/assets/music/interior-05-31ca7c2f1244.mp3",
+      "bytes": 774104,
+      "sha256": "31ca7c2f1244f216441c13c5f88f6dd0cd45b3b5c3a345707a8fd6e985e851db",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/interior-05-31ca7c2f1244.mp3"
+    },
+    {
+      "path": "public/film/assets/music/interior-06-48742d1e46d6.mp3",
+      "bytes": 105787,
+      "sha256": "48742d1e46d626b53eef6136c424709c027e6e02ea5eb4187a6fe6da05af73eb",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/interior-06-48742d1e46d6.mp3"
+    },
+    {
+      "path": "public/film/assets/music/station-00-fb2b02c5012a.mp3",
+      "bytes": 774104,
+      "sha256": "fb2b02c5012ab1baa38b84c678a167f5f0704930451849cb37dc5aec8d756c7f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/station-00-fb2b02c5012a.mp3"
+    },
+    {
+      "path": "public/film/assets/music/station-01-83dc8099e562.mp3",
+      "bytes": 774104,
+      "sha256": "83dc8099e5624d5b6ce76b80e6825a857aabc999224dfb35df81e2ea3b0ab88f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/station-01-83dc8099e562.mp3"
+    },
+    {
+      "path": "public/film/assets/music/station-02-cea8857d9a9a.mp3",
+      "bytes": 774104,
+      "sha256": "cea8857d9a9a5be12357e6afa2f7b448bb4aace598ec0bd7af6b71a2b396ed13",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/station-02-cea8857d9a9a.mp3"
+    },
+    {
+      "path": "public/film/assets/music/station-03-3133d4a40127.mp3",
+      "bytes": 774104,
+      "sha256": "3133d4a4012736c76a7738ae1fbc309605e8169206ff5557136542429a423741",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/station-03-3133d4a40127.mp3"
+    },
+    {
+      "path": "public/film/assets/music/station-04-5216d4990537.mp3",
+      "bytes": 748191,
+      "sha256": "5216d4990537a07d11b7b737484eab1c717cfee7eb102768a0aad1f347c0d642",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/station-04-5216d4990537.mp3"
+    },
+    {
+      "path": "public/film/assets/night-alley-baked.jpg",
+      "bytes": 95274,
+      "sha256": "3293a672b06fff10df4056f20800d4950e5272bbaf8f766e835280be511737b3",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/night-alley-baked.jpg"
+    },
+    {
+      "path": "public/film/assets/night-alley-flora.glb",
+      "bytes": 887536,
+      "sha256": "8a36949dfc36f8f7a22965a58081be3200f6d0fdceef100fecf60be539ce9c45",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/night-alley-flora.glb"
+    },
+    {
+      "path": "public/film/assets/night-alley.glb",
+      "bytes": 15458020,
+      "sha256": "b744af53269ea01aef1641ecdff0f52d4b88656871f7a488b241e474225d5129",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/night-alley.glb"
+    },
+    {
+      "path": "public/film/assets/passenger-train.glb",
+      "bytes": 8176348,
+      "sha256": "db621d8db1cd5af91750c908c9c60c31a7a16de0d745a42cf472eb62f4fbdb22",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/passenger-train.glb"
+    },
+    {
+      "path": "public/film/assets/refine-alley-lime-plaster-normal.png",
+      "bytes": 98712,
+      "sha256": "5cb5a201b52c76bd0bd50f79b3037e9b30252461cfcb9aca2e60017d2ff1ee0e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-lime-plaster-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-alley-lime-plaster.jpg",
+      "bytes": 22535,
+      "sha256": "8cfbe1e23457dd94e179ef5e210a95573faf3b75e0190490e534690ae0719a88",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-lime-plaster.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-alley-oak-end-grain-normal.png",
+      "bytes": 539979,
+      "sha256": "7aae9a1236efa0355ee8953e7fcc91b02aecca235ac10babaf1d9f3f57116063",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-oak-end-grain-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-alley-oak-end-grain.jpg",
+      "bytes": 23298,
+      "sha256": "822a76f29593221ec7712bd10e13276628180883a84a2ecaa1c645b4250fc2b8",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-oak-end-grain.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-alley-terracotta-lip-normal.png",
+      "bytes": 98712,
+      "sha256": "5cb5a201b52c76bd0bd50f79b3037e9b30252461cfcb9aca2e60017d2ff1ee0e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-terracotta-lip-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-alley-terracotta-lip.jpg",
+      "bytes": 15296,
+      "sha256": "705bedbef82158713d59df35c85c44e355e3d64827aa9572e50a9ad02bdad5dd",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-terracotta-lip.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-alley-walnut-joinery-normal.png",
+      "bytes": 539979,
+      "sha256": "7aae9a1236efa0355ee8953e7fcc91b02aecca235ac10babaf1d9f3f57116063",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-walnut-joinery-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-alley-walnut-joinery.jpg",
+      "bytes": 23090,
+      "sha256": "f33dfac526d03e251df3ef8171c67275412733979399318fc88c2df38458901c",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-walnut-joinery.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-alley-warm-cotton-paper-normal.png",
+      "bytes": 98712,
+      "sha256": "5cb5a201b52c76bd0bd50f79b3037e9b30252461cfcb9aca2e60017d2ff1ee0e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-warm-cotton-paper-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-alley-warm-cotton-paper.jpg",
+      "bytes": 55621,
+      "sha256": "8a59cb0f1bfffc5d263561937855eca844d0c07b2ef288afc6104aab9d2fe532",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-warm-cotton-paper.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-alley-woven-cloth-normal.png",
+      "bytes": 45747,
+      "sha256": "5c13897cec6a150caba19c691fa8d510264e027bce4e97770f05d7934b19e19d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-woven-cloth-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-alley-woven-cloth.jpg",
+      "bytes": 27392,
+      "sha256": "921cec856be1a33aefc27c1f343b2155850aad0e2b258f1d60b8c7954b7c3592",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-alley-woven-cloth.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-casa-lime-plaster-normal.png",
+      "bytes": 98712,
+      "sha256": "5cb5a201b52c76bd0bd50f79b3037e9b30252461cfcb9aca2e60017d2ff1ee0e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-lime-plaster-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-casa-lime-plaster.jpg",
+      "bytes": 30143,
+      "sha256": "b0fc2e2b69659608969d02e62ccb683e01aff34096df53205245aadbb4772b5b",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-lime-plaster.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-casa-oak-end-grain-normal.png",
+      "bytes": 539979,
+      "sha256": "7aae9a1236efa0355ee8953e7fcc91b02aecca235ac10babaf1d9f3f57116063",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-oak-end-grain-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-casa-oak-end-grain.jpg",
+      "bytes": 32900,
+      "sha256": "b8c0477c7959db85d8e9c462665d3e0bdb206cff34c7f7951cf1dae1a9c2a6e7",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-oak-end-grain.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-casa-terracotta-lip-normal.png",
+      "bytes": 98712,
+      "sha256": "5cb5a201b52c76bd0bd50f79b3037e9b30252461cfcb9aca2e60017d2ff1ee0e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-terracotta-lip-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-casa-terracotta-lip.jpg",
+      "bytes": 15296,
+      "sha256": "705bedbef82158713d59df35c85c44e355e3d64827aa9572e50a9ad02bdad5dd",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-terracotta-lip.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-casa-walnut-joinery-normal.png",
+      "bytes": 539979,
+      "sha256": "7aae9a1236efa0355ee8953e7fcc91b02aecca235ac10babaf1d9f3f57116063",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-walnut-joinery-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-casa-walnut-joinery.jpg",
+      "bytes": 18056,
+      "sha256": "20c8069cd9b45c85861913fce9376b4bb58af8a0bf4cf9aab786c4a0f42d8e7e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-walnut-joinery.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-casa-warm-cotton-paper-normal.png",
+      "bytes": 98712,
+      "sha256": "5cb5a201b52c76bd0bd50f79b3037e9b30252461cfcb9aca2e60017d2ff1ee0e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-warm-cotton-paper-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-casa-warm-cotton-paper.jpg",
+      "bytes": 55621,
+      "sha256": "8a59cb0f1bfffc5d263561937855eca844d0c07b2ef288afc6104aab9d2fe532",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-warm-cotton-paper.jpg"
+    },
+    {
+      "path": "public/film/assets/refine-casa-woven-cloth-normal.png",
+      "bytes": 45747,
+      "sha256": "5c13897cec6a150caba19c691fa8d510264e027bce4e97770f05d7934b19e19d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-woven-cloth-normal.png"
+    },
+    {
+      "path": "public/film/assets/refine-casa-woven-cloth.jpg",
+      "bytes": 27392,
+      "sha256": "921cec856be1a33aefc27c1f343b2155850aad0e2b258f1d60b8c7954b7c3592",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/refine-casa-woven-cloth.jpg"
+    },
+    {
+      "path": "public/film/assets/render-day.jpg",
+      "bytes": 124089,
+      "sha256": "033c5aa7e0fd757ed0d3a15527b974a575a440e62cacf6750f2e1859997122fa",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/render-day.jpg"
+    },
+    {
+      "path": "public/film/assets/render-night.jpg",
+      "bytes": 89911,
+      "sha256": "91cb0ee8d9d4a39b2d902fbdc77fb81777cbdb6929252314acf8d4626974aba9",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/render-night.jpg"
+    },
+    {
+      "path": "public/film/assets/station-day-baked.jpg",
+      "bytes": 289405,
+      "sha256": "4cfb5a341b2e2294b185ea33b237d484da2e7e9a4806640099734b2f18edb93d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/station-day-baked.jpg"
+    },
+    {
+      "path": "public/film/assets/streamed/casa-storefront-d3f7ca5abea1-00.bin",
+      "bytes": 1048576,
+      "sha256": "592cd3d3f0f92cae006458dd49ada2e23bd92a91523d68a2e717382fa314fe0e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/casa-storefront-d3f7ca5abea1-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/casa-storefront-d3f7ca5abea1-01.bin",
+      "bytes": 1048576,
+      "sha256": "927668a5df93d978c5037957dff0d957bfc1415162625db81b64fdb8edfece64",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/casa-storefront-d3f7ca5abea1-01.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/casa-storefront-d3f7ca5abea1-02.bin",
+      "bytes": 1048576,
+      "sha256": "e85bab42aaa4551d713cf1229a97c478f7eccfe21b488173c62ccebd6eb076f8",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/casa-storefront-d3f7ca5abea1-02.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/casa-storefront-d3f7ca5abea1-03.bin",
+      "bytes": 302783,
+      "sha256": "c69b57bebb49176efe4c235370dedb88254abdfc403cead7999259144c3c38a2",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/casa-storefront-d3f7ca5abea1-03.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/cassette-deck-53408964a9dc-00.bin",
+      "bytes": 1048576,
+      "sha256": "d67735debdc07e621a56de5f2cfc767dbb87f4b1fd5e8d4518e5acbf678fa842",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/cassette-deck-53408964a9dc-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/cassette-deck-53408964a9dc-01.bin",
+      "bytes": 1048576,
+      "sha256": "b86738f21f16298e00cb43b8f36ef39a206bf4fadb3a716fa689728c2f67e059",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/cassette-deck-53408964a9dc-01.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/cassette-deck-53408964a9dc-02.bin",
+      "bytes": 1048576,
+      "sha256": "4d0313c937d00aff6fca3fcc5852599347caee06308fec72629631d262caf842",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/cassette-deck-53408964a9dc-02.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/cassette-deck-53408964a9dc-03.bin",
+      "bytes": 1048576,
+      "sha256": "1d03e97f45ce2a6a263c86460c1660a786f1cebf7e1bf9ecd2df8a4d185fee7a",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/cassette-deck-53408964a9dc-03.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/cassette-deck-53408964a9dc-04.bin",
+      "bytes": 911782,
+      "sha256": "2ee45e296b9f59e19c6563578964cb1cb71658dda5e6d2ab5ad3b5a173510f05",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/cassette-deck-53408964a9dc-04.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/chinese-courtyard-19326e52a70e-00.bin",
+      "bytes": 1048576,
+      "sha256": "b0b4f946d2e03a2c510b4ec4d73ec6e2a284e2023de734fb424fece2602f70bc",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/chinese-courtyard-19326e52a70e-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/chinese-courtyard-19326e52a70e-01.bin",
+      "bytes": 1048576,
+      "sha256": "d5530592ab3c94f41a1f9f78015dc952078400a735b4c07706d8b288b6b52582",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/chinese-courtyard-19326e52a70e-01.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/chinese-courtyard-19326e52a70e-02.bin",
+      "bytes": 1048576,
+      "sha256": "93e5300d8ff1c0d43e2601ed2a324cc9921b5d4c3484d8ee31e0680bf678b092",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/chinese-courtyard-19326e52a70e-02.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/chinese-courtyard-19326e52a70e-03.bin",
+      "bytes": 1048576,
+      "sha256": "8fa3a6ada4576542542a270afaf6bdd1bf91fb1155b2072a7a78d3f6e365a041",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/chinese-courtyard-19326e52a70e-03.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/chinese-courtyard-19326e52a70e-04.bin",
+      "bytes": 1048576,
+      "sha256": "66622c8312b170488f492fda918a0621a2b1c6c8842a9b6a0a93cfc271f79d2a",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/chinese-courtyard-19326e52a70e-04.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/chinese-courtyard-19326e52a70e-05.bin",
+      "bytes": 776173,
+      "sha256": "a3ec51aaf0209531b6887fb0d49727c4743b4c76aea98869740038f04bcaadc6",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/chinese-courtyard-19326e52a70e-05.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/diner-upholstery-061e3bf16fb5-00.bin",
+      "bytes": 120572,
+      "sha256": "061e3bf16fb57e08fe7631d29bc94e968588f010ce44946ae01f838361a3b719",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/diner-upholstery-061e3bf16fb5-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/hasedera-station-b11bf77ae0df-00.bin",
+      "bytes": 1048576,
+      "sha256": "6b80ad1f3137829c56328f4e36f56ed20264db0d7ecc62383b5508c295672872",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/hasedera-station-b11bf77ae0df-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/hasedera-station-b11bf77ae0df-01.bin",
+      "bytes": 1048576,
+      "sha256": "5ba2556a6fc106daa2b5fbd0f3f225945eca09ec841515232ae1943b6bb803e2",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/hasedera-station-b11bf77ae0df-01.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/hasedera-station-b11bf77ae0df-02.bin",
+      "bytes": 190199,
+      "sha256": "b0465136cf3d42be5775e90c44d97f4201ebce983c122516463b72c8fb1bca65",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/hasedera-station-b11bf77ae0df-02.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/interior-room-bda588ed15db-00.bin",
+      "bytes": 1048576,
+      "sha256": "b2a37795b9d34a5846475428d1d37dfa554d723484be53fa5110b260fdbaedbb",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/interior-room-bda588ed15db-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/interior-room-bda588ed15db-01.bin",
+      "bytes": 1048576,
+      "sha256": "6d58b34d4424416c9319ff75a4326a8d89dd87119edd970c3584c482aa482fcb",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/interior-room-bda588ed15db-01.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/interior-room-bda588ed15db-02.bin",
+      "bytes": 953939,
+      "sha256": "2384e3176a7f71caf5ca8e586c232b9328bdae63e5031d830abd6a6179c1d24b",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/interior-room-bda588ed15db-02.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/night-alley-3a9538502317-00.bin",
+      "bytes": 1048576,
+      "sha256": "a74033efde9b99b15c5156c294cf32b1b53525d9d7c35574512ff6f6a229444b",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/night-alley-3a9538502317-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/night-alley-3a9538502317-01.bin",
+      "bytes": 1048576,
+      "sha256": "d039252aa6fe2b0d4688aa8cfac59597be1cce1a9667e673568e4f331d480e12",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/night-alley-3a9538502317-01.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/night-alley-3a9538502317-02.bin",
+      "bytes": 1048576,
+      "sha256": "9999f1bd5ef301430713a6588ca8bf187325d39c7fe03da28e42dd8c25c03053",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/night-alley-3a9538502317-02.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/night-alley-3a9538502317-03.bin",
+      "bytes": 1048576,
+      "sha256": "73c4de3e5930ba8bb7574ec91237819acff05a81e2ad1881a5e5caf9775731d7",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/night-alley-3a9538502317-03.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/night-alley-3a9538502317-04.bin",
+      "bytes": 383861,
+      "sha256": "717de104dde2183971d8dd2288467a748dcc24cb0c3a1a7e3528b3208e8f47c1",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/night-alley-3a9538502317-04.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/night-alley-flora-8423b66bc460-00.bin",
+      "bytes": 298253,
+      "sha256": "8423b66bc460d719b554d9275130fd5aed401f5bec26821a33e27fee69eaff90",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/night-alley-flora-8423b66bc460-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/passenger-train-ae19cb026b92-00.bin",
+      "bytes": 1048576,
+      "sha256": "f26f1bcd719d0aa52091f4a3063cea4a752d1175b141984c62f400f0799056fa",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/passenger-train-ae19cb026b92-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/passenger-train-ae19cb026b92-01.bin",
+      "bytes": 422793,
+      "sha256": "c84b56c5b7a59c5c5dd2379e7c5be968dcc7b31d4328e923997c3c1cb4e82bab",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/passenger-train-ae19cb026b92-01.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/studio-rig-473be2c451ea-00.bin",
+      "bytes": 94604,
+      "sha256": "473be2c451ead616d30687ed53880fca45de5030a023ee1aecb2d9a2583c92d2",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/studio-rig-473be2c451ea-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/vintage-diner-fb6f5f92cfcb-00.bin",
+      "bytes": 1048576,
+      "sha256": "8f8c313f609648766883cb14a3a15fb147386532170cddd983a602dbaad7a207",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/vintage-diner-fb6f5f92cfcb-00.bin"
+    },
+    {
+      "path": "public/film/assets/streamed/vintage-diner-fb6f5f92cfcb-01.bin",
+      "bytes": 887982,
+      "sha256": "7b72d02d95984301d116eef04dfb2929b1e1ceaf20c519b72558088202f58a02",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/streamed/vintage-diner-fb6f5f92cfcb-01.bin"
+    },
+    {
+      "path": "public/film/assets/studio-rig.glb",
+      "bytes": 631732,
+      "sha256": "30c0fe4dd909df712e9e6dcc65c654f7d60469e613633e3298e954392d23ce3f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/studio-rig.glb"
+    },
+    {
+      "path": "public/film/assets/tape-insert-7-16.mp3",
+      "bytes": 181334,
+      "sha256": "279f31b51e9d8482bf93ba31eb96677792616ac0816f0383cfd2f77b9266f22c",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/tape-insert-7-16.mp3"
+    },
+    {
+      "path": "public/film/assets/train-textures/train-forest-enamel.png",
+      "bytes": 13658,
+      "sha256": "65276815db47e7ce14d0f8d40e620bf4968f2f1004df2f108e8a73f7314bff7e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/train-textures/train-forest-enamel.png"
+    },
+    {
+      "path": "public/film/assets/train-textures/train-headlamp.png",
+      "bytes": 22182,
+      "sha256": "c7897775fb1f45c636be2929b0acfa989973a8092fc7fabb1425ceba59261d25",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/train-textures/train-headlamp.png"
+    },
+    {
+      "path": "public/film/assets/train-textures/train-interior-lamp.png",
+      "bytes": 21882,
+      "sha256": "45d9c449bc09ae8a6927c1514edce21ab5bb9b8df32e20fef1918ecc5dcde6f4",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/train-textures/train-interior-lamp.png"
+    },
+    {
+      "path": "public/film/assets/train-textures/train-tail-lamp.png",
+      "bytes": 14583,
+      "sha256": "abc5e884f580957bef4ca914e76f3e9293c641b4dde11cc84fa23a427c85290e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/train-textures/train-tail-lamp.png"
+    },
+    {
+      "path": "public/film/assets/train-textures/train-warm-cream-enamel.png",
+      "bytes": 21643,
+      "sha256": "13554cf1ae6b5068227756f021732af0edfdc68a280cc4f50ffce0aa46a88364",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/train-textures/train-warm-cream-enamel.png"
+    },
+    {
+      "path": "public/film/assets/train-textures/train-weathered-roof.png",
+      "bytes": 18987,
+      "sha256": "2b79ad049bf97d4bc7e6eda6c1640fd3c3285a5bba5b0170e5c590dccb37e696",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/train-textures/train-weathered-roof.png"
+    },
+    {
+      "path": "public/film/assets/vintage-diner.glb",
+      "bytes": 6382264,
+      "sha256": "a9c5926e90647b0c68ded9865aa26019b492fdee804d47e0e1d4c3a374f65e69",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/vintage-diner.glb"
+    },
+    {
+      "path": "public/references/alley.webp",
+      "bytes": 34386,
+      "sha256": "dbe11859822257192fd0d46065b8f63ee76097367459633b6779d2d476614b7f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/references/alley.webp"
+    },
+    {
+      "path": "public/references/casa.webp",
+      "bytes": 134318,
+      "sha256": "8bcf7a6d067f095c1d9552a9eb5042f9a23807d636cf6237d72599a64be7b8b5",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/references/casa.webp"
+    },
+    {
+      "path": "public/references/courtyard.webp",
+      "bytes": 130220,
+      "sha256": "111aeacd6c555c89476b2e85f566d500e60c9019bdf246517c094b5d7e829336",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/references/courtyard.webp"
+    },
+    {
+      "path": "public/references/diner.webp",
+      "bytes": 80414,
+      "sha256": "595681e16998f176e8ac3360a03071b68cfd768612fe8cdccc72c91650834736",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/references/diner.webp"
+    },
+    {
+      "path": "public/references/interior.webp",
+      "bytes": 70696,
+      "sha256": "a631f6555e466347ff34edd2bc475055c3b5e4a264e66568aac4485b574d24bd",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/references/interior.webp"
+    },
+    {
+      "path": "public/references/station.webp",
+      "bytes": 112872,
+      "sha256": "a4efa3291f725f63d77a35678f43fe1448cf5e2cc0fbb96e001440a3068dc6de",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/references/station.webp"
+    },
+    {
+      "path": "public/scene-thumbs/alley.webp",
+      "bytes": 38904,
+      "sha256": "e97c3b9b46a5ea2e61b0c2b3048d288c4c007405d56fde5dc06d92268b46be0d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/scene-thumbs/alley.webp"
+    },
+    {
+      "path": "public/scene-thumbs/casa.webp",
+      "bytes": 67216,
+      "sha256": "cf21298e3f84828f66754a9fc91f6707b2dc3e470d6a18125fe841d93c6cf12e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/scene-thumbs/casa.webp"
+    },
+    {
+      "path": "public/scene-thumbs/courtyard.webp",
+      "bytes": 79746,
+      "sha256": "aa0aa88d7f935eed3aa31853419735db4eef85383f72452d998612484c73d4a3",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/scene-thumbs/courtyard.webp"
+    },
+    {
+      "path": "public/scene-thumbs/diner.webp",
+      "bytes": 44574,
+      "sha256": "712f3f48331430fa77669dc54048276efd508c43d547ece7e8e48fee4d8713de",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/scene-thumbs/diner.webp"
+    },
+    {
+      "path": "public/scene-thumbs/interior.webp",
+      "bytes": 73412,
+      "sha256": "e57c1fb33f0a21217d7c27ba99cd169ebf6871ba92378db02cfa9ff2820a6b83",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/scene-thumbs/interior.webp"
+    },
+    {
+      "path": "public/scene-thumbs/station.webp",
+      "bytes": 64632,
+      "sha256": "b71c13db4c4381b8989e68d1dcc589b36b5dd0145dfb58d160fd94bb6e40a48d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/scene-thumbs/station.webp"
+    },
+    {
+      "path": "public/scene-thumbs/tape.webp",
+      "bytes": 46174,
+      "sha256": "ad8ff5e040c4a0a28988f8e8d6f2e411b0492378ac77bed9e2ad09aa2ee300bc",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/scene-thumbs/tape.webp"
+    },
+    {
+      "path": "public/film/vendor/BufferGeometryUtils.js",
+      "bytes": 31768,
+      "sha256": "c25b7930e570e9ec56173cd3b866ec8d2e10016630db3937efb439daf1cedbf6",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/vendor/BufferGeometryUtils.js"
+    },
+    {
+      "path": "public/film/vendor/GLTFLoader.js",
+      "bytes": 110022,
+      "sha256": "5bc183f5f98ebcd9e98c18977dab4a675db9fd8a6bcaa5d84898586033bb9979",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/vendor/GLTFLoader.js"
+    },
+    {
+      "path": "public/film/vendor/three.module.js",
+      "bytes": 1304820,
+      "sha256": "0a3368c165eea773490aec7b77c22de70e3eac288503409256fdbf4d12578416",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/vendor/three.module.js"
+    },
+    {
+      "path": "public/favicon.svg",
+      "bytes": 712,
+      "sha256": "e6d2e59b7b5bbb0342e0fb496dfc262decbfe4426bbb7b047aec8d467d1dc6f7",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/favicon.svg"
+    },
+    {
+      "path": "public/file.svg",
+      "bytes": 392,
+      "sha256": "1e0ae4d1a1ddfa36752988647b731e4abf150c414d069ec83c96fb0aaeff0307",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/file.svg"
+    },
+    {
+      "path": "public/film/app.js",
+      "bytes": 21321,
+      "sha256": "ff20f80c3005fa277cd9445d64363ed183b3081e0bce7cba4c0d931e5f4734ad",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/app.js"
+    },
+    {
+      "path": "public/film/asset-loader.js",
+      "bytes": 687,
+      "sha256": "baf8a79599affa03cee489ca5d22d1e9a67cf63442ff7254dc3cbf88f4a01dc8",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/asset-loader.js"
+    },
+    {
+      "path": "public/film/asset-transport.js",
+      "bytes": 3919,
+      "sha256": "a31880082809b05d23d08f5edfd9293aeb8990b41cef542385072e4a251fb7db",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/asset-transport.js"
+    },
+    {
+      "path": "public/film/assets/cassette-deck-info.json",
+      "bytes": 5845,
+      "sha256": "1dda711f4daa82ada82867f16e70f7331a2237c50bed5110f65fc78e3fe80b46",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/cassette-deck-info.json"
+    },
+    {
+      "path": "public/film/assets/chinese-courtyard-info.json",
+      "bytes": 3117,
+      "sha256": "ad87b1a90b2d55863c34cc3b6c0503557120b29e423a015c0ef55f41a10c5acd",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/chinese-courtyard-info.json"
+    },
+    {
+      "path": "public/film/assets/favicon.svg",
+      "bytes": 245,
+      "sha256": "18f92256852c319ef84fc2ecd23552566508c7fd48d0058c0139f5da52a85980",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/favicon.svg"
+    },
+    {
+      "path": "public/film/assets/interior-model-info.json",
+      "bytes": 3746,
+      "sha256": "717774935abd2099251e48d68d26fa6f46cdfcacae4ce55edfaf2a3b0e0c2a3c",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/interior-model-info.json"
+    },
+    {
+      "path": "public/film/assets/model-info.json",
+      "bytes": 1091,
+      "sha256": "f6160071684595d75722603ffb254944f48cb984ec3c6b18ca6250e3c5382de5",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/model-info.json"
+    },
+    {
+      "path": "public/film/assets/model-packs.json",
+      "bytes": 6913,
+      "sha256": "c7827c77f5d42857d803b59d8454e47083efffaa96045c4a743e007cf63b4558",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/model-packs.json"
+    },
+    {
+      "path": "public/film/assets/music/manifest.json",
+      "bytes": 10345,
+      "sha256": "74580b0238f978422897fef7dbce56adfbe79355c159feebe5207315f18af84d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/music/manifest.json"
+    },
+    {
+      "path": "public/film/assets/night-alley-info.json",
+      "bytes": 4274,
+      "sha256": "c209c5232daab1117fcc367ea827d9edd341d51fce85fb80fc32003ea6871db7",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/night-alley-info.json"
+    },
+    {
+      "path": "public/film/assets/station-model-info.json",
+      "bytes": 2418,
+      "sha256": "9760940e92cf5db27b72793b509a58414844067cc157f159ebb94052a0a377d4",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/station-model-info.json"
+    },
+    {
+      "path": "public/film/assets/train-detail-info.json",
+      "bytes": 5331,
+      "sha256": "560cb5d6351e2ab7b335fb574bd91c0d1b0756327e68bf2ff749a0bd94fb8e4b",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/train-detail-info.json"
+    },
+    {
+      "path": "public/film/assets/vintage-diner-info.json",
+      "bytes": 3116,
+      "sha256": "c09ebcb5c189310ca3923c18a42d984a53e5847897d203e3014a672e87c285a3",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/assets/vintage-diner-info.json"
+    },
+    {
+      "path": "public/film/bgm-shortlist.js",
+      "bytes": 4922,
+      "sha256": "63c9384ff4c02c9520e9b234d0eb51e36f6ebac7a74dbe73d8f2d37e4187b14f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/bgm-shortlist.js"
+    },
+    {
+      "path": "public/film/bgm-shortlist.md",
+      "bytes": 1469,
+      "sha256": "980a9bb9975ddce10dfe576ed714d48be4b6cc90f247b3d6c4501ac7610a2723",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/bgm-shortlist.md"
+    },
+    {
+      "path": "public/film/camera-kit.js",
+      "bytes": 4040,
+      "sha256": "4f1df40cb2be28f50119f34a535af49825a43f517581f95d936cd7e9fbdd50a3",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/camera-kit.js"
+    },
+    {
+      "path": "public/film/courtyard3d.js",
+      "bytes": 3695,
+      "sha256": "80bede25f289b5c9f96cd055aa846d885f91fb676b5826c6673260b47ab376ed",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/courtyard3d.js"
+    },
+    {
+      "path": "public/film/example-story.json",
+      "bytes": 30656,
+      "sha256": "0b6a55f3fe82c11700080eda34926b76c89e1a5c1661265018daf7aef61cfba0",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/example-story.json"
+    },
+    {
+      "path": "public/film/film-motion.js",
+      "bytes": 742,
+      "sha256": "8b83bb3fafe65d7cb24b2d05f96e57a6551735739d69b180c538a54f2e8607bb",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/film-motion.js"
+    },
+    {
+      "path": "public/film/interior3d.js",
+      "bytes": 3849,
+      "sha256": "35e2c1ee89ac5e19f85c23cc5bd8c518dc45d8b82e1d74c9a39d83c30bd00dba",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/interior3d.js"
+    },
+    {
+      "path": "public/film/performers.js",
+      "bytes": 372,
+      "sha256": "cfefa0d6e653f16a1af107d8495fbd946c75c2b88ad171b14c56d2bb392145e1",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/performers.js"
+    },
+    {
+      "path": "public/film/previs-engine.js",
+      "bytes": 12021,
+      "sha256": "74bc5e0e0eb3aa4279c81e1cb58dbefc3f434eb4d97aab20b4b15cb33251921e",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/previs-engine.js"
+    },
+    {
+      "path": "public/film/production-config.js",
+      "bytes": 10115,
+      "sha256": "02b07d74784455c1fef8fcd93d1a5cb0fff00575bc391f75ef37aae3927dd3d7",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/production-config.js"
+    },
+    {
+      "path": "public/film/project-runtime.js",
+      "bytes": 2909,
+      "sha256": "fcf253a5971b2b3f5df4158e6a66dc7a403646ebbc0dcfca807d5b1fb6f8d2ec",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/project-runtime.js"
+    },
+    {
+      "path": "public/film/scene-controls.js",
+      "bytes": 5864,
+      "sha256": "1f94e4a1bc7d8da1af81a137ae18e954f7a72a7ec226d0afb34626c2f6d4ce83",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/scene-controls.js"
+    },
+    {
+      "path": "public/film/scene-only.js",
+      "bytes": 27903,
+      "sha256": "b416bbdaaac357f6ce30a1c2f3cea23b9c4f9c396e0f2302fb1ed297a9f0b77c",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/scene-only.js"
+    },
+    {
+      "path": "public/film/scene-score.js",
+      "bytes": 5039,
+      "sha256": "f43903ff1dabbc66183b0ed6ca574a04c9f81db4c421ab9d350b300a9f3ce78f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/scene-score.js"
+    },
+    {
+      "path": "public/film/scene3d.js",
+      "bytes": 12484,
+      "sha256": "d192584052d831c733ae5655d25f5d2d0233708cc015f6e481d676eb6b584237",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/scene3d.js"
+    },
+    {
+      "path": "public/film/script-book.js",
+      "bytes": 24129,
+      "sha256": "d0bafe5f91434de68356be07524ec38f8adef1d9c36e57fa173204a3ce27f31d",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/script-book.js"
+    },
+    {
+      "path": "public/film/selected-music.js",
+      "bytes": 10365,
+      "sha256": "9148f35b6b8094edf92af999b5d271e2507cd2025f94d4f8f79f7d6c51eb3ddd",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/selected-music.js"
+    },
+    {
+      "path": "public/film/sound-stage.js",
+      "bytes": 9441,
+      "sha256": "cdebd45eb733deae965b4d6ddc28be7bb8ea14a439c14e0c0563ee66946512b7",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/sound-stage.js"
+    },
+    {
+      "path": "public/film/stage-reveal.js",
+      "bytes": 1729,
+      "sha256": "8fee410de11d9ab46be7d485a84648763b56ed2255f7b06baa21e7fa8dc51881",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/stage-reveal.js"
+    },
+    {
+      "path": "public/film/station3d.js",
+      "bytes": 8127,
+      "sha256": "77b221ede71015cf49a516b8ee1ff284c509e74b08fa5fdcf278c9f6523da17b",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/station3d.js"
+    },
+    {
+      "path": "public/film/story-cues.js",
+      "bytes": 2574,
+      "sha256": "d9572bd12ff9b978be4c5e67d8ebc4e71957645169ae7f90d1ca35099572c46b",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/story-cues.js"
+    },
+    {
+      "path": "public/film/story-set3d.js",
+      "bytes": 7028,
+      "sha256": "517f9e8d7f6bcc0e39a7c35ae1736c7d7d55963a2bf3660e9e74aecdddbb9080",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/story-set3d.js"
+    },
+    {
+      "path": "public/film/studio-controls.js",
+      "bytes": 7977,
+      "sha256": "d83a41e3f1e889943d7d7a2985c552912c15f5a646afec4477f6956d90da7a1c",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/studio-controls.js"
+    },
+    {
+      "path": "public/film/style.css",
+      "bytes": 13269,
+      "sha256": "ccb63bad88cc948ef641a7cd507dcf8ffdde69b6a041b09655b09fb7e8d4f8c1",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/style.css"
+    },
+    {
+      "path": "public/film/tape-deck.js",
+      "bytes": 18616,
+      "sha256": "25f4db28738fdc17cc3cad4685a8ae2f5a88a45cdd24f3345ef3d37fdbd3017f",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/tape-deck.js"
+    },
+    {
+      "path": "public/film/tape-motion.js",
+      "bytes": 3199,
+      "sha256": "2de74e6d0db55e82a143e0869d82c4964a2847bc9b888e1c7c6197e48136bcc5",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/tape-motion.js"
+    },
+    {
+      "path": "public/film/unhurried-date-screenplay.md",
+      "bytes": 17868,
+      "sha256": "5079515d88ff71eaf395811cbd393bdedceb6dde10770571f01a5f01787f4ec0",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/unhurried-date-screenplay.md"
+    },
+    {
+      "path": "public/film/vendor/THREE-LICENSE.txt",
+      "bytes": 1081,
+      "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/film/vendor/THREE-LICENSE.txt"
+    },
+    {
+      "path": "public/globe.svg",
+      "bytes": 1036,
+      "sha256": "d051a8c47936990a9085693d307bb7cea1bc1b6d7ed956bcbaacf674f4ec96b9",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/globe.svg"
+    },
+    {
+      "path": "public/scene-catalog.json",
+      "bytes": 4707,
+      "sha256": "86c6a5bbfad0ebedbdc91e319e9b7605d5450c28a6adfa8dc0de147b6a874723",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/scene-catalog.json"
+    },
+    {
+      "path": "public/window.svg",
+      "bytes": 386,
+      "sha256": "decf1cf7bb22b5c99c4857cfcd5718ce5465c4454166317589c83fc73df74b66",
+      "url": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site/window.svg"
+    }
+  ],
+  "assetOrigin": "https://casa-bellas-action.tb8zssvcd2.chatgpt.site"
+}

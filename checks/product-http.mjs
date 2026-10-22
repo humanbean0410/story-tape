@@ -1,0 +1,28 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+const origin=process.env.STORY_PREVIEW_ORIGIN||'http://127.0.0.1:5173';
+assert.ok(/^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(origin),'HTTP QA uses only the local development database');
+const signIn=await fetch(origin+'/signin-with-chatgpt?return_to=%2Fstudio',{redirect:'manual'});
+const cookie=signIn.headers.get('set-cookie')?.split(';')[0];assert.ok(cookie,'local platform auth established');
+const headers={'Content-Type':'application/json',Origin:origin,Cookie:cookie};
+const session=await fetch(origin+'/api/session',{headers:{Cookie:cookie}}).then(r=>r.json());assert.ok(session.user);
+const data={schemaVersion:1,title:'窗边的一段话 · 验收样例',subtitle:'只在本地测试数据库中保存',author:'制作验收',dedication:'',template:'qa',opening:false,feedback:true,chapters:[{id:'first',scene:'interior',title:'第一段',note:'照片留在这里',sound:'ambience',audioAssetId:null,photoAssetId:null,beats:[{id:'one',speaker:'独白',text:'这是我自己写的第一句话。',shot:'master',seconds:3},{id:'two',speaker:'独白',text:'镜头也可以由我来安排。',shot:'detail',seconds:3}]},{id:'second',scene:'interior',title:'同一个地方，另一段话',note:'',sound:'silent',audioAssetId:null,photoAssetId:null,beats:[{id:'three',speaker:'独白',text:'同一个布景，可以继续讲另一段故事。',shot:'two-shot',seconds:3}]}]};
+async function call(path,method='GET',body,auth=true){const r=await fetch(origin+path,{method,headers:auth?headers:{'Content-Type':'application/json',Origin:origin},...(body?{body:JSON.stringify(body)}:{})});return {status:r.status,body:await r.json()};}
+assert.equal((await call('/api/stories','POST',{data},false)).status,401);
+const created=await call('/api/stories','POST',{data});assert.equal(created.status,201);const story=created.body.story;assert.equal(story.revision,1);
+const image=await fs.readFile('public/scene-thumbs/interior.webp');const form=new FormData();form.append('file',new File([image],'model-preview.webp',{type:'image/webp'}));
+const upload=await fetch(origin+`/api/stories/${story.id}/assets`,{method:'POST',headers:{Origin:origin,Cookie:cookie},body:form});assert.equal(upload.status,201);const {asset}=await upload.json();data.chapters[0].photoAssetId=asset.id;
+const updated=await call(`/api/stories/${story.id}`,'PUT',{data,revision:1});assert.equal(updated.status,200);assert.equal(updated.body.story.revision,2);
+assert.equal((await call(`/api/stories/${story.id}`,'PUT',{data,revision:1})).status,409);
+const publish=await call(`/api/stories/${story.id}/publish`,'POST',{revision:2});assert.equal(publish.status,200);assert.ok(publish.body.url.includes('/watch/'));
+const publicData=await call('/api/public/'+publish.body.token,'GET',undefined,false);assert.equal(publicData.body.data.title,data.title);assert.equal(publicData.body.data.chapters[0].note,'');
+const publicAsset=await fetch(origin+asset.url+'?publication='+publish.body.token);assert.equal(publicAsset.status,200);assert.ok((await publicAsset.arrayBuffer()).byteLength>1000);
+const changed={...data,title:'只改了草稿，观众还看不到这句'};assert.equal((await call(`/api/stories/${story.id}`,'PUT',{data:changed,revision:2})).status,200);assert.equal((await call('/api/public/'+publish.body.token,'GET',undefined,false)).body.data.title,data.title);
+const sessionId=crypto.randomUUID();for(let i=0;i<2;i++)assert.equal((await call('/api/public/'+publish.body.token+'/events','POST',{event:'start',sessionId,publishedAt:publish.body.publishedAt},false)).status,200);
+assert.equal((await call('/api/public/'+publish.body.token+'/events','POST',{event:'chapter',chapterId:'first',sessionId,publishedAt:publish.body.publishedAt},false)).status,200);
+assert.equal((await call('/api/public/'+publish.body.token+'/events','POST',{event:'complete',sessionId,publishedAt:publish.body.publishedAt},false)).status,200);
+assert.equal((await call('/api/public/'+publish.body.token+'/feedback','POST',{sessionId,choice:'clear',note:'文字和镜头都进入了发布快照。',publishedAt:publish.body.publishedAt},false)).status,200);
+const stats=await call(`/api/stories/${story.id}/insights`);assert.equal(stats.body.starts,1);assert.equal(stats.body.completions,1);assert.equal(stats.body.feedbackCount,1);assert.equal(stats.body.chapters[0].title,'第一段');
+const ownerEvent=await call('/api/public/'+publish.body.token+'/events','POST',{event:'start',sessionId:crypto.randomUUID()});assert.equal(ownerEvent.body.excluded,true);
+await fs.writeFile('/private/tmp/story-tape-qa-publication.json',JSON.stringify({id:story.id,token:publish.body.token,url:publish.body.url,data},null,2));
+console.log('PASS: actual Vinext/D1/R2 HTTP create, edit, conflict, upload, publish snapshot, anonymous media, event/feedback dedup, author exclusion.');console.log('Local viewer: '+publish.body.url);

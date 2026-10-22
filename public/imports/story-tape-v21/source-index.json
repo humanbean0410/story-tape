@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "name": "01-frontend-code.txt",
+      "bytes": 229423,
+      "sha256": "1143bba957ebd3fc1cb5cc7387c41ca2ae255220134ee6ae8245b74bab585abe"
+    },
+    {
+      "name": "03-backend-and-config-code.txt",
+      "bytes": 160106,
+      "sha256": "d0bbd1245bf4dc737fb00083e3b26faf0df1f48dd16a02bc06afb4e9747bd7fb"
+    },
+    {
+      "name": "files.json",
+      "bytes": 81111,
+      "sha256": "222e5affe2ec157340f75225b4a5f91aa9833da0211501b667b0f8b8401ad9d6"
+    },
+    {
+      "name": "package-lock.json",
+      "bytes": 504161,
+      "sha256": "f5b9c12f7f283e68a7478658d6ef7eaedfe919fa924c5473c933310845f1f7d8"
+    },
+    {
+      "name": "package.json",
+      "bytes": 2418,
+      "sha256": "2de07c6fd5456780c73adcfd62fa421648491ea2c44d7a9c418cc07f1c41f6b2"
+    },
+    {
+      "name": "restore-project.mjs",
+      "bytes": 7327,
+      "sha256": "a3a7e1f0aeff6afb2766a67076b2ab0028990a78d5710e1c0f2c188777efa147"
+    }
+  ]
+}

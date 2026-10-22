@@ -1,0 +1,215 @@
+{
+  "blender": "5.2.1 LTS",
+  "source_reference": "IMG_1837.JPG",
+  "static_parts": 1323,
+  "triangles": 173768,
+  "glb_bytes": 9804956,
+  "meshes": 11,
+  "atlas": "interior-warm-baked.jpg",
+  "atlas_size": 4096,
+  "nodes": {
+    "static": "Interior_Baked_Static",
+    "actors": [],
+    "garden": "InteriorGarden",
+    "plant": "InteriorPlant",
+    "sconce": "InteriorSconceBulb",
+    "shade": "InteriorFloorLampShade",
+    "floor_bulb": "InteriorFloorLampBulb",
+    "glass": "WindowGlass"
+  },
+  "anchors_gltf_y_up": {
+    "master": [
+      0,
+      1.6,
+      -1.13
+    ],
+    "two-shot": [
+      0,
+      1.61,
+      -1.02
+    ],
+    "man": [
+      -0.83,
+      1.8,
+      -1.36
+    ],
+    "woman": [
+      0.73,
+      1.8,
+      -1.37
+    ],
+    "detail": [
+      -0.12,
+      0.99,
+      -1.27
+    ],
+    "window": [
+      0.0,
+      2.28,
+      -2.12
+    ],
+    "lamp": [
+      3.23,
+      2.7,
+      -0.24
+    ],
+    "tea": [
+      0,
+      1.13,
+      -1.995
+    ],
+    "throw": [
+      1.45,
+      0.95,
+      -1.3
+    ]
+  },
+  "frames_gltf_y_up": {
+    "master": {
+      "position": [
+        0,
+        2.0,
+        8.4
+      ],
+      "target": [
+        0,
+        1.85,
+        -1.4
+      ],
+      "fov": 40,
+      "angle": "平视",
+      "scale": "全景"
+    },
+    "two-shot": {
+      "position": [
+        0,
+        1.8,
+        4.3
+      ],
+      "target": [
+        0,
+        1.65,
+        -1.15
+      ],
+      "fov": 40,
+      "angle": "平视",
+      "scale": "双人中景"
+    },
+    "man": {
+      "position": [
+        0.15,
+        1.92,
+        2.65
+      ],
+      "target": [
+        -0.83,
+        1.96,
+        -1.47
+      ],
+      "fov": 30,
+      "angle": "斜侧",
+      "scale": "窗边空座近景"
+    },
+    "woman": {
+      "position": [
+        -0.25,
+        1.92,
+        2.65
+      ],
+      "target": [
+        0.73,
+        1.96,
+        -1.47
+      ],
+      "fov": 30,
+      "angle": "斜侧",
+      "scale": "窗边空座近景"
+    },
+    "detail": {
+      "position": [
+        0.08,
+        1.55,
+        1.15
+      ],
+      "target": [
+        -0.12,
+        0.99,
+        -1.27
+      ],
+      "fov": 30,
+      "angle": "俯视",
+      "scale": "书页特写"
+    },
+    "window": {
+      "position": [
+        -0.45,
+        2.2,
+        2.6
+      ],
+      "target": [
+        0,
+        2.3,
+        -2.15
+      ],
+      "fov": 32,
+      "angle": "平视",
+      "scale": "窗景"
+    },
+    "lamp": {
+      "position": [
+        1.8,
+        2.4,
+        2.0
+      ],
+      "target": [
+        3.23,
+        2.68,
+        -0.24
+      ],
+      "fov": 34,
+      "angle": "斜侧",
+      "scale": "细节近景"
+    }
+  },
+  "practical_lights_gltf": [
+    {
+      "position": [
+        -2.84,
+        3.45,
+        -2.01
+      ],
+      "color": "#ffca80",
+      "intensity": 13
+    },
+    {
+      "position": [
+        3.5300000000000002,
+        3.45,
+        -2.01
+      ],
+      "color": "#ffca80",
+      "intensity": 13
+    },
+    {
+      "position": [
+        3.23,
+        2.69,
+        -0.24
+      ],
+      "color": "#ffca80",
+      "intensity": 18
+    }
+  ],
+  "note": "Real Blender geometry; detailed and performer-free. Fresh 4K lighting atlas baked after all actor geometry was removed. Editable detailed .blend keeps original meshes, materials, lights and anchors.",
+  "added_detail_parts": 359,
+  "title": "黄昏窗边",
+  "refinement_details": [
+    "Two fine porcelain teas on the sill",
+    "Open poetry book with individual pages and ribbon",
+    "Draped linen throw and tassels",
+    "160 cushion stitches and tailored pillow piping",
+    "Slotted window hardware and shutter hinge pins",
+    "Turned lamp hardware and pull chain",
+    "Fresh performer-free dusk atlas"
+  ]
+}

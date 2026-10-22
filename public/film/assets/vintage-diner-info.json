@@ -1,0 +1,174 @@
+{
+  "blender": "5.2.1 LTS",
+  "source_reference": "IMG_1820.JPG",
+  "static_parts": 1151,
+  "triangles": 87748,
+  "glb_bytes": 6382264,
+  "atlas": "diner-warm-baked.jpg",
+  "atlas_size": 4096,
+  "nodes": {
+    "static": "Diner_Baked_Static",
+    "actors": [],
+    "practicals": [
+      "DinerPracticalLeft",
+      "DinerPracticalRight"
+    ]
+  },
+  "anchors_gltf_y_up": {
+    "master": [
+      0,
+      1.35,
+      -0.32
+    ],
+    "two-shot": [
+      0,
+      1.42,
+      -0.34
+    ],
+    "man": [
+      -1.54,
+      1.57,
+      -0.2
+    ],
+    "woman": [
+      1.54,
+      1.57,
+      -0.2
+    ],
+    "detail": [
+      0.03,
+      1.15,
+      -0.02
+    ],
+    "jukebox": [
+      0,
+      1.91,
+      -2.1
+    ],
+    "phone": [
+      0.62,
+      1.11,
+      0.55
+    ]
+  },
+  "frames_gltf_y_up": {
+    "master": {
+      "position": [
+        0,
+        2.4,
+        8.8
+      ],
+      "target": [
+        0,
+        1.48,
+        -0.75
+      ],
+      "lens": 35
+    },
+    "two-shot": {
+      "position": [
+        0,
+        1.75,
+        5.5
+      ],
+      "target": [
+        0,
+        1.4,
+        -0.35
+      ],
+      "lens": 50
+    },
+    "man": {
+      "position": [
+        1.35,
+        1.77,
+        3.15
+      ],
+      "target": [
+        -1.54,
+        1.56,
+        -0.2
+      ],
+      "lens": 85
+    },
+    "woman": {
+      "position": [
+        -1.35,
+        1.77,
+        3.15
+      ],
+      "target": [
+        1.54,
+        1.56,
+        -0.2
+      ],
+      "lens": 85
+    },
+    "detail": {
+      "position": [
+        0.2,
+        2.04,
+        2.25
+      ],
+      "target": [
+        0,
+        1.12,
+        -0.02
+      ],
+      "lens": 85
+    },
+    "jukebox": {
+      "position": [
+        0.1,
+        2.0,
+        1.45
+      ],
+      "target": [
+        0,
+        1.95,
+        -2.25
+      ],
+      "lens": 50
+    }
+  },
+  "practical_lights_gltf": [
+    {
+      "position": [
+        -0.75,
+        1.97,
+        -2.22
+      ],
+      "color": "#ffbd69",
+      "intensity": 11
+    },
+    {
+      "position": [
+        0.75,
+        1.97,
+        -2.22
+      ],
+      "color": "#ffbd69",
+      "intensity": 11
+    }
+  ],
+  "note": "Real Blender geometry; detailed and performer-free. Fresh 4K lighting atlas baked after all actor geometry was removed. Editable detailed .blend keeps original meshes, materials, lights and anchors.",
+  "added_detail_parts": 598,
+  "meshes": 3,
+  "title": "老式餐馆",
+  "refinement_details": [
+    "Chrome double rolled tabletop bead",
+    "Tailored booth welting and hundreds of saddle stitches",
+    "Coffee saucers, linen napkins, pressed spoons and sugar packets",
+    "Detailed telephone hinge and side key",
+    "Folded newspaper with original column geometry",
+    "Jukebox grille crossweave, knurled knob and screws",
+    "Curved veined pothos plant",
+    "Fresh performer-free diner atlas"
+  ],
+  "upholstery_layer": {
+    "asset": "diner-upholstery.glb",
+    "meshes": 4,
+    "detail_parts": 558,
+    "note": "Repaired rounded upholstery channels, stitched edges, continuous shell and solid padded arms replace dark over-beveled backs."
+  }
+}

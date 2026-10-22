@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><base href="/dist/"><title>六幕配乐 · 浏览器检查</title>
+<style>body{font:16px/1.7 system-ui;background:#f5f0e7;color:#25231f;margin:50px;max-width:1000px}button{padding:12px 20px}table{border-collapse:collapse;width:100%;margin-top:24px}td,th{padding:12px;text-align:left;border-bottom:1px solid #c8c2b8}pre{white-space:pre-wrap}td:last-child{font:13px/1.5 monospace}</style>
+<h1>六幕配乐 · 浏览器检查</h1><button id="run">检查六首配乐</button><p id="status">等待开始</p><table><thead><tr><th>场景</th><th>配乐</th><th>原生解码与连续播放</th></tr></thead><tbody id="rows"></tbody></table><pre id="mix"></pre>
+<script type="module">
+import {SoundStage} from '/dist/sound-stage.js?v=20261013-score-r4';
+import {MUSIC} from '/dist/selected-music.js?v=20261013-score-r4';
+const rows=document.querySelector('#rows'),status=document.querySelector('#status'),mix=document.querySelector('#mix');
+for(const [id,track] of Object.entries(MUSIC)){const tr=document.createElement('tr');tr.innerHTML=`<td>${id}</td><td>${track.artist} / ${track.title}</td><td id="result-${id}">待检查</td>`;rows.append(tr);}
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+document.querySelector('#run').onclick=async()=>{
+ document.querySelector('#run').disabled=true;const sound=new SoundStage();
+ try{
+  await sound.unlock();
+  for(const [id,track] of Object.entries(MUSIC)){
+   status.textContent=`正在检查 ${id}`;sound.setScene(id);await sound.preloadMusic(id);const played=await sound.playMusic(id);if(!played)throw new Error(`${id} did not start`);
+   const a=await sound.score.buffer(id,0),b=await sound.score.buffer(id,1),sampleRate=a.sampleRate,at=Math.round(48*sampleRate),n=Math.min(Math.round(.25*sampleRate),a.length-at,b.length),x=a.getChannelData(0),y=b.getChannelData(0);let dot=0,aa=0,bb=0;
+   for(let i=0;i<n;i++){dot+=x[at+i]*y[i];aa+=x[at+i]**2;bb+=y[i]**2;}
+   const correlation=dot/Math.sqrt(aa*bb);if(correlation<.96)throw new Error(`${id}: music seam correlation ${correlation}`);
+   for(let i=0;i<40&&sound.score.active.next<2;i++){sound.tick();await wait(25);}
+   await wait(650);sound.tick();if(sound.ctx.state!=='running'||sound.score.active?.id!==id)throw new Error(`${id}: playback is not active`);
+   document.querySelector(`#result-${id}`).textContent=`PASS · ${a.duration.toFixed(3)}s / ${sampleRate}Hz · overlap ${correlation.toFixed(5)}`;
+  }
+  const active=sound.score.active;sound.toggle();await wait(950);const silent=sound.master.gain.value;if(silent>.002)throw new Error('Mute did not silence the whole mix');sound.toggle();await wait(500);if(sound.score.active!==active)throw new Error('Mute restarted the song');
+  sound.setScene('station');await sound.playMusic('station');const accepted=sound.trainCue(.5),duplicate=sound.trainCue(.5);await wait(600);const ducked=sound.musicBus.gain.value;if(!accepted||duplicate||ducked>.5)throw new Error('Train cue did not duck the music once');sound.stopTrain();await wait(1500);if(sound.musicBus.gain.value<1.5)throw new Error('Leaving the train cue did not restore music');
+  mix.textContent='PASS · 全局静音不重播音乐；列车提示仅接受一次；过站压低音乐，停止过站后恢复；六首真实上传音频均成功解码。';status.textContent='全部通过';sound.stopMusic(.5);sound.stopTrain();sound.setScene('tape');
+ }catch(error){status.textContent='FAILED';mix.textContent=error.stack||String(error);console.error(error);sound.stopMusic(.2);}
+};
+</script></html>

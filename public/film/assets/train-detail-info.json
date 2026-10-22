@@ -1,0 +1,315 @@
+{
+  "root": "PassengerTrain",
+  "coach_count": 4,
+  "coach_length_m": 11.75,
+  "coach_spacing_m": 12.53,
+  "total_length_m": 50.48999786376953,
+  "bounds_y_up": [
+    [
+      -25.244998931884766,
+      0.0,
+      -1.3849999904632568
+    ],
+    [
+      25.244998931884766,
+      3.9184999465942383,
+      1.3849999904632568
+    ]
+  ],
+  "track_z": 3.72,
+  "mesh_count": 39,
+  "triangles": 162836,
+  "glb_bytes": 8176348,
+  "normal_encoding": "KHR_mesh_quantization signed normalized bytes; built-in GLTFLoader support",
+  "door_nodes": [
+    {
+      "name": "Coach_01_Near_DoorLeft_0",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 0
+    },
+    {
+      "name": "Coach_01_Near_DoorRight_0",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 0
+    },
+    {
+      "name": "Coach_01_Near_DoorLeft_1",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 0
+    },
+    {
+      "name": "Coach_01_Near_DoorRight_1",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 0
+    },
+    {
+      "name": "Coach_01_Far_DoorLeft_0",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 0
+    },
+    {
+      "name": "Coach_01_Far_DoorRight_0",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 0
+    },
+    {
+      "name": "Coach_01_Far_DoorLeft_1",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 0
+    },
+    {
+      "name": "Coach_01_Far_DoorRight_1",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 0
+    },
+    {
+      "name": "Coach_02_Near_DoorLeft_0",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 1
+    },
+    {
+      "name": "Coach_02_Near_DoorRight_0",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 1
+    },
+    {
+      "name": "Coach_02_Near_DoorLeft_1",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 1
+    },
+    {
+      "name": "Coach_02_Near_DoorRight_1",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 1
+    },
+    {
+      "name": "Coach_02_Far_DoorLeft_0",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 1
+    },
+    {
+      "name": "Coach_02_Far_DoorRight_0",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 1
+    },
+    {
+      "name": "Coach_02_Far_DoorLeft_1",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 1
+    },
+    {
+      "name": "Coach_02_Far_DoorRight_1",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 1
+    },
+    {
+      "name": "Coach_03_Near_DoorLeft_0",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 2
+    },
+    {
+      "name": "Coach_03_Near_DoorRight_0",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 2
+    },
+    {
+      "name": "Coach_03_Near_DoorLeft_1",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 2
+    },
+    {
+      "name": "Coach_03_Near_DoorRight_1",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 2
+    },
+    {
+      "name": "Coach_03_Far_DoorLeft_0",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 2
+    },
+    {
+      "name": "Coach_03_Far_DoorRight_0",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 2
+    },
+    {
+      "name": "Coach_03_Far_DoorLeft_1",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 2
+    },
+    {
+      "name": "Coach_03_Far_DoorRight_1",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 2
+    },
+    {
+      "name": "Coach_04_Near_DoorLeft_0",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 3
+    },
+    {
+      "name": "Coach_04_Near_DoorRight_0",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 3
+    },
+    {
+      "name": "Coach_04_Near_DoorLeft_1",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 3
+    },
+    {
+      "name": "Coach_04_Near_DoorRight_1",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 3
+    },
+    {
+      "name": "Coach_04_Far_DoorLeft_0",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 3
+    },
+    {
+      "name": "Coach_04_Far_DoorRight_0",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 3
+    },
+    {
+      "name": "Coach_04_Far_DoorLeft_1",
+      "slide": [
+        -0.575,
+        0,
+        0
+      ],
+      "coach_index": 3
+    },
+    {
+      "name": "Coach_04_Far_DoorRight_1",
+      "slide": [
+        0.575,
+        0,
+        0
+      ],
+      "coach_index": 3
+    }
+  ],
+  "notes": "True passenger window openings and translucent glazing; 8 independently detailed bogies, interior bench seats and hand straps; roof vents and two pantographs. Source .blend preserves individual geometry and packed textures. Preview-only ground, cameras, lights excluded from GLB."
+}
